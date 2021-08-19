@@ -1,4 +1,4 @@
-import { ContainerEvent } from './../models/container-event.model';
+import { ContainerEvent } from '../models/nodes/container-event.model';
 
 export class Events {
     

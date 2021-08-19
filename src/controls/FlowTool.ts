@@ -1,6 +1,6 @@
 import { Variables as variables} from './../utils/variables.js';
 import { Events } from './../utils/events.js';
-import { ContainerEvent } from '../models/container-event.model.js';
+import { ContainerEvent } from '../models/nodes/container-event.model.js';
 import { DrawFlowModel } from './../models/drawflow.model';
 
 export class FlowTool {
