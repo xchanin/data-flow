@@ -11,8 +11,8 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" href="./static/css/app.css" />
-
     <script type="module" src="./packages/es/index.js"></script>
+
     <style>
         #drawflow {
             display: block;
@@ -28,32 +28,20 @@
 <body>
 
     <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-   <script type="text/typescript">
-    setTimeout(() => {
-        alert('From Typescript Script');
-    }, 1000);
+   
+    <!-- <script type="text/typescript">
+       const typescriptCodeArray: Array<string>;
+    </script> -->
 
-   </script>
    <script id="sjs-flow-tool" type="module">
-        import { 
-            FlowTool, 
-            Variables, 
-            Events, 
-            ContainerEvent, 
-            FlowToolOriginal02,
-            NodeModel } from './packages/es/index.js';
+        import { FlowTool } from './packages/es/index.js';
 
         const id = document.getElementById("drawflow");
-        const editor = new FlowToolOriginal02(id);
+        const editor = new FlowTool(id);
 
-        editor.reroute = true;
-        editor.reroute_fix_curvature = true;
-        editor.force_first_input = false;
-
-
-        const data = {
-            
-        }
+        // Variables.reroute = true;
+        // Variables.reroute_fix_curvature = true;
+        // Variables.force_first_input = false;
 
         const dataToImport =  
             {
@@ -698,9 +686,9 @@
         .connection.github.output_2 path {
             stroke: green;
         }
-    </style>
-    <script type="text/javascript" src="./typescript-compiler/typescript.min.js"></script>
-    <script type="text/javascript" src="./typescript-compiler/typescript.compile.min.js"></script>
+   </style>
+    <!-- <script type="text/javascript" src="./typescript-compiler/typescript.min.js"></script>
+    <script type="text/javascript" src="./typescript-compiler/typescript.compile.min.js"></script> -->
 </body>
 
 </html>
