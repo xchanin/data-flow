@@ -28,8 +28,20 @@
 <body>
 
     <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <script id="sjs-flow-tool" type="module">
-        import { FlowTool, Variables, Events, ContainerEvent, FlowToolOriginal02 } from './packages/es/index.js';
+   <script type="text/typescript">
+    setTimeout(() => {
+        alert('From Typescript Script');
+    }, 1000);
+
+   </script>
+   <script id="sjs-flow-tool" type="module">
+        import { 
+            FlowTool, 
+            Variables, 
+            Events, 
+            ContainerEvent, 
+            FlowToolOriginal02,
+            NodeModel } from './packages/es/index.js';
 
         const id = document.getElementById("drawflow");
         const editor = new FlowToolOriginal02(id);
@@ -37,6 +49,11 @@
         editor.reroute = true;
         editor.reroute_fix_curvature = true;
         editor.force_first_input = false;
+
+
+        const data = {
+            
+        }
 
         const dataToImport =  
             {
@@ -682,6 +699,8 @@
             stroke: green;
         }
     </style>
+    <script type="text/javascript" src="./typescript-compiler/typescript.min.js"></script>
+    <script type="text/javascript" src="./typescript-compiler/typescript.compile.min.js"></script>
 </body>
 
 </html>
