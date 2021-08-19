@@ -37,7 +37,7 @@
         import { FlowTool } from './packages/es/index.js';
 
         const id = document.getElementById("drawflow");
-        const editor = new FlowTool(id);
+        const flowTool = new FlowTool(id);
 
         // Variables.reroute = true;
         // Variables.reroute_fix_curvature = true;
@@ -373,8 +373,8 @@
         //     Data:  
         // }
 
-        editor.start();
-        editor.import(dataToImport);
+        flowTool.Start();
+        flowTool.import(dataToImport);
         
 
     // Events!
