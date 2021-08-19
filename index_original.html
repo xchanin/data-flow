@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- HTML Setup -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <base href="/" />
+
+        <!-- SEO Setup -->
+        <title>Flow Tool</title>
+        <meta
+            name="description"
+            content="IoT projects to get you going in minutes, not weeks or months."
+        />
+
+        <!-- Stylesheets -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+
+        <link rel="stylesheet" href="./static/css/app.css" />
+
+        <script type="module" src="./packages/es/index.js"></script>
+    </head>
+    <body>
+
+        <div class="container">
+            <div id="flow-tool">Flow Tool</div>
+        </div>
+       
+        <!-- flow tool -->
+        <script id="sjs-flow-tool" type="module">
+            import { FlowTool, Variables, Events, ContainerEvent, FlowToolOriginal02 } from './packages/es/index.js';
+   
+            const flowTool = new FlowToolOriginal02( document.getElementById('flow-tool') );
+            flowTool.start();
+
+            // const flowTool = new FlowTool( document.getElementById('flow-tool') );
+            // flowTool.Init();
+        </script>
+    </body>
+</html>

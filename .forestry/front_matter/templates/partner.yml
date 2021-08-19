@@ -1,0 +1,35 @@
+---
+label: Partner
+hide_body: true
+fields:
+- name: Name
+  type: text
+  config:
+    required: false
+  label: Name
+  description: The name of the partner
+- name: Description
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: false
+    schema:
+      format: markdown
+  label: Description
+  description: The description of the partner.
+- name: Type
+  type: select
+  default: []
+  config:
+    required: false
+    options:
+    - Input
+    - Output
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
+  label: Type
+  description: The type (input|output) of the partner.

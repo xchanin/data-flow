@@ -1,0 +1,26 @@
+@import url('./sjs/sjs.core.css');
+
+/*  Application Styles  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--theme-font-family);
+    background-color: var(--theme-black);
+    color: var(--theme-white);
+}
+
+.container {
+    display: flex;
+    flex-flow: row;
+    height: 100%;
+    min-height: 100%;
+    padding: 10px;
+}
