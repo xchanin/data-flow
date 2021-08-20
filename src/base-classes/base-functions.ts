@@ -9,11 +9,11 @@ export class BaseFunctions {
       * @param module module name
       * @returns active module
       */
-    protected activeModule(module?: string): DrawFlowModel | any {
+    protected activeModule(moduleName?: string): DrawFlowModel | any {
 
         const t = Variables.drawflowTest.find((e: DrawFlowModel) => {
-            if (module) {
-                return e.Module === module;
+            if (moduleName) {
+                return e.Module === moduleName;
             }
 
             return e.Module === Variables.module;

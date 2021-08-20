@@ -723,21 +723,27 @@ export class FlowTool extends DataFlowBaseClass {
     //    this.Dispatch('moduleCreated', name);
     //  }
 
-    //  changeModule(name: any) {
-    //    this.Dispatch('moduleChanged', name);
-    //    Variables.module = name;
-    //    Variables.precanvas.innerHTML = "";
-    //    Variables.canvas_x = 0;
-    //    Variables.canvas_y = 0;
-    //    Variables.pos_x = 0;
-    //    Variables.pos_y = 0;
-    //    Variables.mouse_x = 0;
-    //    Variables.mouse_y = 0;
-    //    Variables.zoom = 1;
-    //    Variables.zoom_last_value = 1;
-    //    Variables.precanvas.style.transform = '';
-    //    this.import(this.activeModule(Variables.module), false);
-    //  }
+    /**
+     * When switching modules - clicking menu tab buttons
+     * 
+     * @param name module to load
+     */
+     public ChangeModule(name: any): void {
+       this.Dispatch('moduleChanged', name);
+       Variables.module = name;
+       Variables.precanvas.innerHTML = "";
+       Variables.canvas_x = 0;
+       Variables.canvas_y = 0;
+       Variables.pos_x = 0;
+       Variables.pos_y = 0;
+       Variables.mouse_x = 0;
+       Variables.mouse_y = 0;
+       Variables.zoom = 1;
+       Variables.zoom_last_value = 1;
+       Variables.precanvas.style.transform = '';
+
+       this.ImportData(this.activeModule(Variables.module), false);
+     }
    
     //  removeModule(name: any) {
     //    if(Variables.module === name) {
@@ -784,18 +790,25 @@ export class FlowTool extends DataFlowBaseClass {
     /**
      * Import data frome external source
      */
-     public ImportData (data: any, notifi = true): void {
+     public ImportData (data: DrawFlowModel, notifi: boolean = true): void {
+
+      /**
+       * If no data, then ignore functionality
+       */
+      if (!data) {
+        return;
+      }
+
          this.clear();
-        // Variables.drawflow = JSON.parse(JSON.stringify(data));
- 
-         const val: DrawFlowModel = new DrawFlowModel(
-             {
-                 Data: JSON.parse(JSON.stringify(data)).drawflow.Home.data, 
-                 Module: 'Home'
-             }
+  
+         const flowData: DrawFlowModel = new DrawFlowModel(
+            {
+                Data: JSON.parse(JSON.stringify(data)).Data, 
+                Module: data.Module
+            }
          );
       
-       Variables.drawflowTest.push(val);
+       Variables.drawflowTest.push(flowData);
  
        this.load();
  
