@@ -782,25 +782,25 @@ export class FlowTool extends DataFlowBaseClass {
      }
    
      /* Events */
-    //  on (event: any, callback: any) {
-    //       // Check if the callback is not a function
-    //       if (typeof callback !== 'function') {
-    //           console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
-    //           return false;
-    //       }
-    //       // Check if the event is not a string
-    //       if (typeof event !== 'string') {
-    //           console.error(`The event name must be a string, the given type is ${typeof event}`);
-    //           return false;
-    //       }
-    //       // Check if this event not exists
-    //       if (Variables.events[event] === undefined) {
-    //           Variables.events[event] = {
-    //               listeners: []
-    //           }
-    //       }
-    //       Variables.events[event].listeners.push(callback);
-    //   }
+     public OnEvent(event: any, callback: any): void | boolean {
+          // Check if the callback is not a function
+          if (typeof callback !== 'function') {
+              console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
+              return false;
+          }
+          // Check if the event is not a string
+          if (typeof event !== 'string') {
+              console.error(`The event name must be a string, the given type is ${typeof event}`);
+              return false;
+          }
+          // Check if this event not exists
+          if (Variables.events[event] === undefined) {
+              Variables.events[event] = {
+                  listeners: []
+              }
+          }
+          Variables.events[event].listeners.push(callback);
+      }
    
     //   removeListener (event: any, callback: any) {
     //       // Check if this event not exists

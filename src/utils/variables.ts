@@ -1,6 +1,8 @@
 import { DrawFlowModel } from "../models/drawflow.model";
+import { MenuTemplateModel } from "../models/menu/menu-template.model";
 
 export class Variables {
+    public static MenuTemplates: Array<MenuTemplateModel>;
     public static events: any = {};
     public static container: HTMLElement | any;
     public static precanvas: HTMLElement | any;

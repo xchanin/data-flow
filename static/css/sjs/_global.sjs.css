@@ -7,10 +7,11 @@
     --theme-font-family: 'Rokkitt', serif;
     --theme-white: #f3f3f3;
     --theme-accent: #9cd8d7;
-    
     --margin-step: 1em;
-
     --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --border-color: #cacaca;
+    --background-color: #ffffff;
+    --background-box-title: #f7f7f7;
 
     /* Standard Breakpoints
     320px — 480px: Mobile devices
@@ -22,6 +23,21 @@
 }
 
 /*  Global Styles */
-.flex-filler {
-    flex: 1;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+}
+/* .flex-filler {
+    flex: 1;
+} */
