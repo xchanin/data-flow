@@ -719,7 +719,7 @@ export class FlowTool extends DataFlowBaseClass {
     //        }
     //    );
  
-    //    Variables.drawflowTest.push(newModule)
+    //    Variables.DataFlowModuleData.push(newModule)
     //    this.Dispatch('moduleCreated', name);
     //  }
 
@@ -751,12 +751,12 @@ export class FlowTool extends DataFlowBaseClass {
     //    }
     //    // delete Variables.drawflow.drawflow[name];
  
-    //    const index: number = Variables.drawflowTest.findIndex((e:DrawFlowModel) => {
+    //    const index: number = Variables.DataFlowModuleData.findIndex((e:DrawFlowModel) => {
     //      return e.Module === 'name';
     //    });
  
     //    if (index !== -1) {
-    //        Variables.drawflowTest.splice(index, 1);
+    //        Variables.DataFlowModuleData.splice(index, 1);
     //    }
        
     //    this.Dispatch('moduleRemoved', name);
@@ -765,7 +765,7 @@ export class FlowTool extends DataFlowBaseClass {
     //  clearModuleSelected() {
     //    Variables.precanvas.innerHTML = "";
  
-    //    Variables.drawflowTest.find((e: DrawFlowModel) => {
+    //    Variables.DataFlowModuleData.find((e: DrawFlowModel) => {
     //      if (e.Module === Variables.module) {
     //          e.Data = {};
     //      }
@@ -808,7 +808,7 @@ export class FlowTool extends DataFlowBaseClass {
             }
          );
       
-       Variables.drawflowTest.push(flowData);
+       Variables.DataFlowModuleData.push(flowData);
  
        this.load();
  

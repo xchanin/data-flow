@@ -74,7 +74,7 @@
     </script> -->
 
    <script id="sjs-flow-tool" type="module">
-        import { FlowTool, MenuTemplates, Variables } from './packages/es/index.js';
+        import { FlowTool, MenuTemplates, Variables, Events } from './packages/es/index.js';
 
         let id = document.getElementById("drawflow");
         let flowTool = new FlowTool(id);
@@ -191,9 +191,9 @@
 
         MenuTemplates.Render(document.getElementById('drag-items'), menuTemplates);
 
-        Variables.reroute = true;
-        Variables.reroute_fix_curvature = true;
-        Variables.force_first_input = false;
+        // Variables.reroute = true;
+        // Variables.reroute_fix_curvature = true;
+        // Variables.force_first_input = false;
 
         /**
          * Moduel data objects
@@ -521,19 +521,22 @@
         }
 
         /**
-         * Array of module data
+         * Array for storing module data
         */
-        Variables.drawflowTest = 
+        Variables.DataFlowModuleData = 
         [
             homeModuleData,
             otherModuleData
         ]
      
         flowTool.Start();
-        flowTool.ImportData(Variables.drawflowTest[0]);
+        flowTool.ImportData(Variables.DataFlowModuleData[0]);
         
 
     // Events!
+
+    // Events.UiOnEvent(flowTool, 'mouseMove', 'tesing on event moust move', 'position');
+
     flowTool.OnEvent('nodeCreated', function(id) {
       console.log("Node created " + id);
     })
@@ -844,7 +847,7 @@
         window.allowDrop = allowDrop;
         window.drop = drop;
         window.flowTool = flowTool;
-        window.menuTabSelected = localChangeModule;
+        window.menuTabSelected = menuTabSelected;
     </script>
 
 

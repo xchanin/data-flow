@@ -12,4 +12,14 @@ export class Events {
             parent.addEventListener(e.Event, e.Action);
         }
     }
+
+    public static UiOnEvent(el: any, event: string, type: any, message: string,): void {
+        el.OnEvent(event, (e: any) => {
+            console.log(message + ': ' + e);
+          })
+
+        //   flowTool.OnEvent('nodeMoved', function(id) {
+        //     console.log("Node moved " + id);
+        //   })
+    }
 }

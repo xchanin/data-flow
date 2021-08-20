@@ -40,7 +40,7 @@ export class Variables {
     public static noderegister: any = {};
     public static render: any;
 
-    public static drawflowTest: Array<DrawFlowModel> = [];
+    public static DataFlowModuleData: Array<DrawFlowModel> = [];
 
     // Configurable options
     public static module: string = 'Home';

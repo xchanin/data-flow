@@ -11,7 +11,7 @@ export class BaseFunctions {
       */
     protected activeModule(moduleName?: string): DrawFlowModel | any {
 
-        const t = Variables.drawflowTest.find((e: DrawFlowModel) => {
+        const t = Variables.DataFlowModuleData.find((e: DrawFlowModel) => {
             if (moduleName) {
                 return e.Module === moduleName;
             }
