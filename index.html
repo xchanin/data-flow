@@ -28,55 +28,53 @@
             </a>
         </div>
     </header>
-
+  
       <div class="wrapper">
-        <div id="menu-container" class="col"></div>
+          <!-- 
+              Left side menu items
+           -->
+        <div id="drag-items" class="col"></div>
 
         <div class="col-right">
-
-          <div class="menu">
+          <div class="top-menu">
             <ul>
               <li onclick="flowTool.changeModule('Home'); changeModule(event);" class="selected">Home</li>
               <li onclick="flowTool.changeModule('Other'); changeModule(event);">Other Module</li>
             </ul>
           </div>
 
-          <div 
-            id="drawFlowTool" 
-            ondrop="drop(event)" 
-            ondragover="allowDrop(event)"></div>
-    
+          <!-- Flow Tool -->
+            <div 
+                id="drawflow" 
+                ondrop="drop(event)" 
+                ondragover="allowDrop(event)">
+            </div>
+
             <!-- <div class="btn-export" onclick="Swal.fire({ title: 'Export',
-                html: '<pre><code>'+JSON.stringify(editor.export(), null,4)+'</code></pre>'
+                html: '<pre><code>'+JSON.stringify(flowTool.export(), null,4)+'</code></pre>'
                 })">Export</div>
-            <div class="btn-clear" onclick="editor.clearModuleSelected()">Clear</div>
+            <div class="btn-clear" onclick="flowTool.clearModuleSelected()">Clear</div>
             <div class="btn-lock">
-              <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
-              <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
+              <i id="lock" class="fas fa-lock" onclick="flowTool.editor_mode='fixed'; changeMode('lock');"></i>
+              <i id="unlock" class="fas fa-lock-open" onclick="flowTool.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
             </div>
             <div class="bar-zoom">
-              <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
-              <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
-              <i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
+              <i class="fas fa-search-minus" onclick="flowTool.zoom_out()"></i>
+              <i class="fas fa-search" onclick="flowTool.zoom_reset()"></i>
+              <i class="fas fa-search-plus" onclick="flowTool.zoom_in()"></i>
             </div> -->
           </div>
         </div>
       </div>
-   
+      
     <!-- <script type="text/typescript">
        const typescriptCodeArray: Array<string>;
     </script> -->
 
-
-
-    <!-- <div id="hello" draggable="true" style="background-color: blue; width: 100px; height: 50px;"></div> -->
-
-
-
    <script id="sjs-flow-tool" type="module">
         import { FlowTool, MenuTemplates, Variables } from './packages/es/index.js';
 
-        const id = document.getElementById("drawFlowTool");
+        const id = document.getElementById("drawflow");
         const flowTool = new FlowTool(id);
   
         let menuTemplates = [
@@ -190,7 +188,7 @@
             }
         ];
 
-        MenuTemplates.Render(document.getElementById('menu-container'), menuTemplates);
+        MenuTemplates.Render(document.getElementById('drag-items'), menuTemplates);
 
         Variables.reroute = true;
         Variables.reroute_fix_curvature = true;
@@ -588,7 +586,7 @@
 
     /* Mouse and Touch Actions */
 
-    var elements = document.getElementsByClassName('drag-drawflow');
+    const elements = document.getElementsByClassName('drag-drawflow');
    
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('touchend', drop, false);
@@ -597,11 +595,10 @@
     }
 
     // document.querySelector('#hello').addEventListener('touchstart', drag, false);
-
     // console.log("DRAG DIV ", document.querySelector('#hello'));
 
-    var mobile_item_selec = '';
-    var mobile_last_move = null;
+    let mobile_item_selec = '';
+    let mobile_last_move = null;
 
    function positionMobile(ev) {
      mobile_last_move = ev;
@@ -611,7 +608,7 @@
       ev.preventDefault();
     }
 
-    function drag(ev) {
+   function drag(ev) {
       if (ev.type === "touchstart") {
         mobile_item_selec = ev.target.closest(".drag-drawflow").getAttribute('data-node');
       } else {
@@ -635,11 +632,11 @@
     }
 
     function addNodeToDrawFlow(name, pos_x, pos_y) {
-      if(editor.editor_mode === 'fixed') {
+      if(flowTool.editor_mode === 'fixed') {
         return false;
       }
-      pos_x = pos_x * ( editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)) - (editor.precanvas.getBoundingClientRect().x * ( editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)));
-      pos_y = pos_y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
+      pos_x = pos_x * ( Variables.precanvas.clientWidth / (Variables.precanvas.clientWidth * Variables.zoom)) - (Variables.precanvas.getBoundingClientRect().x * ( Variables.precanvas.clientWidth / (Variables.precanvas.clientWidth * Variables.zoom)));
+      pos_y = pos_y * ( Variables.precanvas.clientHeight / (Variables.precanvas.clientHeight * Variables.zoom)) - (Variables.precanvas.getBoundingClientRect().y * ( Variables.precanvas.clientHeight / (Variables.precanvas.clientHeight * Variables.zoom)));
 
 
       switch (name) {
@@ -649,7 +646,7 @@
           <div class="title-box"><i class="fab fa-facebook"></i> Facebook Message</div>
         </div>
         `;
-          editor.addNode('facebook', 0,  1, pos_x, pos_y, 'facebook', {}, facebook );
+        flowTool.AddNode('facebook', 0,  1, pos_x, pos_y, 'facebook', {}, facebook );
           break;
         case 'slack':
           var slackchat = `
@@ -657,7 +654,7 @@
             <div class="title-box"><i class="fab fa-slack"></i> Slack chat message</div>
           </div>
           `
-          editor.addNode('slack', 1, 0, pos_x, pos_y, 'slack', {}, slackchat );
+          flowTool.AddNode('slack', 1, 0, pos_x, pos_y, 'slack', {}, slackchat );
           break;
         case 'github':
           var githubtemplate = `
@@ -669,7 +666,7 @@
             </div>
           </div>
           `;
-          editor.addNode('github', 0, 1, pos_x, pos_y, 'github', { "name": ''}, githubtemplate );
+          flowTool.AddNode('github', 0, 1, pos_x, pos_y, 'github', { "name": ''}, githubtemplate );
           break;
         case 'telegram':
           var telegrambot = `
@@ -687,7 +684,7 @@
             </div>
           </div>
           `;
-          editor.addNode('telegram', 1, 0, pos_x, pos_y, 'telegram', { "channel": 'channel_3'}, telegrambot );
+          flowTool.AddNode('telegram', 1, 0, pos_x, pos_y, 'telegram', { "channel": 'channel_3'}, telegrambot );
           break;
         case 'aws':
           var aws = `
@@ -701,7 +698,7 @@
             </div>
           </div>
           `;
-          editor.addNode('aws', 1, 1, pos_x, pos_y, 'aws', { "db": { "dbname": '', "key": '' }}, aws );
+          flowTool.AddNode('aws', 1, 1, pos_x, pos_y, 'aws', { "db": { "dbname": '', "key": '' }}, aws );
           break;
         case 'log':
             var log = `
@@ -709,7 +706,7 @@
               <div class="title-box"><i class="fas fa-file-signature"></i> Save log file </div>
             </div>
             `;
-            editor.addNode('log', 1, 0, pos_x, pos_y, 'log', {}, log );
+            flowTool.AddNode('log', 1, 0, pos_x, pos_y, 'log', {}, log );
             break;
           case 'google':
             var google = `
@@ -717,7 +714,7 @@
               <div class="title-box"><i class="fab fa-google-drive"></i> Google Drive save </div>
             </div>
             `;
-            editor.addNode('google', 1, 0, pos_x, pos_y, 'google', {}, google );
+            flowTool.AddNode('google', 1, 0, pos_x, pos_y, 'google', {}, google );
             break;
           case 'email':
             var email = `
@@ -725,7 +722,7 @@
               <div class="title-box"><i class="fas fa-at"></i> Send Email </div>
             </div>
             `;
-            editor.addNode('email', 1, 0, pos_x, pos_y, 'email', {}, email );
+            flowTool.AddNode('email', 1, 0, pos_x, pos_y, 'email', {}, email );
             break;
 
           case 'template':
@@ -739,7 +736,7 @@
               </div>
             </div>
             `;
-            editor.addNode('template', 1, 1, pos_x, pos_y, 'template', { "template": 'Write your template'}, template );
+            flowTool.AddNode('template', 1, 1, pos_x, pos_y, 'template', { "template": 'Write your template'}, template );
             break;
           case 'multiple':
             var multiple = `
@@ -749,7 +746,7 @@
               </div>
             </div>
             `;
-            editor.addNode('multiple', 3, 4, pos_x, pos_y, 'multiple', {}, multiple );
+            flowTool.AddNode('multiple', 3, 4, pos_x, pos_y, 'multiple', {}, multiple );
             break;
           case 'personalized':
             var personalized = `
@@ -757,7 +754,7 @@
               Personalized
             </div>
             `;
-            editor.addNode('personalized', 1, 1, pos_x, pos_y, 'personalized', {}, personalized );
+            flowTool.AddNode('personalized', 1, 1, pos_x, pos_y, 'personalized', {}, personalized );
             break;
           case 'dbclick':
             var dbclick = `
@@ -776,7 +773,7 @@
               </div>
             </div>
             `;
-            editor.addNode('dbclick', 1, 1, pos_x, pos_y, 'dbclick', { name: ''}, dbclick );
+            flowTool.AddNode('dbclick', 1, 1, pos_x, pos_y, 'dbclick', { name: ''}, dbclick );
             break;
 
         default:
@@ -790,15 +787,15 @@
     //document.getElementById("modalfix").style.display = "block";
 
     //e.target.children[0].style.transform = 'translate('+translate.x+'px, '+translate.y+'px)';
-    transform = editor.precanvas.style.transform;
-    editor.precanvas.style.transform = '';
-    editor.precanvas.style.left = editor.canvas_x +'px';
-    editor.precanvas.style.top = editor.canvas_y +'px';
+    transform = flowTool.precanvas.style.transform;
+    flowTool.precanvas.style.transform = '';
+    flowTool.precanvas.style.left = flowTool.canvas_x +'px';
+    flowTool.precanvas.style.top = flowTool.canvas_y +'px';
     console.log(transform);
 
-    //e.target.children[0].style.top  =  -editor.canvas_y - editor.container.offsetTop +'px';
-    //e.target.children[0].style.left  =  -editor.canvas_x  - editor.container.offsetLeft +'px';
-    editor.editor_mode = "fixed";
+    //e.target.children[0].style.top  =  -flowTool.canvas_y - flowTool.container.offsetTop +'px';
+    //e.target.children[0].style.left  =  -flowTool.canvas_x  - flowTool.container.offsetLeft +'px';
+    flowTool.editor_mode = "fixed";
 
   }
 
@@ -806,10 +803,10 @@
      e.target.closest(".drawflow-node").style.zIndex = "2";
      e.target.parentElement.parentElement.style.display  ="none";
      //document.getElementById("modalfix").style.display = "none";
-     editor.precanvas.style.transform = transform;
-       editor.precanvas.style.left = '0px';
-       editor.precanvas.style.top = '0px';
-      editor.editor_mode = "edit";
+     flowTool.precanvas.style.transform = transform;
+     flowTool.precanvas.style.left = '0px';
+     flowTool.precanvas.style.top = '0px';
+     flowTool.editor_mode = "edit";
    }
 
     function changeModule(event) {
@@ -832,6 +829,8 @@
       }
     }
 
+    window.allowDrop = allowDrop;
+    window.drop = drop;
     </script>
 
 

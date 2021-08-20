@@ -49,20 +49,20 @@ header a {
   cursor: move;
   user-select: none;
 }
-.menu {
+.top-menu {
   position: absolute;
   height: 40px;
   display: block;
   background: white;
   width: 100%;
 }
-.menu ul {
+.top-menu ul {
   padding: 0px;
   margin: 0px;
   line-height: 40px;
 }
 
-.menu ul li {
+.top-menu ul li {
   display: inline-block;
 margin-left: 10px;
 border-right: 1px solid var(--border-color);
@@ -71,7 +71,7 @@ line-height: 40px;
 cursor: pointer;
 }
 
-.menu ul li.selected {
+.top-menu ul li.selected {
   font-weight: bold;
 }
 
@@ -169,8 +169,6 @@ cursor: pointer;
     width: calc(100vw - 51px);
   }
 }
-
-
 
 /* Editing Drawflow */
 

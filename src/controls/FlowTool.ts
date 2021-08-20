@@ -148,283 +148,306 @@ export class FlowTool extends DataFlowBaseClass {
     //    Variables.noderegister[name] = {html: html, props: props, options: options};
     //  }
 
-    //  addNode (name: any, num_in: any, num_out: any, ele_pos_x: any, ele_pos_y: any, classoverride: any, data: any, html: any, typenode = false) {
-    //    let newNodeId: any;
-    //      if (Variables.useuuid) {
-    //      newNodeId = this.getUuid();
-    //    } else {
-    //      newNodeId = Variables.nodeId;
-    //    }
-    //    const parent = document.createElement('div');
-    //    parent.classList.add("parent-node");
-   
-    //    const node = document.createElement('div');
-    //    node.innerHTML = "";
-    //    node.setAttribute("id", "node-"+newNodeId);
-    //    node.classList.add("drawflow-node");
-    //    if(classoverride != '') {
-    //      node.classList.add(classoverride);
-    //    }
-   
-    //    const inputs = document.createElement('div');
-    //    inputs.classList.add("inputs");
-   
-    //    const outputs = document.createElement('div');
-    //    outputs.classList.add("outputs");
-   
-    //    const json_inputs: any = {}
-    //    for(var x = 0; x < num_in; x++) {
-    //      const input = document.createElement('div');
-    //      input.classList.add("input");
-    //      input.classList.add("input_"+(x+1));
-    //      json_inputs["input_"+(x+1)] = { "connections": []};
-    //      inputs.appendChild(input);
-    //    }
-   
-    //    const json_outputs: any = {}
-    //    for(var x = 0; x < num_out; x++) {
-    //      const output = document.createElement('div');
-    //      output.classList.add("output");
-    //      output.classList.add("output_"+(x+1));
-    //      json_outputs["output_"+(x+1)] = { "connections": []};
-    //      outputs.appendChild(output);
-    //    }
-   
-    //    const content = document.createElement('div');
-    //    content.classList.add("drawflow_content_node");
-    //    if(typenode === false) {
-    //      content.innerHTML = html;
-    //    } else if (typenode === true) {
-    //      content.appendChild(Variables.noderegister[html].html.cloneNode(true));
-    //    } else {
-    //      if(parseInt(Variables.render.version) === 3 ) {
-    //        //Vue 3
-    //        let wrapper = Variables.render.createApp({
-    //          parent: Variables.parent,
-    //          render: (h: any) => Variables.render.h(Variables.noderegister[html].html, Variables.noderegister[html].props, Variables.noderegister[html].options)
-    //        }).mount(content)
-    //      } else {
-    //        // Vue 2
-    //        let wrapper = new Variables.render({
-    //          parent: Variables.parent,
-    //          render: (h: any) => h(Variables.noderegister[html].html, { props: Variables.noderegister[html].props }),
-    //          ...Variables.noderegister[html].options
-    //        }).$mount()
-    //        //
-    //        content.appendChild(wrapper.$el);
-    //      }
-    //    }
-   
-    //    Object.entries(data).forEach(function (key, value) {
-    //      if(typeof key[1] === "object") {
-    //        insertObjectkeys(null, key[0], key[0]);
-    //      } else {
-    //        var elems: any = content.querySelectorAll('[df-'+key[0]+']');
-    //          for(var i = 0; i < elems.length; i++) {
-    //            elems[i].value = key[1];
-    //          }
-    //      }
-    //    })
-   
-    //    function insertObjectkeys(object: any, name: any, completname: any) {
-    //      if(object === null) {
-    //        var object = data[name];
-    //      } else {
-    //        var object = object[name]
-    //      }
-    //      if(object !== null) {
-    //        Object.entries(object).forEach(function (key, value) {
-    //          if(typeof key[1] === "object") {
-    //            insertObjectkeys(object, key[0], completname+'-'+key[0]);
-    //          } else {
-    //            var elems: any = content.querySelectorAll('[df-'+completname+'-'+key[0]+']');
-    //              for(var i = 0; i < elems.length; i++) {
-    //                elems[i].value = key[1];
-    //              }
-    //          }
-    //        });
-    //      }
-    //    }
-    //    node.appendChild(inputs);
-    //    node.appendChild(content);
-    //    node.appendChild(outputs);
-    //    node.style.top = ele_pos_y + "px";
-    //    node.style.left = ele_pos_x + "px";
-    //    parent.appendChild(node);
-    //    Variables.precanvas.appendChild(parent);
-    //    var json = {
-    //      id: newNodeId,
-    //      name: name,
-    //      data: data,
-    //      class: classoverride,
-    //      html: html,
-    //      typenode: typenode,
-    //      inputs: json_inputs,
-    //      outputs: json_outputs,
-    //      pos_x: ele_pos_x,
-    //      pos_y: ele_pos_y,
-    //    }
-    //    this.activeModule(Variables.module).Data[newNodeId] = json;
-    //    this.Dispatch('nodeCreated', newNodeId);
-    //    if (!Variables.useuuid) {
-    //      Variables.nodeId++;
-    //    }
-    //    return newNodeId;
-    //  }
-   
-     addNodeImport (dataNode: any, precanvas: any) {
-       const parent = document.createElement('div');
-       parent.classList.add("parent-node");
-   
-       const node = document.createElement('div');
-       node.innerHTML = "";
-       node.setAttribute("id", "node-"+dataNode.id);
-       node.classList.add("drawflow-node");
-       if(dataNode.class != '') {
-         node.classList.add(dataNode.class);
-       }
-   
-       const inputs = document.createElement('div');
-       inputs.classList.add("inputs");
-   
-       const outputs = document.createElement('div');
-       outputs.classList.add("outputs");
-   
-       Object.keys(dataNode.inputs).map(function(input_item, index) {
-         const input = document.createElement('div');
-         input.classList.add("input");
-         input.classList.add(input_item);
-         inputs.appendChild(input);
-         Object.keys(dataNode.inputs[input_item].connections).map(function(output_item, index) {
-   
-           var connection = document.createElementNS('http://www.w3.org/2000/svg',"svg");
-           var path = document.createElementNS('http://www.w3.org/2000/svg',"path");
-           path.classList.add("main-path");
-           path.setAttributeNS(null, 'd', '');
-           // path.innerHTML = 'a';
-           connection.classList.add("connection");
-           connection.classList.add("node_in_node-"+dataNode.id);
-           connection.classList.add("node_out_node-"+dataNode.inputs[input_item].connections[output_item].node);
-           connection.classList.add(dataNode.inputs[input_item].connections[output_item].input);
-           connection.classList.add(input_item);
-   
-           connection.appendChild(path);
-           precanvas.appendChild(connection);
-   
-         });
-       });
-   
-       for(var x = 0; x < Object.keys(dataNode.outputs).length; x++) {
-         const output = document.createElement('div');
-         output.classList.add("output");
-         output.classList.add("output_"+(x+1));
-         outputs.appendChild(output);
-       }
-   
-       const content = document.createElement('div');
-       content.classList.add("drawflow_content_node");
-   
-       if(dataNode.typenode === false) {
-         content.innerHTML = dataNode.html;
-       } else if (dataNode.typenode === true) {
-         content.appendChild(Variables.noderegister[dataNode.html].html.cloneNode(true));
-       } else {
-         if(parseInt(Variables.render.version) === 3 ) {
-           //Vue 3
-           let wrapper = Variables.render.createApp({
-             parent: Variables.parent,
-             render: (h: any) => Variables.render.h(Variables.noderegister[dataNode.html].html, Variables.noderegister[dataNode.html].props, Variables.noderegister[dataNode.html].options)
-           }).mount(content)
-         } else {
-           //Vue 2
-           let wrapper = new Variables.render({
-             parent: Variables.parent,
-             render: (h: any) => h(Variables.noderegister[dataNode.html].html, { props: Variables.noderegister[dataNode.html].props }),
-             ...Variables.noderegister[dataNode.html].options
-           }).$mount()
-           content.appendChild(wrapper.$el);
-         }
-       }
-   
-       Object.entries(dataNode.data).forEach(function (key, value) {
-         if(typeof key[1] === "object") {
-           insertObjectkeys(null, key[0], key[0]);
-         } else {
-           var elems: any = content.querySelectorAll('[df-'+key[0]+']');
-             for(var i = 0; i < elems.length; i++) {
-               elems[i].value = key[1];
-             }
-         }
-       })
-   
-       function insertObjectkeys(object: any, name: any, completname: any) {
-         if(object === null) {
-           var object = dataNode.data[name];
-         } else {
-           var object = object[name]
-         }
-         if(object !== null) {
-           Object.entries(object).forEach(function (key, value) {
-             if(typeof key[1] === "object") {
-               insertObjectkeys(object, key[0], completname+'-'+key[0]);
-             } else {
-               var elems: any = content.querySelectorAll('[df-'+completname+'-'+key[0]+']');
-                 for(var i = 0; i < elems.length; i++) {
-                   elems[i].value = key[1];
-                 }
-             }
-           });
-         }
-       }
-       node.appendChild(inputs);
-       node.appendChild(content);
-       node.appendChild(outputs);
-       node.style.top = dataNode.pos_y + "px";
-       node.style.left = dataNode.pos_x + "px";
-       parent.appendChild(node);
-       Variables.precanvas.appendChild(parent);
-     }
-   
-     addRerouteImport(dataNode: any) {
-       const reroute_width = Variables.reroute_width
-       const reroute_fix_curvature = Variables.reroute_fix_curvature
-       const container = Variables.container;
-       Object.keys(dataNode.outputs).map(function(output_item, index) {
-         Object.keys(dataNode.outputs[output_item].connections).map(function(input_item, index) {
-           const points = dataNode.outputs[output_item].connections[input_item].points
-           if(points !== undefined) {
-   
-             points.forEach((item: any, i: any) => {
-               const input_id = dataNode.outputs[output_item].connections[input_item].node;
-               const input_class = dataNode.outputs[output_item].connections[input_item].output;
-               const ele: any = container.querySelector('.connection.node_in_node-'+input_id+'.node_out_node-'+dataNode.id+'.'+output_item+'.'+input_class);
-   
-               if(reroute_fix_curvature) {
-                 if(i === 0) {
-                   for (var z = 0; z < points.length; z++) {
-                     var path = document.createElementNS('http://www.w3.org/2000/svg',"path");
-                     path.classList.add("main-path");
-                     path.setAttributeNS(null, 'd', '');
-                     ele.appendChild(path);
-   
-                   }
-                 }
-               }
-   
-               const point = document.createElementNS('http://www.w3.org/2000/svg',"circle");
-               point.classList.add("point");
-               var pos_x = item.pos_x;
-               var pos_y = item.pos_y;
-   
-               point.setAttributeNS(null, 'cx', pos_x);
-               point.setAttributeNS(null, 'cy', pos_y);
-               point.setAttributeNS(null, 'r', reroute_width);
-   
-               ele.appendChild(point);
-             });
-           };
-         });
-       });
+    /**
+     * When dragging a node onto the canvas
+     * 
+     * @param name 
+     * @param num_in 
+     * @param num_out 
+     * @param ele_pos_x 
+     * @param ele_pos_y 
+     * @param classoverride 
+     * @param data 
+     * @param html 
+     * @param typenode 
+     * @returns 
+     */
+     public AddNode (
+       name: any, 
+       num_in: any, 
+       num_out: any, 
+       ele_pos_x: any, 
+       ele_pos_y: any, 
+       classoverride: any, 
+       data: any, 
+       html: any, 
+       typenode = false): void {
+        let newNodeId: any;
+          if (Variables.useuuid) {
+          newNodeId = this.getUuid();
+        } else {
+          newNodeId = Variables.nodeId;
+        }
+        const parent = document.createElement('div');
+        parent.classList.add("parent-node");
+    
+        const node = document.createElement('div');
+        node.innerHTML = "";
+        node.setAttribute("id", "node-"+newNodeId);
+        node.classList.add("drawflow-node");
+        if(classoverride != '') {
+          node.classList.add(classoverride);
+        }
+    
+        const inputs = document.createElement('div');
+        inputs.classList.add("inputs");
+    
+        const outputs = document.createElement('div');
+        outputs.classList.add("outputs");
+    
+        const json_inputs: any = {}
+        for(var x = 0; x < num_in; x++) {
+          const input = document.createElement('div');
+          input.classList.add("input");
+          input.classList.add("input_"+(x+1));
+          json_inputs["input_"+(x+1)] = { "connections": []};
+          inputs.appendChild(input);
+        }
+    
+        const json_outputs: any = {}
+        for(var x = 0; x < num_out; x++) {
+          const output = document.createElement('div');
+          output.classList.add("output");
+          output.classList.add("output_"+(x+1));
+          json_outputs["output_"+(x+1)] = { "connections": []};
+          outputs.appendChild(output);
+        }
+    
+        const content = document.createElement('div');
+        content.classList.add("drawflow_content_node");
+        if(typenode === false) {
+          content.innerHTML = html;
+        } else if (typenode === true) {
+          content.appendChild(Variables.noderegister[html].html.cloneNode(true));
+        } else {
+          if(parseInt(Variables.render.version) === 3 ) {
+            //Vue 3
+            let wrapper = Variables.render.createApp({
+              parent: Variables.parent,
+              render: (h: any) => Variables.render.h(Variables.noderegister[html].html, Variables.noderegister[html].props, Variables.noderegister[html].options)
+            }).mount(content)
+          } else {
+            // Vue 2
+            let wrapper = new Variables.render({
+              parent: Variables.parent,
+              render: (h: any) => h(Variables.noderegister[html].html, { props: Variables.noderegister[html].props }),
+              ...Variables.noderegister[html].options
+            }).$mount()
+            //
+            content.appendChild(wrapper.$el);
+          }
+        }
+    
+        Object.entries(data).forEach(function (key, value) {
+          if(typeof key[1] === "object") {
+            insertObjectkeys(null, key[0], key[0]);
+          } else {
+            var elems: any = content.querySelectorAll('[df-'+key[0]+']');
+              for(var i = 0; i < elems.length; i++) {
+                elems[i].value = key[1];
+              }
+          }
+        })
+    
+        function insertObjectkeys(object: any, name: any, completname: any) {
+          if(object === null) {
+            var object = data[name];
+          } else {
+            var object = object[name]
+          }
+          if(object !== null) {
+            Object.entries(object).forEach(function (key, value) {
+              if(typeof key[1] === "object") {
+                insertObjectkeys(object, key[0], completname+'-'+key[0]);
+              } else {
+                var elems: any = content.querySelectorAll('[df-'+completname+'-'+key[0]+']');
+                  for(var i = 0; i < elems.length; i++) {
+                    elems[i].value = key[1];
+                  }
+              }
+            });
+          }
+        }
+        node.appendChild(inputs);
+        node.appendChild(content);
+        node.appendChild(outputs);
+        node.style.top = ele_pos_y + "px";
+        node.style.left = ele_pos_x + "px";
+        parent.appendChild(node);
+        Variables.precanvas.appendChild(parent);
+        var json = {
+          id: newNodeId,
+          name: name,
+          data: data,
+          class: classoverride,
+          html: html,
+          typenode: typenode,
+          inputs: json_inputs,
+          outputs: json_outputs,
+          pos_x: ele_pos_x,
+          pos_y: ele_pos_y,
+        }
+        this.activeModule(Variables.module).Data[newNodeId] = json;
+        this.Dispatch('nodeCreated', newNodeId);
+        if (!Variables.useuuid) {
+          Variables.nodeId++;
+        }
+        return newNodeId;
+      }
+    
+      addNodeImport (dataNode: any, precanvas: any) {
+        const parent = document.createElement('div');
+        parent.classList.add("parent-node");
+    
+        const node = document.createElement('div');
+        node.innerHTML = "";
+        node.setAttribute("id", "node-"+dataNode.id);
+        node.classList.add("drawflow-node");
+        if(dataNode.class != '') {
+          node.classList.add(dataNode.class);
+        }
+    
+        const inputs = document.createElement('div');
+        inputs.classList.add("inputs");
+    
+        const outputs = document.createElement('div');
+        outputs.classList.add("outputs");
+    
+        Object.keys(dataNode.inputs).map(function(input_item, index) {
+          const input = document.createElement('div');
+          input.classList.add("input");
+          input.classList.add(input_item);
+          inputs.appendChild(input);
+          Object.keys(dataNode.inputs[input_item].connections).map(function(output_item, index) {
+    
+            var connection = document.createElementNS('http://www.w3.org/2000/svg',"svg");
+            var path = document.createElementNS('http://www.w3.org/2000/svg',"path");
+            path.classList.add("main-path");
+            path.setAttributeNS(null, 'd', '');
+            // path.innerHTML = 'a';
+            connection.classList.add("connection");
+            connection.classList.add("node_in_node-"+dataNode.id);
+            connection.classList.add("node_out_node-"+dataNode.inputs[input_item].connections[output_item].node);
+            connection.classList.add(dataNode.inputs[input_item].connections[output_item].input);
+            connection.classList.add(input_item);
+    
+            connection.appendChild(path);
+            precanvas.appendChild(connection);
+    
+          });
+        });
+    
+        for(var x = 0; x < Object.keys(dataNode.outputs).length; x++) {
+          const output = document.createElement('div');
+          output.classList.add("output");
+          output.classList.add("output_"+(x+1));
+          outputs.appendChild(output);
+        }
+    
+        const content = document.createElement('div');
+        content.classList.add("drawflow_content_node");
+    
+        if(dataNode.typenode === false) {
+          content.innerHTML = dataNode.html;
+        } else if (dataNode.typenode === true) {
+          content.appendChild(Variables.noderegister[dataNode.html].html.cloneNode(true));
+        } else {
+          if(parseInt(Variables.render.version) === 3 ) {
+            //Vue 3
+            let wrapper = Variables.render.createApp({
+              parent: Variables.parent,
+              render: (h: any) => Variables.render.h(Variables.noderegister[dataNode.html].html, Variables.noderegister[dataNode.html].props, Variables.noderegister[dataNode.html].options)
+            }).mount(content)
+          } else {
+            //Vue 2
+            let wrapper = new Variables.render({
+              parent: Variables.parent,
+              render: (h: any) => h(Variables.noderegister[dataNode.html].html, { props: Variables.noderegister[dataNode.html].props }),
+              ...Variables.noderegister[dataNode.html].options
+            }).$mount()
+            content.appendChild(wrapper.$el);
+          }
+        }
+    
+        Object.entries(dataNode.data).forEach(function (key, value) {
+          if(typeof key[1] === "object") {
+            insertObjectkeys(null, key[0], key[0]);
+          } else {
+            var elems: any = content.querySelectorAll('[df-'+key[0]+']');
+              for(var i = 0; i < elems.length; i++) {
+                elems[i].value = key[1];
+              }
+          }
+        })
+    
+        function insertObjectkeys(object: any, name: any, completname: any) {
+          if(object === null) {
+            var object = dataNode.data[name];
+          } else {
+            var object = object[name]
+          }
+          if(object !== null) {
+            Object.entries(object).forEach(function (key, value) {
+              if(typeof key[1] === "object") {
+                insertObjectkeys(object, key[0], completname+'-'+key[0]);
+              } else {
+                var elems: any = content.querySelectorAll('[df-'+completname+'-'+key[0]+']');
+                  for(var i = 0; i < elems.length; i++) {
+                    elems[i].value = key[1];
+                  }
+              }
+            });
+          }
+        }
+        node.appendChild(inputs);
+        node.appendChild(content);
+        node.appendChild(outputs);
+        node.style.top = dataNode.pos_y + "px";
+        node.style.left = dataNode.pos_x + "px";
+        parent.appendChild(node);
+        Variables.precanvas.appendChild(parent);
+      }
+    
+      addRerouteImport(dataNode: any) {
+        const reroute_width = Variables.reroute_width
+        const reroute_fix_curvature = Variables.reroute_fix_curvature
+        const container = Variables.container;
+        Object.keys(dataNode.outputs).map(function(output_item, index) {
+          Object.keys(dataNode.outputs[output_item].connections).map(function(input_item, index) {
+            const points = dataNode.outputs[output_item].connections[input_item].points
+            if(points !== undefined) {
+    
+              points.forEach((item: any, i: any) => {
+                const input_id = dataNode.outputs[output_item].connections[input_item].node;
+                const input_class = dataNode.outputs[output_item].connections[input_item].output;
+                const ele: any = container.querySelector('.connection.node_in_node-'+input_id+'.node_out_node-'+dataNode.id+'.'+output_item+'.'+input_class);
+    
+                if(reroute_fix_curvature) {
+                  if(i === 0) {
+                    for (var z = 0; z < points.length; z++) {
+                      var path = document.createElementNS('http://www.w3.org/2000/svg',"path");
+                      path.classList.add("main-path");
+                      path.setAttributeNS(null, 'd', '');
+                      ele.appendChild(path);
+    
+                    }
+                  }
+                }
+    
+                const point = document.createElementNS('http://www.w3.org/2000/svg',"circle");
+                point.classList.add("point");
+                var pos_x = item.pos_x;
+                var pos_y = item.pos_y;
+    
+                point.setAttributeNS(null, 'cx', pos_x);
+                point.setAttributeNS(null, 'cy', pos_y);
+                point.setAttributeNS(null, 'r', reroute_width);
+    
+                ele.appendChild(point);
+              });
+            };
+          });
+        });
      }
 
     //  updateNodeDataFromId(id: any, data: any) {
