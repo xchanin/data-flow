@@ -16,12 +16,28 @@
     position: relative;
   
   }
+
+  .circle {
+    border-radius: 50% !important;
+    height: 60px !important;
+    width: 60px !important;
+  }
+
+  .diamond {
+    transform:rotate(45deg) !important;
+    height: 60px !important;
+    width: 60px !important;
+  }
+
+  .diamond .drawflow_content_node {
+    transform: rotate(-45deg) !important;
+  }
   
   .drawflow .drawflow-node {
     display: flex;
     align-items: center;
     position: absolute;
-    background: cyan;
+    background: rgb(0, 183, 255);
     width: 160px;
     min-height: 40px;
     border-radius:4px;
@@ -29,6 +45,7 @@
     color: black;
     z-index: 2;
     padding: 15px;
+    
   }
 
   .drawflow .drawflow-node.selected {
@@ -59,7 +76,7 @@
     z-index: 1;
     margin-bottom: 5px;
   }
-  
+
   .drawflow .drawflow-node .input {
     left: -27px;
     top: 2px;

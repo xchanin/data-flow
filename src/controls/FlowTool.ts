@@ -189,6 +189,7 @@ export class FlowTool extends DataFlowBaseClass {
         node.innerHTML = "";
         node.setAttribute("id", "node-"+newNodeId);
         node.classList.add("drawflow-node");
+        
         if(classoverride != '') {
           node.classList.add(classoverride);
         }
@@ -307,6 +308,16 @@ export class FlowTool extends DataFlowBaseClass {
         node.innerHTML = "";
         node.setAttribute("id", "node-"+dataNode.id);
         node.classList.add("drawflow-node");
+
+
+        if (dataNode.shape === 'diamond') {
+          node.classList.add('diamond');
+        }
+
+        if (dataNode.shape === 'circle') {
+          node.classList.add('circle');
+        }
+
         if(dataNode.class != '') {
           node.classList.add(dataNode.class);
         }
@@ -318,11 +329,13 @@ export class FlowTool extends DataFlowBaseClass {
         outputs.classList.add("outputs");
     
         Object.keys(dataNode.inputs).map(function(input_item, index) {
+          
           const input = document.createElement('div');
           input.classList.add("input");
           input.classList.add(input_item);
           inputs.appendChild(input);
-          Object.keys(dataNode.inputs[input_item].connections).map(function(output_item, index) {
+
+          Object.keys(dataNode.inputs[input_item].connections).map((output_item, index) => {
     
             var connection = document.createElementNS('http://www.w3.org/2000/svg',"svg");
             var path = document.createElementNS('http://www.w3.org/2000/svg',"path");
@@ -403,9 +416,15 @@ export class FlowTool extends DataFlowBaseClass {
             });
           }
         }
+
         node.appendChild(inputs);
         node.appendChild(content);
         node.appendChild(outputs);
+
+        /**
+         * Set node positions on the canvas, these values come from pos_x and pos_y
+         * from the
+         */
         node.style.top = dataNode.pos_y + "px";
         node.style.left = dataNode.pos_x + "px";
         parent.appendChild(node);
