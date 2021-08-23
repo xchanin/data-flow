@@ -26,7 +26,9 @@
           <!-- 
               Left side menu items
            -->
-        <div id="drag-items" class="col"></div>
+        <div id="drag-items" class="col">
+            
+        </div>
 
         <div class="col-right">
           <div class="top-menu">
@@ -78,6 +80,7 @@
 
         let id = document.getElementById("drawflow");
         let flowTool = new FlowTool(id);
+        let events = new Events();
         let menuTemplates = [
             {
                 ClassList: ['drag-drawflow'],
@@ -535,61 +538,44 @@
 
     // Events!
 
-    // Events.UiOnEvent(flowTool, 'mouseMove', 'tesing on event moust move', 'position');
+    // { Event: 'mouseMove', Callback: (val) => 
+    //     { 
+    //         console.log('Mouse X ' + val.x + ' : ' + 'Mouse Y ' + val.y)
+    //     }  
+    // }
 
-    flowTool.OnEvent('nodeCreated', function(id) {
-      console.log("Node created " + id);
-    })
+    const flowDispatchedEvents = [
+        { Event: 'mouseMove', Message: 'Mouse position', Params: ['x','y'] },
+        { Event: 'nodeMoved', Message: 'Node moved' },
+        { Event: 'nodeCreated', Message: 'Node created' },
+        { Event: 'nodeRemoved', Message: 'Node removed' },
+        { Event: 'nodeSelected', Message: 'Node selected' },
+        { Event: 'moduleCreated', Message: 'Module created' },
+        { Event: 'moduleChanged', Message: 'Module Changed' },
+        { Event: 'connectionCreated', Message: 'Connection created' },
+        { Event: 'zoom', Message: 'Zoom' },
+        { Event: 'translate', Message: 'Translate' },
+        { Event: 'addReroute', Message: 'Add reroute' },
+        { Event: 'removeReroute', Message: 'Remove reroute' }
+    ]
 
-    flowTool.OnEvent('nodeRemoved', function(id) {
-      console.log("Node removed " + id);
-    })
+     /**
+     * Events that are dispatched from base-functions.Dispatch
+    */
+    for (const e of flowDispatchedEvents) {
+        // events.OnEvent(e.Event, e.Callback);
+        events.OnEvent(e.Event, (val) => {
 
-    flowTool.OnEvent('nodeSelected', function(id) {
-      console.log("Node selected " + id);
-    })
+                if (e.Params && e.Params.length > 0) {
+                    for (const v of e.Params) {
+                        console.log(e.Message + ' ' + v + ': ' + val[v]);
+                    }
+                } else {
+                    console.log(e.Message + ' ' + val);
+            }
+        })
+    }
 
-    flowTool.OnEvent('moduleCreated', function(name) {
-      console.log("Module Created " + name);
-    })
-
-    flowTool.OnEvent('moduleChanged', function(name) {
-      console.log("Module Changed " + name);
-    })
-
-    flowTool.OnEvent('connectionCreated', function(connection) {
-      console.log('Connection created');
-      console.log(connection);
-    })
-
-    flowTool.OnEvent('connectionRemoved', function(connection) {
-      console.log('Connection removed');
-      console.log(connection);
-    })
-
-    flowTool.OnEvent('mouseMove', function(position) {
-      console.log('Position mouse x:' + position.x + ' y:'+ position.y);
-    })
-
-    flowTool.OnEvent('nodeMoved', function(id) {
-      console.log("Node moved " + id);
-    })
-
-    flowTool.OnEvent('zoom', function(zoom) {
-      console.log('Zoom level ' + zoom);
-    })
-
-    flowTool.OnEvent('translate', function(position) {
-      console.log('Translate x:' + position.x + ' y:'+ position.y);
-    })
-
-    flowTool.OnEvent('addReroute', function(id) {
-      console.log("Reroute added " + id);
-    })
-
-    flowTool.OnEvent('removeReroute', function(id) {
-      console.log("Reroute removed " + id);
-    })
     /* DRAG EVENT */
 
     /* Mouse and Touch Actions */
@@ -616,6 +602,9 @@
       ev.preventDefault();
     }
 
+    /**
+     * When dragging an item from the side menu onto the canvas 
+     **/
    function drag(ev) {
       if (ev.type === "touchstart") {
         mobile_item_selec = ev.target.closest(".drag-drawflow").getAttribute('data-node');

@@ -153,6 +153,9 @@ cursor: pointer;
   top: 40px;
   background: var(--background-color);
   background-size: 25px 25px;
+  /*
+  * background grid lines
+  */
   background-image:
    linear-gradient(to right, #f1f1f1 1px, transparent 1px),
    linear-gradient(to bottom, #f1f1f1 1px, transparent 1px);
@@ -169,6 +172,7 @@ cursor: pointer;
     width: calc(100vw - 51px);
   }
 }
+
 
 /* Editing Drawflow */
 

@@ -205,7 +205,7 @@ export class DataFlowBaseClass extends BaseFunctions {
 
     /**
      * Click node event
-     * @param e event
+     * @param event MouseEvent
      * @returns ?
      */
     public Click(event: any): any {

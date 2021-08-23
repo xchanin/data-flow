@@ -95,8 +95,16 @@ export class FlowTool extends DataFlowBaseClass {
       * Start creating nodes
       */
      public Start (): void {
+
+      /**
+       * Parent container
+       */
        Variables.container.classList.add("parent-drawflow");
        Variables.container.tabIndex = 0;
+
+       /**
+        * Container that holds everything
+        */
        Variables.precanvas = document.createElement('div');
        Variables.precanvas.classList.add("drawflow");
        Variables.container.appendChild(Variables.precanvas);
@@ -114,14 +122,10 @@ export class FlowTool extends DataFlowBaseClass {
       */
      protected load(): void {
  
-         for (var key in this.activeModule(Variables.module).Data) {
-             this.addNodeImport(this.activeModule(Variables.module).Data[key], Variables.precanvas);
-           }
- 
-         for (var key in this.activeModule(Variables.module).Data) {
-                 this.addNodeImport(this.activeModule(Variables.module).Data[key], Variables.precanvas);
-             }
- 
+      for (var key in this.activeModule(Variables.module).Data) {
+        this.addNodeImport(this.activeModule(Variables.module).Data[key], Variables.precanvas);
+      }
+
        if(Variables.reroute) {
          for (var key in this.activeModule(Variables.module).Data) {
            this.addRerouteImport(this.activeModule(Variables.module).Data[key]);
@@ -137,7 +141,7 @@ export class FlowTool extends DataFlowBaseClass {
        Object.keys(flowTool).map(function(key, index) {
          Object.keys(flowTool[key]).map(function(id, index2) {
            if(parseInt(id) >= number) {
-             number = parseInt(id)+1;
+             number = parseInt(id) + 1;
            }
          });
        });
@@ -774,7 +778,10 @@ export class FlowTool extends DataFlowBaseClass {
     //    // this.activeModule(Variables.module) =  { "data": {} };
     //  }
    
-     clear () {
+    /**
+     * Clear canvas to add new nodes
+     */
+     protected clear (): void {
          if (Variables.precanvas) {
              Variables.precanvas.innerHTML = "";
              // Variables.drawflow = { "drawflow": { "Home": { "data": {} }}};
@@ -787,9 +794,12 @@ export class FlowTool extends DataFlowBaseClass {
     //  //   return dataExport;
     //  }
    
-    /**
-     * Import data frome external source
-     */
+   /**
+    * 
+    * @param data DataFlow data
+    * @param notifi dispatch event when data has been imported
+    * @returns 
+    */
      public ImportData (data: DrawFlowModel, notifi: boolean = true): void {
 
       /**
@@ -818,25 +828,25 @@ export class FlowTool extends DataFlowBaseClass {
      }
    
      /* Events */
-     public OnEvent(event: any, callback: any): void | boolean {
-          // Check if the callback is not a function
-          if (typeof callback !== 'function') {
-              console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
-              return false;
-          }
-          // Check if the event is not a string
-          if (typeof event !== 'string') {
-              console.error(`The event name must be a string, the given type is ${typeof event}`);
-              return false;
-          }
-          // Check if this event not exists
-          if (Variables.events[event] === undefined) {
-              Variables.events[event] = {
-                  listeners: []
-              }
-          }
-          Variables.events[event].listeners.push(callback);
-      }
+    //  public OnEvent(event: any, callback: any): void | boolean {
+    //       // Check if the callback is not a function
+    //       if (typeof callback !== 'function') {
+    //           console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
+    //           return false;
+    //       }
+    //       // Check if the event is not a string
+    //       if (typeof event !== 'string') {
+    //           console.error(`The event name must be a string, the given type is ${typeof event}`);
+    //           return false;
+    //       }
+    //       // Check if this event not exists
+    //       if (Variables.events[event] === undefined) {
+    //           Variables.events[event] = {
+    //               listeners: []
+    //           }
+    //       }
+    //       Variables.events[event].listeners.push(callback);
+    //   }
    
     //   removeListener (event: any, callback: any) {
     //       // Check if this event not exists
