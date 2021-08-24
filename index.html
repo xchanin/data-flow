@@ -231,7 +231,7 @@
                         {
                             "connections":
                             [
-                                {"node":"7","input":"output_1"}
+                                {"node":"9","input":"output_1"}
                             ]
                         }
                     },"outputs":{},
@@ -263,61 +263,61 @@
                     "pos_x":1032,
                     "pos_y":184
                     },
-                    "4":
+                "4":
+                {
+                    "id":4,
+                    "name":"email",
+                    "data":{},
+                    "class":"email",
+                    "html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-at\"></i> Send Email </div>\n            </div>\n            ", 
+                    "typenode": false, 
+                    "inputs":
                     {
-                        "id":4,
-                        "name":"email",
-                        "data":{},
-                        "class":"email",
-                        "html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-at\"></i> Send Email </div>\n            </div>\n            ", 
-                        "typenode": false, 
-                        "inputs":
+                        "input_1":
                         {
-                            "input_1":
-                            {
-                                "connections":
-                                [
-                                    {"node":"5","input":"output_1"}
-                                ]
-                            }
-                        },
-                        "outputs":{},
-                        "pos_x":1033,
-                        "pos_y":439
+                            "connections":
+                            [
+                                {"node":"5","input":"output_1"} // input from template
+                            ]
+                        }
                     },
-                    "5":
+                    "outputs":{},
+                    "pos_x":1033,
+                    "pos_y":439
+                },
+                "5":
+                {
+                    "id":5,
+                    "name":"template",
+                    "data":
+                    {
+                        "template":"Write your template"
+                    },
+                    "class":"template",
+                        "html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-code\"></i> Template</div>\n              <div class=\"box\">\n                Ger Vars\n                <textarea df-template></textarea>\n                Output template with vars\n              </div>\n            </div>\n            ", 
+                "typenode": false, 
+                "inputs":
+                {
+                    "input_1":
+                    {
+                        "connections":[
+                            {"node":"8","input":"output_1"} // input from template
+                        ]
+                    }
+                },
+                    "outputs":
+                    {
+                        "output_1":
                         {
-                            "id":5,
-                            "name":"template",
-                            "data":
-                            {
-                                "template":"Write your template"
-                            },
-                            "class":"template",
-                                "html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-code\"></i> Template</div>\n              <div class=\"box\">\n                Ger Vars\n                <textarea df-template></textarea>\n                Output template with vars\n              </div>\n            </div>\n            ", 
-                        "typenode": false, 
-                        "inputs":
-                        {
-                            "input_1":
-                            {
-                                "connections":[
-                                    {"node":"8","input":"output_1"}
-                                ]
-                            }
-                        },
-                        "outputs":
-                        {
-                            "output_1":
-                            {
-                                "connections":
-                                [
-                                    {"node":"4","output":"input_1"},
-                                    { "node":"11","output":"input_1"}
-                                ]
-                            }
-                        },
-                        "pos_x":607,
-                        "pos_y":304
+                            "connections":
+                            [
+                                { "node":"4","output":"input_1" }, // output to email
+                                { "node":"11","output":"input_1" } // output to log file
+                            ]
+                        }
+                    },
+                    "pos_x":607,
+                    "pos_y":304
                     },
                     "6":
                     {
@@ -359,7 +359,7 @@
                             {
                                 "connections":
                                 [
-                                    {"node":"2","output":"input_1"},
+                                    {"node": "9", "output": "input_1"},
                                     {"node":"3","output":"input_1"},
                                     {"node":"11","output":"input_1"}
                                 ]
@@ -367,50 +367,57 @@
                         },
                         "pos_x":347,
                         "pos_y":87},
-                        "8":
+                    "8":
+                    {
+                        "id":8,
+                        "name":"diamondTest",
+                        "data":{},
+                        "class":"",
+                        "html":"\n<div>\n<div>DDD</div>\n</div>\n", 
+                        "typenode": false, 
+                        "inputs":
                         {
-                            "id":8,
-                            "name":"diamondTest",
-                            "data":{},
-                            "class":"",
-                            "html":"\n<div>\n<div>DDD</div>\n</div>\n", 
-                            "typenode": false, 
-                            "inputs":
+                            "input_1":
                             {
-                                "input_1":
-                                {
-                                    "connections":[{"node":"6","input":"output_1"}]
-                                }
-                            },
-                            "outputs":
+                                "connections":[{"node":"6","input":"output_1"}] // input connection from github
+                            }
+                        },
+                        "outputs":
+                        {
+                            "output_1":{} // seems to need at least an empty output to show the output marker
+                        },
+                        "pos_x":350,
+                        "pos_y":450,
+                        "shape": "diamond"
+                    },
+                    "9":
+                    {
+                        "id":9,
+                        "name":"circleTest",
+                        "data":{},
+                        "class":"",
+                        "html":"\n<div>\n<div>circle</div>\n</div>\n", 
+                        "typenode": false, 
+                        "inputs":{
+                          "input_1":
                             {
-                                "output_1":
+                                "connections":[{"node":"7","input":"output_1"}] 
+                            }
+                        },
+                        "outputs":{
+                          "output_1":
                             {
                                 "connections":
                                 [
-                                    
+                                    {"node":"2","output":"input_1"}
                                 ]
                             }
-                            },
-                            "pos_x":350,
-                            "pos_y":450,
-                            "shape": "diamond"
                         },
-                        "9":
-                        {
-                            "id":9,
-                            "name":"circleTest",
-                            "data":{},
-                            "class":"",
-                            "html":"\n<div>\n<div>circle</div>\n</div>\n", 
-                            "typenode": false, 
-                            "inputs":{},
-                            "outputs":{},
-                            "pos_x":350,
-                            "pos_y":550,
-                            "shape": "circle"
-                        },
-                        "11":
+                        "pos_x":700,
+                        "pos_y":75,
+                        "shape": "circle"
+                    },
+                    "11":
                         {
                             "id":11,
                             "name":"log",
