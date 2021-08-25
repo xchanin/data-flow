@@ -310,6 +310,9 @@ export class FlowTool extends DataFlowBaseClass {
         node.classList.add("drawflow-node");
 
 
+        /**
+         * Change node shape
+         */
         if (dataNode.shape === 'diamond') {
           node.classList.add('diamond');
         }

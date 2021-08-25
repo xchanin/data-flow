@@ -33,9 +33,26 @@
     transform: rotate(-45deg) !important;
   }
   
+  .drawflow .diamond {
+    background-color: #43b993 !important;
+  }
+
+  .diamond .inputs {
+    position: absolute;
+    left: 0;
+    top: -10px !important;
+  }
+
+  .diamond .outputs {
+    position: absolute;
+    right: 0;
+    bottom: 10px !important;
+  }
+
   .drawflow .drawflow-node {
     display: flex;
     align-items: center;
+    justify-content: center;
     position: absolute;
     background: rgb(0, 183, 255);
     width: 160px;
@@ -58,15 +75,27 @@
   .drawflow .drawflow-node .inputs, .drawflow .drawflow-node .outputs {
     width: 0px;
   }
+
+  .drawflow .drawflow-node .inputs {
+    top: -10px;
+    position:absolute;
+  }
+
+  .drawflow .drawflow-node .outputs {
+    bottom: 10px;
+    position:absolute;
+  }
   
   .drawflow .drawflow-node .drawflow_content_node {
     width: 100%;
     display: block;
   }
   
+  /**
+  * Input and Output Connectors
+  */
   .drawflow .drawflow-node .input, .drawflow .drawflow-node .output {
-  
-    position: relative;
+
     width: 20px;
     height: 20px;
     background: white;
@@ -74,17 +103,24 @@
     border: 2px solid black;
     cursor: crosshair;
     z-index: 1;
-    margin-bottom: 5px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
   }
 
   .drawflow .drawflow-node .input {
-    left: -27px;
-    top: 2px;
+    /* left: -27px;
+    top: 2px; */
+    /* top: 0; */
+    /* top: -20px; */
     background: yellow;
+    /* transform: rotate(-45deg) !important; */
   }
   .drawflow .drawflow-node .output {
-    right: -3px;
-    top: 2px;
+    /* right: -3px;
+    top: 2px; */
+    /* bottom: 0; */
+    /* bottom: -20px; */
   }
   
   .drawflow svg {
