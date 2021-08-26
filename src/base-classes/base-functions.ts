@@ -1,6 +1,6 @@
 import { Variables } from './../utils/variables.js';
 import { DrawingUtils } from '../utils/drawing.utils.js';
-import { DrawFlowModel } from '../models/drawflow.model.js';
+import { DataFlowDataModel } from '../models/dataflow-data.model.js';
 
 export class BaseFunctions {
 
@@ -9,9 +9,9 @@ export class BaseFunctions {
       * @param module module name
       * @returns active module
       */
-    protected activeModule(moduleName?: string): DrawFlowModel | any {
+    protected activeModule(moduleName?: string): DataFlowDataModel | any {
 
-        const t = Variables.DataFlowModuleData.find((e: DrawFlowModel) => {
+        const t = Variables.DataFlowModuleData.find((e: DataFlowDataModel) => {
             if (moduleName) {
                 return e.Module === moduleName;
             }
@@ -23,6 +23,7 @@ export class BaseFunctions {
     }
 
     protected updateConnectionNodes(id: any): void {
+        debugger;
         // Aquí nos quedamos;
         const idSearch = 'node_in_' + id;
         const idSearchOut = 'node_out_' + id;
@@ -377,6 +378,7 @@ export class BaseFunctions {
     }
 
     protected addConnection(id_output: any, id_input: any, output_class: any, input_class: any): void {
+        debugger;
         var nodeOneModule: any = this.getModuleFromNodeId(id_output);
         var nodeTwoModule: any = this.getModuleFromNodeId(id_input);
         if (nodeOneModule === nodeTwoModule) {

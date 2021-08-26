@@ -1,4 +1,4 @@
-import { DrawFlowModel } from "../models/drawflow.model";
+import { DataFlowDataModel } from "../models/dataflow-data.model";
 import { MenuTemplateModel } from "../models/menu/menu-template.model";
 
 export class Variables {
@@ -40,7 +40,7 @@ export class Variables {
     public static noderegister: any = {};
     public static render: any;
 
-    public static DataFlowModuleData: Array<DrawFlowModel> = [];
+    public static DataFlowModuleData: Array<DataFlowDataModel> = [];
 
     // Configurable options
     public static module: string = 'Home';

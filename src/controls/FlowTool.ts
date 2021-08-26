@@ -1,6 +1,6 @@
 import { Variables } from "../utils/variables.js";
 import { DataFlowBaseClass } from "../base-classes/data-flow-base-class.js";
-import { DrawFlowModel } from "../models/drawflow.model.js";
+import { DataFlowDataModel } from "../models/dataflow-data.model.js";
 import { ContainerEvent } from "../models/nodes/container-event.model.js";
 import { Events } from "../utils/events.js";
 
@@ -738,7 +738,7 @@ export class FlowTool extends DataFlowBaseClass {
     //  addModule(name: any) {
     //  //   Variables.drawflow.drawflow[name] =  { "data": {} };
  
-    //    const newModule: DrawFlowModel = new DrawFlowModel(
+    //    const newModule: DataFlowDataModel = new DataFlowDataModel(
     //        {
     //            Data: {},
     //            Module: name
@@ -777,7 +777,7 @@ export class FlowTool extends DataFlowBaseClass {
     //    }
     //    // delete Variables.drawflow.drawflow[name];
  
-    //    const index: number = Variables.DataFlowModuleData.findIndex((e:DrawFlowModel) => {
+    //    const index: number = Variables.DataFlowModuleData.findIndex((e:DataFlowDataModel) => {
     //      return e.Module === 'name';
     //    });
  
@@ -791,7 +791,7 @@ export class FlowTool extends DataFlowBaseClass {
     //  clearModuleSelected() {
     //    Variables.precanvas.innerHTML = "";
  
-    //    Variables.DataFlowModuleData.find((e: DrawFlowModel) => {
+    //    Variables.DataFlowModuleData.find((e: DataFlowDataModel) => {
     //      if (e.Module === Variables.module) {
     //          e.Data = {};
     //      }
@@ -822,7 +822,7 @@ export class FlowTool extends DataFlowBaseClass {
     * @param notifi dispatch event when data has been imported
     * @returns 
     */
-     public ImportData (data: DrawFlowModel, notifi: boolean = true): void {
+     public ImportData (data: DataFlowDataModel, notifi: boolean = true): void {
 
       /**
        * If no data, then ignore functionality
@@ -833,7 +833,7 @@ export class FlowTool extends DataFlowBaseClass {
 
          this.clear();
   
-         const flowData: DrawFlowModel = new DrawFlowModel(
+         const flowData: DataFlowDataModel = new DataFlowDataModel(
             {
                 Data: JSON.parse(JSON.stringify(data)).Data, 
                 Module: data.Module
