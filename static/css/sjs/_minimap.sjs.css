@@ -1,0 +1,14 @@
+#minimap {
+    background-color: rgba(0,0,0,0.15);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 150px !important;
+    height: 150px !important;
+    z-index: 100;
+  }
+  #minmap-canvas{
+    width: 150px !important;
+    height: 150px !important;
+  }
+

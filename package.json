@@ -39,7 +39,9 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@semanticjs/common": "^0.0.17"
+    "@semanticjs/common": "^0.0.17",
+    "html2canvas": "^1.3.2",
+    "pagemap": "^1.4.0"
   },
   "module": "./packages/es/common.js",
   "files": [
