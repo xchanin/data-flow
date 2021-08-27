@@ -97,6 +97,11 @@ export class FlowTool extends DataFlowBaseClass {
      public Start (): void {
 
       /**
+       * Initialize UI events
+       */
+      Events.InitializeDispatchedEvents();
+
+      /**
        * Parent container
        */
        Variables.container.classList.add("parent-drawflow");
@@ -167,25 +172,28 @@ export class FlowTool extends DataFlowBaseClass {
      * @returns 
      */
      public AddNode (
-       name: any, 
-       num_in: any, 
-       num_out: any, 
-       ele_pos_x: any, 
-       ele_pos_y: any, 
-       classoverride: any, 
+       name: string, 
+       num_in: number, 
+       num_out: number, 
+       ele_pos_x: number, 
+       ele_pos_y: number, 
+       classoverride: string, 
        data: any, 
-       html: any, 
+       html: string, 
        typenode = false): void {
+
         let newNodeId: any;
-          if (Variables.useuuid) {
+
+        if (Variables.useuuid) {
           newNodeId = this.getUuid();
         } else {
           newNodeId = Variables.nodeId;
         }
-        const parent = document.createElement('div');
+
+        const parent: HTMLElement = document.createElement('div');
         parent.classList.add("parent-node");
     
-        const node = document.createElement('div');
+        const node: HTMLElement = document.createElement('div');
         node.innerHTML = "";
         node.setAttribute("id", "node-"+newNodeId);
         node.classList.add("drawflow-node");
@@ -194,10 +202,10 @@ export class FlowTool extends DataFlowBaseClass {
           node.classList.add(classoverride);
         }
     
-        const inputs = document.createElement('div');
+        const inputs: HTMLElement = document.createElement('div');
         inputs.classList.add("inputs");
     
-        const outputs = document.createElement('div');
+        const outputs: HTMLElement = document.createElement('div');
         outputs.classList.add("outputs");
     
         const json_inputs: any = {}
@@ -280,7 +288,8 @@ export class FlowTool extends DataFlowBaseClass {
         node.style.left = ele_pos_x + "px";
         parent.appendChild(node);
         Variables.precanvas.appendChild(parent);
-        var json = {
+
+        const json = {
           id: newNodeId,
           name: name,
           data: data,

@@ -1,6 +1,7 @@
 import { Variables } from './../utils/variables.js';
 import { DrawingUtils } from '../utils/drawing.utils.js';
 import { DataFlowDataModel } from '../models/dataflow-data.model.js';
+import { ConstantUtils } from '../utils/constants.utils.js';
 
 export class BaseFunctions {
 
@@ -21,10 +22,9 @@ export class BaseFunctions {
 
         return t;
     }
-
+   
     protected updateConnectionNodes(id: any): void {
-        debugger;
-        // Aquí nos quedamos;
+      
         const idSearch = 'node_in_' + id;
         const idSearchOut = 'node_out_' + id;
         var line_path = Variables.line_path / 2;

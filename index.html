@@ -69,10 +69,6 @@
         </div>
       </div>
       
-    <!-- <script type="text/typescript">
-       const typescriptCodeArray: Array<string>;
-    </script> -->
-
    <script id="sjs-flow-tool" type="module">
         import { 
           FlowTool, 
@@ -80,126 +76,18 @@
           Variables, 
           Events,
           ConstantUtils,
-          NodeTemplates } from './packages/es/index.js';
+          NodeTemplates,
+          DragItemsTemplates } from './packages/es/index.js';
 
         let id = document.getElementById("drawflow");
         let flowTool = new FlowTool(id);
-        let events = new Events();
-        let menuTemplates = [
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'facebook',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'facebook',
-                Label: ' Facebook',
-                IconClassList: ['fab', 'fa-facebook']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'slack',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'slack',
-                Label: ' Slack receive messages',
-                IconClassList: ['fab', 'fa-slack']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'github',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'slack',
-                Label: ' Github Star',
-                IconClassList: ['fab', 'fa-github']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'telegram',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'telegram',
-                Label: ' Telegram send message',
-                IconClassList: ['fab', 'fa-telegram']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'aws',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'aws',
-                Label: ' AWS',
-                IconClassList: ['fab', 'fa-aws']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'log',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'log',
-                Label: ' File Log',
-                IconClassList: ['fas', 'fa-file-signature']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'google',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'google',
-                Label: ' Google Drive save',
-                IconClassList: ['fab', 'fa-google-drive']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'email',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'email',
-                Label: ' Email',
-                IconClassList: ['fas', 'fa-at']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'template',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'template',
-                Label: ' Template',
-                IconClassList: ['fas', 'fa-code']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'multiple',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'multiple',
-                Label: ' Multiple',
-                IconClassList: ['fas', 'fa-code-branch']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'personalized',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'personalized',
-                Label: ' Personalized',
-                IconClassList: ['fas', 'fa-fill']
-            },
-            {
-                ClassList: ['drag-drawflow'],
-                DataNode: 'dbclick',
-                Draggable: true,
-                DragAction: drag,
-                Id: 'dbclick',
-                Label: ' DBClick!',
-                IconClassList: ['fas', 'fa-mouse']
-            }
-        ];
 
         /**
          * Create side menu of draggable items
+         * 
+         * This calls MENU_TEMPLATES, but can be any external source
         */
-        MenuTemplates.Render(document.getElementById('drag-items'), menuTemplates);
+        MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.MENU_TEMPLATES(drag));
 
         // Variables.reroute = true;
         // Variables.reroute_fix_curvature = true;
@@ -217,41 +105,6 @@
         flowTool.Start();
         flowTool.ImportData(Variables.DataFlowModuleData[0]);
         
-
-    // Events!
-
-    const flowDispatchedEvents = [
-        { Event: 'mouseMove', Message: 'Mouse position', Params: ['x','y'] },
-        { Event: 'nodeMoved', Message: 'Node moved' },
-        { Event: 'nodeCreated', Message: 'Node created' },
-        { Event: 'nodeRemoved', Message: 'Node removed' },
-        { Event: 'nodeSelected', Message: 'Node selected' },
-        { Event: 'moduleCreated', Message: 'Module created' },
-        { Event: 'moduleChanged', Message: 'Module Changed' },
-        { Event: 'connectionCreated', Message: 'Connection created' },
-        { Event: 'zoom', Message: 'Zoom' },
-        { Event: 'translate', Message: 'Translate' },
-        { Event: 'addReroute', Message: 'Add reroute' },
-        { Event: 'removeReroute', Message: 'Remove reroute' }
-    ]
-
-     /**
-     * Events that are dispatched from base-functions.Dispatch
-    */
-    for (const e of flowDispatchedEvents) {
-        // events.OnEvent(e.Event, e.Callback);
-        events.OnEvent(e.Event, (val) => {
-
-                if (e.Params && e.Params.length > 0) {
-                    for (const v of e.Params) {
-                        console.log(e.Message + ' ' + v + ': ' + val[v]);
-                    }
-                } else {
-                    console.log(e.Message + ' ' + val);
-            }
-        })
-    }
-
     /* DRAG EVENT */
 
     /* Mouse and Touch Actions */
@@ -263,9 +116,6 @@
         elements[i].addEventListener('touchmove', positionMobile, false);
         elements[i].addEventListener('touchstart', drag, false );
     }
-
-    // document.querySelector('#hello').addEventListener('touchstart', drag, false);
-    // console.log("DRAG DIV ", document.querySelector('#hello'));
 
     let mobile_item_selec = '';
     let mobile_last_move = null;
@@ -305,7 +155,7 @@
     }
 
     function addNodeToDrawFlow(name, pos_x, pos_y) {
-      if(flowTool.editor_mode === 'fixed') {
+      if(Variables.editor_mode === 'fixed') {
         return false;
       }
       pos_x = pos_x * ( Variables.precanvas.clientWidth / (Variables.precanvas.clientWidth * Variables.zoom)) - (Variables.precanvas.getBoundingClientRect().x * ( Variables.precanvas.clientWidth / (Variables.precanvas.clientWidth * Variables.zoom)));
@@ -356,6 +206,7 @@
     }
 
   var transform = '';
+
   function showpopup(e) {
     e.target.closest(".drawflow-node").style.zIndex = "9999";
     e.target.children[0].style.display = "block";
@@ -363,14 +214,14 @@
 
     //e.target.children[0].style.transform = 'translate('+translate.x+'px, '+translate.y+'px)';
     transform = flowTool.precanvas.style.transform;
-    flowTool.precanvas.style.transform = '';
-    flowTool.precanvas.style.left = flowTool.canvas_x +'px';
-    flowTool.precanvas.style.top = flowTool.canvas_y +'px';
+    Variables.precanvas.style.transform = '';
+    Variables.precanvas.style.left = Variables.canvas_x +'px';
+    Variables.precanvas.style.top = Variables.canvas_y +'px';
     console.log(transform);
 
     //e.target.children[0].style.top  =  -flowTool.canvas_y - flowTool.container.offsetTop +'px';
     //e.target.children[0].style.left  =  -flowTool.canvas_x  - flowTool.container.offsetLeft +'px';
-    flowTool.editor_mode = "fixed";
+    Variables.editor_mode = "fixed";
 
   }
 
@@ -378,10 +229,10 @@
      e.target.closest(".drawflow-node").style.zIndex = "2";
      e.target.parentElement.parentElement.style.display  ="none";
      //document.getElementById("modalfix").style.display = "none";
-     flowTool.precanvas.style.transform = transform;
-     flowTool.precanvas.style.left = '0px';
-     flowTool.precanvas.style.top = '0px';
-     flowTool.editor_mode = "edit";
+     Variables.precanvas.style.transform = transform;
+     Variables.precanvas.style.left = '0px';
+     Variables.precanvas.style.top = '0px';
+     Variables.editor_mode = "edit";
    }
 
    /**
@@ -410,25 +261,13 @@
     /**
      * Need to create global properties, so we 
      * have access to variables from within
+     * 
+     * We don't want to do this, but this works for now - shannon
      **/
         window.allowDrop = allowDrop;
         window.drop = drop;
         window.flowTool = flowTool;
         window.menuTabSelected = menuTabSelected;
     </script>
-
-
-
-    <!-- <style>
-        .connection.github.output_1 path {
-            stroke: red;
-        }
-
-        .connection.github.output_2 path {
-            stroke: green;
-        }
-   </style> -->
-    <!-- <script type="text/javascript" src="./typescript-compiler/typescript.min.js"></script>
-    <script type="text/javascript" src="./typescript-compiler/typescript.compile.min.js"></script> -->
 </body>
 </html>

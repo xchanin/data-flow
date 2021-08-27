@@ -1,3 +1,4 @@
+import { DispatchedEventsModel } from './../models/events/dispatched-events.model';
 import { DataFlowDataModel } from "../models/dataflow-data.model.js";
 import { NodeTemplates } from "../templates/node-templates.js";
 
@@ -375,6 +376,20 @@ export class ConstantUtils {
                         "pos_y": 272
                     }
                 }
-            }
+    }
 
+    public static DISPATCHED_EVENTS = [
+        { Event: 'mouseMove', Message: 'Mouse position', Params: ['x','y'] },
+        { Event: 'nodeMoved', Message: 'Node moved' },
+        { Event: 'nodeCreated', Message: 'Node created' },
+        { Event: 'nodeRemoved', Message: 'Node removed' },
+        { Event: 'nodeSelected', Message: 'Node selected' },
+        { Event: 'moduleCreated', Message: 'Module created' },
+        { Event: 'moduleChanged', Message: 'Module Changed' },
+        { Event: 'connectionCreated', Message: 'Connection created' },
+        { Event: 'zoom', Message: 'Zoom' },
+        { Event: 'translate', Message: 'Translate' },
+        { Event: 'addReroute', Message: 'Add reroute' },
+        { Event: 'removeReroute', Message: 'Remove reroute' }
+    ]
 }

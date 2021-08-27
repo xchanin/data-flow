@@ -1,4 +1,6 @@
+import { DispatchedEventsModel } from './../models/events/dispatched-events.model.js';
 import { ContainerEvent } from '../models/nodes/container-event.model.js';
+import { ConstantUtils } from './constants.utils.js';
 import { Variables } from './variables.js';
 
 export class Events {
@@ -14,7 +16,7 @@ export class Events {
         }
     }
 
-    public OnEvent(event: any, callback: any): void | boolean {
+    public static OnEvent(event: any, callback: any): void | boolean {
         // Check if the callback is not a function
         if (typeof callback !== 'function') {
             console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
@@ -35,14 +37,29 @@ export class Events {
         Variables.events[event].listeners.push(callback);
     }
 
-    // public static UiOnEvent(el: any, event: string, type: any, message: string): void {
-    //     debugger;
-    //     el.OnEvent(event, (e: any) => {
-    //         console.log(message + ': ' + e);
-    //       })
+ /**
+     * Events that are dispatched from base-functions.Dispatch
+    */
+    public static InitializeDispatchedEvents(): void {
+       
+        for (const e of ConstantUtils.DISPATCHED_EVENTS) {
+            // events.OnEvent(e.Event, e.Callback);
+            Events.OnEvent(e.Event, (val: DispatchedEventsModel["Params"] | string) => {
+                if (val && e.Params && e.Params.length > 0) {
+                    for (let v of e.Params) {
 
-    //     //   flowTool.OnEvent('nodeMoved', function(id) {
-    //     //     console.log("Node moved " + id);
-    //     //   })
-    // }
+                        /**
+                         * have to explicitly type 'v,' so we can index properly - shannon
+                         * this currently only outputs to the console, but we can do whatever
+                         * when one of the events occur
+                         */
+                       
+                        console.log(e.Message + ' ' + v + ': ' + val[v as keyof DispatchedEventsModel['Params']]);
+                    }
+                } else {
+                    console.log(e.Message + ' ' + val);
+                }
+            })
+        }
+    }
 }
