@@ -327,6 +327,7 @@ export class DataFlowBaseClass extends BaseFunctions {
             Variables.ele_selected.classList.add("selected");
         break;
         case 'drawflow-delete':
+          debugger;
           if(Variables.node_selected ) {
             this.removeNodeId(Variables.node_selected.id);
           }
@@ -370,6 +371,7 @@ export class DataFlowBaseClass extends BaseFunctions {
         return false;
       }
       if(Variables.precanvas.getElementsByClassName("drawflow-delete").length) {
+        debugger;
         Variables.precanvas.getElementsByClassName("drawflow-delete")[0].remove()
       };
       if(Variables.node_selected || Variables.connection_selected) {

@@ -364,21 +364,26 @@ export class BaseFunctions {
 
     }
 
-    protected getModuleFromNodeId(id: any): void {
-        var nameModule;
-        const editor: any = this.activeModule(Variables.module)
-        Object.keys(editor).map(function (moduleName, index) {
-            Object.keys(editor[moduleName].data).map(function (node, index2) {
-                if (node == id) {
-                    nameModule = moduleName;
-                }
-            })
-        });
+    protected getModuleFromNodeId(id: string): any {
+
+        let nameModule: string = '';
+
+        /**
+         * Current module
+         */
+        const editor: DataFlowDataModel = this.activeModule(Variables.module);
+
+        Object.keys(editor.Data).map((node, index2) => {
+            if (node == id) {
+                nameModule = editor.Module;
+            }
+        })
+        
         return nameModule;
     }
 
     protected addConnection(id_output: any, id_input: any, output_class: any, input_class: any): void {
-        debugger;
+       
         var nodeOneModule: any = this.getModuleFromNodeId(id_output);
         var nodeTwoModule: any = this.getModuleFromNodeId(id_input);
         if (nodeOneModule === nodeTwoModule) {
@@ -483,7 +488,7 @@ export class BaseFunctions {
         }
     }
 
-    protected removeNodeId(id: any): void {
+    protected removeNodeId(id: string): void {
         this.removeConnectionNodeId(id);
         var moduleName: any = this.getModuleFromNodeId(id.slice(5))
         if (Variables.module === moduleName) {
@@ -503,8 +508,9 @@ export class BaseFunctions {
     }
 
     protected contextmenuDel(): void {
+
         if (Variables.precanvas.getElementsByClassName("drawflow-delete").length) {
-            Variables.precanvas.getElementsByClassName("drawflow-delete")[0].remove()
+            Variables.precanvas.getElementsByClassName("drawflow-delete")[0].remove();
         };
     }
 
