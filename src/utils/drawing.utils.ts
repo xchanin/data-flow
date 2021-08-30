@@ -81,8 +81,8 @@ export class DrawingUtils {
         precanvasHeightZoom = precanvasHeightZoom || 0;
         var path = variables.connection_ele.children[0];
     
-        var line_x = variables.ele_selected.offsetWidth/2 + (variables.ele_selected.getBoundingClientRect().x - precanvas.getBoundingClientRect().x ) * precanvasWitdhZoom;
-        var line_y = variables.ele_selected.offsetHeight/2 + (variables.ele_selected.getBoundingClientRect().y - precanvas.getBoundingClientRect().y ) * precanvasHeightZoom;
+        var line_x = variables.SelectedElement.offsetWidth/2 + (variables.SelectedElement.getBoundingClientRect().x - precanvas.getBoundingClientRect().x ) * precanvasWitdhZoom;
+        var line_y = variables.SelectedElement.offsetHeight/2 + (variables.SelectedElement.getBoundingClientRect().y - precanvas.getBoundingClientRect().y ) * precanvasHeightZoom;
     
         var x = eX * ( variables.precanvas.clientWidth / (variables.precanvas.clientWidth * variables.zoom)) - (variables.precanvas.getBoundingClientRect().x *  ( variables.precanvas.clientWidth / (variables.precanvas.clientWidth * variables.zoom)) );
         var y = eY * ( variables.precanvas.clientHeight / (variables.precanvas.clientHeight * variables.zoom)) - (variables.precanvas.getBoundingClientRect().y *  ( variables.precanvas.clientHeight / (variables.precanvas.clientHeight * variables.zoom)) );

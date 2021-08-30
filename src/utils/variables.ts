@@ -7,15 +7,15 @@ export class Variables {
     public static container: HTMLElement | any;
     public static precanvas: HTMLElement | any;
     public static nodeId = 1;
-    public static ele_selected: any = null;
+    public static SelectedElement: HTMLElement | any;
 
     public static node_selected: any = null;
     public static drag: any = false;
     public static reroute: any = false;
-    public static reroute_fix_curvature: any = false;
+    public static RerouteFixCurvature: any = false;
     public static curvature: any = 0.5;
-    public static reroute_curvature_start_end: any = 0.5;
-    public static reroute_curvature: any = 0.5;
+    public static RerouteCurvatureStartEnd: any = 0.5;
+    public static RerouteCurvature: any = 0.5;
     public static reroute_width: any = 6;
     public static drag_point: any = false;
     public static editor_selected: any = false;
