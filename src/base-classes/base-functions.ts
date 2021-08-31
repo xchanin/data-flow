@@ -17,7 +17,7 @@ export class BaseFunctions {
                 return e.Module === moduleName;
             }
 
-            return e.Module === Variables.CurrentModule;
+            return e.Module === Variables.ActiveModule;
         })
     }
    
@@ -364,7 +364,7 @@ export class BaseFunctions {
         /**
          * Current module
          */
-        const editor: DataFlowDataModel = this.activeModule(Variables.CurrentModule);
+        const editor: DataFlowDataModel = this.activeModule(Variables.ActiveModule);
 
         Object.keys(editor.Data).map((node, index2) => {
             if (node == id) {
@@ -395,7 +395,7 @@ export class BaseFunctions {
                 this.activeModule(nodeOneModule).data[id_output].outputs[output_class].connections.push({ "node": id_input.toString(), "output": input_class });
                 this.activeModule(nodeOneModule).data[id_input].inputs[input_class].connections.push({ "node": id_output.toString(), "input": output_class });
 
-                if (Variables.CurrentModule === nodeOneModule) {
+                if (Variables.ActiveModule === nodeOneModule) {
                     //Draw connection
                     var connection = document.createElementNS('http://www.w3.org/2000/svg', "svg");
                     var path = document.createElementNS('http://www.w3.org/2000/svg', "path");
@@ -423,15 +423,15 @@ export class BaseFunctions {
             var listclass = Variables.SelectedConnection.parentElement.classList;
             Variables.SelectedConnection.parentElement.remove();
             //console.log(listclass);
-            var index_out = this.activeModule(Variables.CurrentModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
+            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[1].slice(13) && item.output === listclass[4]
             });
-            this.activeModule(Variables.CurrentModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
 
-            var index_in = this.activeModule(Variables.CurrentModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
+            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[2].slice(14) && item.input === listclass[3]
             });
-            this.activeModule(Variables.CurrentModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
             this.Dispatch('connectionRemoved', { output_id: listclass[2].slice(14), input_id: listclass[1].slice(13), output_class: listclass[3], input_class: listclass[4] });
             Variables.SelectedConnection = null;
         }
@@ -445,15 +445,15 @@ export class BaseFunctions {
         for (var i = elemsOut.length - 1; i >= 0; i--) {
             var listclass = elemsOut[i].classList;
 
-            var index_in = this.activeModule(Variables.CurrentModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
+            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[2].slice(14) && item.input === listclass[3]
             });
-            this.activeModule(Variables.CurrentModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
 
-            var index_out = this.activeModule(Variables.CurrentModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
+            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[1].slice(13) && item.output === listclass[4]
             });
-            this.activeModule(Variables.CurrentModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
 
             elemsOut[i].remove();
 
@@ -465,15 +465,15 @@ export class BaseFunctions {
 
             var listclass = elemsIn[i].classList;
 
-            var index_out = this.activeModule(Variables.CurrentModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
+            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[1].slice(13) && item.output === listclass[4]
             });
-            this.activeModule(Variables.CurrentModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
 
-            var index_in = this.activeModule(Variables.CurrentModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
+            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[2].slice(14) && item.input === listclass[3]
             });
-            this.activeModule(Variables.CurrentModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
 
             elemsIn[i].remove();
 
@@ -484,14 +484,14 @@ export class BaseFunctions {
     protected removeNodeId(id: string): void {
         this.removeConnectionNodeId(id);
         var moduleName: any = this.getModuleFromNodeId(id.slice(5))
-        if (Variables.CurrentModule === moduleName) {
+        if (Variables.ActiveModule === moduleName) {
 
             const remove = Variables.MainContainer.querySelector(`#${id}`);
             if (remove) {
                 remove.remove();
             }   
         }
-        delete this.activeModule(Variables.CurrentModule).Data[id.slice(5)];
+        delete this.activeModule(Variables.ActiveModule).Data[id.slice(5)];
         this.Dispatch('nodeRemoved', id.slice(5));
     }
 
@@ -513,7 +513,7 @@ export class BaseFunctions {
 
     protected getNodeFromId(id: any): any {
         var moduleName: any = this.getModuleFromNodeId(id)
-        return JSON.parse(JSON.stringify(this.activeModule(Variables.CurrentModule).Data[id]));
+        return JSON.parse(JSON.stringify(this.activeModule(Variables.ActiveModule).Data[id]));
     }
 
     public removeReroutePoint(ele: any): void {
@@ -526,7 +526,7 @@ export class BaseFunctions {
         let numberPointPosition = Array.from(ele.parentElement.children).indexOf(ele) - 1;
 
         const nodeId = nodeUpdate.slice(5);
-        const searchConnection = this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections.findIndex(function (item: any, i: any) {
+        const searchConnection = this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections.findIndex(function (item: any, i: any) {
             return item.node === nodeUpdateIn && item.output === input_class;
         });
 
@@ -539,7 +539,7 @@ export class BaseFunctions {
                 numberPointPosition = 0;
             }
         }
-        this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.splice(numberPointPosition, 1);
+        this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.splice(numberPointPosition, 1);
 
         ele.remove();
         this.Dispatch('removeReroute', nodeId);
@@ -584,20 +584,20 @@ export class BaseFunctions {
         }
 
         const nodeId = nodeUpdate.slice(5);
-        const searchConnection = this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections.findIndex(function (item: any, i: any) {
+        const searchConnection = this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections.findIndex(function (item: any, i: any) {
             return item.node === nodeUpdateIn && item.output === input_class;
         });
 
-        if (this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections[searchConnection].points === undefined) {
-            this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections[searchConnection].points = [];
+        if (this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections[searchConnection].points === undefined) {
+            this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections[searchConnection].points = [];
         }
 
         if (Variables.RerouteFixCurvature) {
             console.log(position_add_array_point)
             if (position_add_array_point > 0) {
-                this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.splice(position_add_array_point, 0, { pos_x: pos_x, pos_y: pos_y });
+                this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.splice(position_add_array_point, 0, { pos_x: pos_x, pos_y: pos_y });
             } else {
-                this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.push({ pos_x: pos_x, pos_y: pos_y });
+                this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.push({ pos_x: pos_x, pos_y: pos_y });
             }
 
             ele.parentElement.querySelectorAll(".main-path").forEach((item: any, i: any) => {
@@ -605,7 +605,7 @@ export class BaseFunctions {
             });
 
         } else {
-            this.activeModule(Variables.CurrentModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.push({ pos_x: pos_x, pos_y: pos_y });
+            this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections[searchConnection].points.push({ pos_x: pos_x, pos_y: pos_y });
         }
 
         this.Dispatch('addReroute', nodeId);
@@ -614,7 +614,7 @@ export class BaseFunctions {
 
     protected getNodesFromName(name: any): Array<any> {
         var nodes: Array<any> = [];
-        const editor: any = this.activeModule(Variables.CurrentModule)
+        const editor: any = this.activeModule(Variables.ActiveModule)
         Object.keys(editor).map(function (moduleName, index) {
             for (var node in editor[moduleName].data) {
                 if (editor[moduleName].data[node].name == name) {
