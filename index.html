@@ -893,20 +893,45 @@
         window.menuTabSelected = menuTabSelected;
     </script>
 
-    <div id="minimap"></div>
+<!-- <script>
+  console.log("hello");
+  setTimeout(()=> { 
 
-    <!-- <script src="./src/utils/pagemap.min.js"></script> -->
+  (()=>  {
 
-    <script>
-    setTimeout(function(){  
+      let c = document.getElementById("drawflow").children;
+
+      let a = document.getElementById("minimap");
+
+      let ctx = a.getContext("2d");
+
+      let img = document.getElementById("drawflow");
+      ctx.drawImage(img,10,10);
+
+      console.log("children");
+      let i;
+      for (i = 0; i < c.length; i++) {
+
+        console.log("height: ", c[i].clientHeight)
+        console.log("width: ", c[i].clientWidth)
+      }
+    })()
+
+  }, 1000);
+</script> -->
+
+    <!-- <div id="minimap"></div> -->
+    <canvas id="minimap"></canvas>
+
+
+
+
+<!-- HTML2CANVAS -->
+     <!-- <script>
+    setTimeout(() => {  
     var useWidth = document.getElementById("drawflow").style.width;
     var useHeight = document.getElementById("drawflow").style.height;
     let div = document.getElementById('drawflow');
-
-    // Use the html2canvas
-    // function to take a screenshot
-    // and append it
-    // to the output div
 
     html2canvas(div).then(
         
@@ -914,38 +939,33 @@
             document
             .getElementById('minimap')
             .appendChild(canvas)
-            .setAttribute("style","height: 150px; width: 150px;")
+            .setAttribute("style","height: 150px; width: 200px;")
         })
-
-        // html2canvas(div, {
-        //     width: useWidth,
-        //     height: useHeight,
-        //     onrendered: function(canvas) {
-        //         document
-        //     .getElementById('minimap')
-        //     .appendChild(canvas)
-        //     .setAttribute("style","height: 150px; width: 150px;")
-        //     }
-        // })
-
     }, 500);
-    </script>
+    </script> -->
 
-    <!-- <script>
+    <script src="./src/utils/pagemap.min.js"></script>
+
+
+    <script>
+      setTimeout(function(){ 
         /* mini-map initialization */
         pagemap(document.querySelector('#minimap')), {
         viewport: document.querySelector('#drawflow'),
         styles: {
-            'h2': 'rgba(255, 0, 41, 1)',
-            'title-box': 'rgba(0,0,0,0.3)',
-            'p,main-path': 'rgba(0,0,0,0.4)'
+            
+            'title-box': 'rgba(255,0,0,0.3)',
+            'main-path': 'rgba(0,0,0,0.4)'
         },
-        back: 'rgba(0,0,0,0.02)',
-        view: 'rgba(0,0,0,0.05)',
-        drag: 'rgba(0,0,0,0.10)',
+        // back: 'rgba(0,0,0,0.02)',
+        // view: 'rgba(0,0,0,0.05)',
+        // drag: 'rgba(0,0,0,0.10)',
         interval: null
     };
-     </script> -->
+  }, 500);
+     </script>
+
+     
 
     
 
