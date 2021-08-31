@@ -378,7 +378,7 @@ export class ConstantUtils {
                 }
     }
 
-    public static DISPATCHED_EVENTS = [
+    public static DISPATCHED_EVENTS: Array<DispatchedEventsModel> = [
         { Event: 'mouseMove', Message: 'Mouse position', Params: ['x','y'] },
         { Event: 'nodeMoved', Message: 'Node moved' },
         { Event: 'nodeCreated', Message: 'Node created' },

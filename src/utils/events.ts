@@ -16,7 +16,7 @@ export class Events {
         }
     }
 
-    public static OnEvent(event: any, callback: any): void | boolean {
+    public static OnEvent(event: string, callback: any): void | boolean {
         // Check if the callback is not a function
         if (typeof callback !== 'function') {
             console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
@@ -28,13 +28,14 @@ export class Events {
             return false;
         }
         // Check if this event not exists
-        if (Variables.events[event] === undefined) {
-            Variables.events[event] = {
+        if (Variables.Events[event] === undefined) {
+            Variables.Events[event] = 
+            {
                 listeners: []
             }
         }
-        
-        Variables.events[event].listeners.push(callback);
+
+        Variables.Events[event].listeners.push(callback);
     }
 
  /**

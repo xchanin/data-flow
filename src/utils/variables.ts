@@ -1,18 +1,42 @@
-import { DataFlowDataModel } from "../models/dataflow-data.model";
-import { MenuTemplateModel } from "../models/menu/menu-template.model";
+import { DataFlowDataModel } from "../models/dataflow-data.model.js";
+import { MenuTemplateModel } from "../models/menu/menu-template.model.js";
 
 export class Variables {
+    /**
+     * List of draggable menu items
+     */
     public static MenuTemplates: Array<MenuTemplateModel>;
-    public static events: any = {};
-    public static container: HTMLElement | any;
-    public static precanvas: HTMLElement | any;
-    public static nodeId = 1;
+
+    // public static Events: Array<DispatchedEventsModel>;
+    public static Events: any = {};
+    /**
+     * Main canvas container
+     */
+    public static MainContainer: HTMLElement | any;
+
+    /**
+     * pre canvas container that holds nodes
+     */
+    public static PreCanvas: HTMLElement | any;
+
+    /**
+     * Node id
+     */
+    public static NodeId: number = 1;
+
     public static SelectedElement: HTMLElement | any;
 
-    public static node_selected: any = null;
-    public static drag: any = false;
-    public static reroute: any = false;
-    public static RerouteFixCurvature: any = false;
+    public static SelectedNode: HTMLElement | any;
+
+    /**
+     * When an element is being dragged
+     */
+    public static Dragging: boolean = false;
+
+    public static Reroute: boolean = false;
+
+    public static RerouteFixCurvature: boolean = false;
+
     public static curvature: any = 0.5;
     public static RerouteCurvatureStartEnd: any = 0.5;
     public static RerouteCurvature: any = 0.5;
@@ -22,34 +46,45 @@ export class Variables {
     public static connection: any = false;
     public static connection_ele: any = null;
     public static connection_selected: any = null;
-    public static canvas_x: any = 0;
-    public static canvas_y: any = 0;
-    public static pos_x: any = 0;
-    public static pos_x_start: any = 0;
-    public static pos_y: any = 0;
-    public static pos_y_start: any = 0;
-    public static mouse_x: any = 0;
-    public static mouse_y: any = 0;
+    public static CanvasX: number = 0;
+    public static CanvasY: number = 0;
+    public static PosX: number = 0;
+    public static PosXStart: number = 0;
+    public static PosY: number = 0;
+    public static PosYStart: number = 0;
+    public static MouseX: number = 0;
+    public static MouseY: number = 0;
     public static line_path: any = 5;
     public static first_click: any = null;
     public static force_first_input: any = false;
     public static draggable_inputs: any = true;
     public static useuuid: any = false;
     public static parent: any;
-
     public static noderegister: any = {};
     public static render: any;
 
     public static DataFlowModuleData: Array<DataFlowDataModel> = [];
 
     // Configurable options
-    public static module: string = 'Home';
+    public static CurrentModule: string = 'Home';
     public static editor_mode: string = 'edit';
-    public static zoom: number = 1;
-    public static zoom_max: number = 1.6;
-    public static zoom_min: number = 0.5;
-    public static zoom_value: number = 0.1;
-    public static zoom_last_value: number = 1;
+
+    /**
+     * Zoom level
+     */
+    public static Zoom: number = 1;
+
+    /**
+     * Maximum zoom level
+     */
+    public static ZoomMax: number = 1.6;
+
+    /**
+     * Minmum zoom level
+     */
+    public static ZoomMin: number = 0.5;
+    public static ZoomValue: number = 0.1;
+    public static ZoomLastValue: number = 1;
 
     // Mobile
     public static evCache = new Array();

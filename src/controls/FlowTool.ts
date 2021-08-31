@@ -17,7 +17,7 @@ export class FlowTool extends DataFlowBaseClass {
  
          Variables.parent = parent;
          Variables.render = render;
-         Variables.container = container;
+         Variables.MainContainer = container;
  
          this.eventListeners = [
              {
@@ -104,20 +104,20 @@ export class FlowTool extends DataFlowBaseClass {
       /**
        * Parent container
        */
-       Variables.container.classList.add("parent-drawflow");
-       Variables.container.tabIndex = 0;
+       Variables.MainContainer.classList.add("parent-drawflow");
+       Variables.MainContainer.tabIndex = 0;
 
        /**
         * Container that holds everything
         */
-       Variables.precanvas = document.createElement('div');
-       Variables.precanvas.classList.add("drawflow");
-       Variables.container.appendChild(Variables.precanvas);
+       Variables.PreCanvas = document.createElement('div');
+       Variables.PreCanvas.classList.add("drawflow");
+       Variables.MainContainer.appendChild(Variables.PreCanvas);
  
      /**
       * add eventlisteners to the container
       */
-     Events.AddEventListeners(Variables.container, this.eventListeners);
+     Events.AddEventListeners(Variables.MainContainer, this.eventListeners);
  
        // Variables.load();
      }
@@ -127,21 +127,21 @@ export class FlowTool extends DataFlowBaseClass {
       */
      protected load(): void {
  
-      for (var key in this.activeModule(Variables.module).Data) {
-        this.addNodeImport(this.activeModule(Variables.module).Data[key], Variables.precanvas);
+      for (var key in this.activeModule(Variables.CurrentModule).Data) {
+        this.addNodeImport(this.activeModule(Variables.CurrentModule).Data[key], Variables.PreCanvas);
       }
 
-       if(Variables.reroute) {
-         for (var key in this.activeModule(Variables.module).Data) {
-           this.addRerouteImport(this.activeModule(Variables.module).Data[key]);
+       if(Variables.Reroute) {
+         for (var key in this.activeModule(Variables.CurrentModule).Data) {
+           this.addRerouteImport(this.activeModule(Variables.CurrentModule).Data[key]);
          }
        }
    
-       for (var key in this.activeModule(Variables.module).Data) {
+       for (var key in this.activeModule(Variables.CurrentModule).Data) {
          this.updateConnectionNodes('node-'+key);
        }
    
-       const flowTool: any = this.activeModule(Variables.module);
+       const flowTool: any = this.activeModule(Variables.CurrentModule);
        let number = 1;
        Object.keys(flowTool).map(function(key, index) {
          Object.keys(flowTool[key]).map(function(id, index2) {
@@ -150,7 +150,7 @@ export class FlowTool extends DataFlowBaseClass {
            }
          });
        });
-       Variables.nodeId = number;
+       Variables.NodeId = number;
      }
    
     //  registerNode(name: any, html: any, props = null, options = null) {
@@ -187,7 +187,7 @@ export class FlowTool extends DataFlowBaseClass {
         if (Variables.useuuid) {
           newNodeId = this.getUuid();
         } else {
-          newNodeId = Variables.nodeId;
+          newNodeId = Variables.NodeId;
         }
 
         const parent: HTMLElement = document.createElement('div');
@@ -287,7 +287,7 @@ export class FlowTool extends DataFlowBaseClass {
         node.style.top = ele_pos_y + "px";
         node.style.left = ele_pos_x + "px";
         parent.appendChild(node);
-        Variables.precanvas.appendChild(parent);
+        Variables.PreCanvas.appendChild(parent);
 
         const json = {
           id: newNodeId,
@@ -301,10 +301,10 @@ export class FlowTool extends DataFlowBaseClass {
           pos_x: ele_pos_x,
           pos_y: ele_pos_y,
         }
-        this.activeModule(Variables.module).Data[newNodeId] = json;
+        this.activeModule(Variables.CurrentModule).Data[newNodeId] = json;
         this.Dispatch('nodeCreated', newNodeId);
         if (!Variables.useuuid) {
-          Variables.nodeId++;
+          Variables.NodeId++;
         }
         return newNodeId;
       }
@@ -440,13 +440,13 @@ export class FlowTool extends DataFlowBaseClass {
         node.style.top = dataNode.pos_y + "px";
         node.style.left = dataNode.pos_x + "px";
         parent.appendChild(node);
-        Variables.precanvas.appendChild(parent);
+        Variables.PreCanvas.appendChild(parent);
       }
     
       addRerouteImport(dataNode: any) {
         const reroute_width = Variables.reroute_width
-        const reroute_fix_curvature = Variables.reroute_fix_curvature
-        const container = Variables.container;
+        const reroute_fix_curvature = Variables.RerouteFixCurvature
+        const container = Variables.MainContainer;
         Object.keys(dataNode.outputs).map(function(output_item, index) {
           Object.keys(dataNode.outputs[output_item].connections).map(function(input_item, index) {
             const points = dataNode.outputs[output_item].connections[input_item].points
@@ -487,9 +487,9 @@ export class FlowTool extends DataFlowBaseClass {
 
     //  updateNodeDataFromId(id: any, data: any) {
     //    var moduleName: any = this.getModuleFromNodeId(id)
-    //    this.activeModule(Variables.module).Data[id].data = data;
-    //    if(Variables.module === moduleName) {
-    //      const content: any = Variables.container.querySelector('#node-'+id);
+    //    this.activeModule(Variables.CurrentModule).Data[id].data = data;
+    //    if(Variables.CurrentModule === moduleName) {
+    //      const content: any = Variables.MainContainer.querySelector('#node-'+id);
    
     //      Object.entries(data).forEach(function (key, value) {
     //        if(typeof key[1] === "object") {
@@ -529,41 +529,41 @@ export class FlowTool extends DataFlowBaseClass {
     //    var moduleName: any = this.getModuleFromNodeId(id)
     //    const infoNode: any = this.getNodeFromId(id)
     //    const numInputs: any = Object.keys(infoNode.inputs).length;
-    //    if(Variables.module === moduleName) {
+    //    if(Variables.CurrentModule === moduleName) {
     //      //Draw input
     //      const input = document.createElement('div');
     //      input.classList.add("input");
     //      input.classList.add("input_"+(numInputs+1));
-    //      const parent: any = Variables.container.querySelector('#node-'+id+' .inputs');
+    //      const parent: any = Variables.MainContainer.querySelector('#node-'+id+' .inputs');
     //      parent.appendChild(input);
     //      this.updateConnectionNodes('node-'+id);
    
     //    }
-    //    this.activeModule(Variables.module).Data[id].inputs["input_"+(numInputs+1)] = { "connections": []};
+    //    this.activeModule(Variables.CurrentModule).Data[id].inputs["input_"+(numInputs+1)] = { "connections": []};
     //  }
    
     //  addNodeOutput(id: any) {
     //    var moduleName: any = this.getModuleFromNodeId(id)
     //    const infoNode: any = this.getNodeFromId(id)
     //    const numOutputs: any = Object.keys(infoNode.outputs).length;
-    //    if(Variables.module === moduleName) {
+    //    if(Variables.CurrentModule === moduleName) {
     //      //Draw output
     //      const output = document.createElement('div');
     //      output.classList.add("output");
     //      output.classList.add("output_"+(numOutputs+1));
-    //      const parent: any = Variables.container.querySelector('#node-'+id+' .outputs');
+    //      const parent: any = Variables.MainContainer.querySelector('#node-'+id+' .outputs');
     //      parent.appendChild(output);
     //      this.updateConnectionNodes('node-'+id);
    
     //    }
-    //    this.activeModule(Variables.module).Data[id].outputs["output_"+(numOutputs+1)] = { "connections": []};
+    //    this.activeModule(Variables.CurrentModule).Data[id].outputs["output_"+(numOutputs+1)] = { "connections": []};
     //  }
    
     //  removeNodeInput(id: any, input_class: any) {
     //    var moduleName: any = this.getModuleFromNodeId(id)
     //    const infoNode: any = this.getNodeFromId(id)
-    //    if(Variables.module === moduleName) {
-    //      Variables.container.querySelector('#node-'+id+' .inputs .input.'+input_class).remove();
+    //    if(Variables.CurrentModule === moduleName) {
+    //      Variables.MainContainer.querySelector('#node-'+id+' .inputs .input.'+input_class).remove();
     //    }
     //    const removeInputs: any = [];
     //    Object.keys(infoNode.inputs[input_class].connections).map(function(key, index) {
@@ -576,28 +576,28 @@ export class FlowTool extends DataFlowBaseClass {
     //      this.removeSingleConnection(item.id_output, item.id, item.output_class, item.input_class);
     //    });
    
-    //    delete this.activeModule(Variables.module).Data[id].inputs[input_class];
+    //    delete this.activeModule(Variables.CurrentModule).Data[id].inputs[input_class];
    
     //    // Update connection
     //    const connections: Array<any> = [];
-    //    const connectionsInputs = this.activeModule(Variables.module).Data[id].inputs
+    //    const connectionsInputs = this.activeModule(Variables.CurrentModule).Data[id].inputs
     //    Object.keys(connectionsInputs).map(function(key, index) {
     //      connections.push(connectionsInputs[key]);
     //    });
-    //    this.activeModule(Variables.module).Data[id].inputs = {};
+    //    this.activeModule(Variables.CurrentModule).Data[id].inputs = {};
     //    const input_class_id = input_class.slice(6);
     //    let nodeUpdates: any = [];
     //    connections.forEach((item, i) => {
     //      item.connections.forEach((itemx: any, f: any) => {
     //        nodeUpdates.push(itemx);
     //      });
-    //      this.activeModule(Variables.module).Data[id].inputs['input_'+ (i+1)] = item;
+    //      this.activeModule(Variables.CurrentModule).Data[id].inputs['input_'+ (i+1)] = item;
     //    });
     //    nodeUpdates =  new Set(nodeUpdates.map((e: any) => JSON.stringify(e)));
     //    nodeUpdates = Array.from(nodeUpdates).map((e: any) => JSON.parse(e));
    
-    //    if(Variables.module === moduleName) {
-    //      const eles = Variables.container.querySelectorAll("#node-"+id +" .inputs .input");
+    //    if(Variables.CurrentModule === moduleName) {
+    //      const eles = Variables.MainContainer.querySelectorAll("#node-"+id +" .inputs .input");
     //      eles.forEach((item: any, i: any) => {
     //        const id_class: any = item.classList[1].slice(6);
     //        if(parseInt(input_class_id) < parseInt(id_class)) {
@@ -609,19 +609,19 @@ export class FlowTool extends DataFlowBaseClass {
     //    }
    
     //    nodeUpdates.forEach((itemx: any, i: any) => {
-    //      this.activeModule(Variables.module).Data[itemx.node].outputs[itemx.input].connections.forEach((itemz: any, g: any) => {
+    //      this.activeModule(Variables.CurrentModule).Data[itemx.node].outputs[itemx.input].connections.forEach((itemz: any, g: any) => {
     //          if(itemz.node == id) {
     //            const output_id = itemz.output.slice(6);
     //            if(parseInt(input_class_id) < parseInt(output_id)) {
-    //              if(Variables.module === moduleName) {
-    //                const ele: any = Variables.container.querySelector(".connection.node_in_node-"+id+".node_out_node-"+itemx.node+"."+itemx.input+".input_"+output_id);
+    //              if(Variables.CurrentModule === moduleName) {
+    //                const ele: any = Variables.MainContainer.querySelector(".connection.node_in_node-"+id+".node_out_node-"+itemx.node+"."+itemx.input+".input_"+output_id);
     //                ele.classList.remove('input_'+output_id);
     //                ele.classList.add('input_'+(output_id-1));
     //              }
     //              if(itemz.points) {
-    //                  this.activeModule(Variables.module).Data[itemx.node].outputs[itemx.input].connections[g] = { node: itemz.node, output: 'input_'+(output_id-1), points: itemz.points }
+    //                  this.activeModule(Variables.CurrentModule).Data[itemx.node].outputs[itemx.input].connections[g] = { node: itemz.node, output: 'input_'+(output_id-1), points: itemz.points }
     //              } else {
-    //                  this.activeModule(Variables.module).Data[itemx.node].outputs[itemx.input].connections[g] = { node: itemz.node, output: 'input_'+(output_id-1)}
+    //                  this.activeModule(Variables.CurrentModule).Data[itemx.node].outputs[itemx.input].connections[g] = { node: itemz.node, output: 'input_'+(output_id-1)}
     //              }
     //            }
     //          }
@@ -633,9 +633,9 @@ export class FlowTool extends DataFlowBaseClass {
     //  removeNodeOutput(id: any, output_class: string) {
     //    var moduleName: any = this.getModuleFromNodeId(id)
     //    const infoNode: any = this.getNodeFromId(id)
-    //    if(Variables.module === moduleName) {
+    //    if(Variables.CurrentModule === moduleName) {
     //        Variables.container
-    //      Variables.container.querySelector('#node-'+id+' .outputs .output.' + output_class).remove();
+    //      Variables.MainContainer.querySelector('#node-'+id+' .outputs .output.' + output_class).remove();
     //    }
     //    const removeOutputs: Array<any> = [];
     //    Object.keys(infoNode.outputs[output_class].connections).map(function(key, index) {
@@ -648,28 +648,28 @@ export class FlowTool extends DataFlowBaseClass {
     //      this.removeSingleConnection(item.id, item.id_input, item.output_class, item.input_class);
     //    });
    
-    //    delete this.activeModule(Variables.module).Data[id].outputs[output_class];
+    //    delete this.activeModule(Variables.CurrentModule).Data[id].outputs[output_class];
    
     //    // Update connection
     //    const connections: Array<any> = [];
-    //    const connectionsOuputs = this.activeModule(Variables.module).Data[id].outputs
+    //    const connectionsOuputs = this.activeModule(Variables.CurrentModule).Data[id].outputs
     //    Object.keys(connectionsOuputs).map(function(key, index) {
     //      connections.push(connectionsOuputs[key]);
     //    });
-    //    this.activeModule(Variables.module).Data[id].outputs = {};
+    //    this.activeModule(Variables.CurrentModule).Data[id].outputs = {};
     //    const output_class_id = output_class.slice(7);
     //    let nodeUpdates: any = [];
     //    connections.forEach((item, i) => {
     //      item.connections.forEach((itemx: any, f: any) => {
     //        nodeUpdates.push({ node: itemx.node, output: itemx.output });
     //      });
-    //      this.activeModule(Variables.module).Data[id].outputs['output_'+ (i+1)] = item;
+    //      this.activeModule(Variables.CurrentModule).Data[id].outputs['output_'+ (i+1)] = item;
     //    });
     //    nodeUpdates =  new Set(nodeUpdates.map((e: any) => JSON.stringify(e)));
     //    nodeUpdates = Array.from(nodeUpdates).map((e: any) => JSON.parse(e));
    
-    //    if(Variables.module === moduleName) {
-    //      const eles = Variables.container.querySelectorAll("#node-"+id +" .outputs .output");
+    //    if(Variables.CurrentModule === moduleName) {
+    //      const eles = Variables.MainContainer.querySelectorAll("#node-"+id +" .outputs .output");
     //      eles.forEach((item: any, i: any) => {
     //        const id_class: any = item.classList[1].slice(7);
     //        if(parseInt(output_class_id) < parseInt(id_class)) {
@@ -681,22 +681,22 @@ export class FlowTool extends DataFlowBaseClass {
     //    }
    
     //    nodeUpdates.forEach((itemx: any, i: any) => {
-    //      this.activeModule(Variables.module).Data[itemx.node].inputs[itemx.output].connections.forEach((itemz: any, g: any) => {
+    //      this.activeModule(Variables.CurrentModule).Data[itemx.node].inputs[itemx.output].connections.forEach((itemz: any, g: any) => {
     //          if(itemz.node == id) {
     //            const input_id = itemz.input.slice(7);
     //            if(parseInt(output_class_id) < parseInt(input_id)) {
-    //              if(Variables.module === moduleName) {
+    //              if(Variables.CurrentModule === moduleName) {
    
-    //                const ele: any = Variables.container.querySelector(".connection.node_in_node-"+itemx.node+".node_out_node-"+id+".output_"+input_id+"."+itemx.output);
+    //                const ele: any = Variables.MainContainer.querySelector(".connection.node_in_node-"+itemx.node+".node_out_node-"+id+".output_"+input_id+"."+itemx.output);
     //                ele.classList.remove('output_'+input_id);
     //                ele.classList.remove(itemx.output);
     //                ele.classList.add('output_'+(input_id-1));
     //                ele.classList.add(itemx.output);
     //              }
     //              if(itemz.points) {
-    //                  this.activeModule(Variables.module).Data[itemx.node].inputs[itemx.output].connections[g] = { node: itemz.node, input: 'output_'+(input_id-1), points: itemz.points }
+    //                  this.activeModule(Variables.CurrentModule).Data[itemx.node].inputs[itemx.output].connections[g] = { node: itemz.node, input: 'output_'+(input_id-1), points: itemz.points }
     //              } else {
-    //                  this.activeModule(Variables.module).Data[itemx.node].inputs[itemx.output].connections[g] = { node: itemz.node, input: 'output_'+(input_id-1)}
+    //                  this.activeModule(Variables.CurrentModule).Data[itemx.node].inputs[itemx.output].connections[g] = { node: itemz.node, input: 'output_'+(input_id-1)}
     //              }
     //            }
     //          }
@@ -718,9 +718,9 @@ export class FlowTool extends DataFlowBaseClass {
     //      });
     //      if(exists > -1) {
    
-    //        if(Variables.module === nodeOneModule) {
+    //        if(Variables.CurrentModule === nodeOneModule) {
     //          // In same module with view.
-    //          Variables.container.querySelector('.connection.node_in_node-'+id_input+'.node_out_node-'+id_output+'.'+output_class+'.'+input_class).remove();
+    //          Variables.MainContainer.querySelector('.connection.node_in_node-'+id_input+'.node_out_node-'+id_output+'.'+output_class+'.'+input_class).remove();
     //        }
    
     //        var index_out = this.activeModule(nodeOneModule).data[id_output].outputs[output_class].connections.findIndex(function(item: any,i: any) {
@@ -765,23 +765,23 @@ export class FlowTool extends DataFlowBaseClass {
      */
      public ChangeModule(name: any): void {
        this.Dispatch('moduleChanged', name);
-       Variables.module = name;
-       Variables.precanvas.innerHTML = "";
-       Variables.canvas_x = 0;
-       Variables.canvas_y = 0;
-       Variables.pos_x = 0;
-       Variables.pos_y = 0;
-       Variables.mouse_x = 0;
-       Variables.mouse_y = 0;
-       Variables.zoom = 1;
-       Variables.zoom_last_value = 1;
-       Variables.precanvas.style.transform = '';
+       Variables.CurrentModule = name;
+       Variables.PreCanvas.innerHTML = "";
+       Variables.CanvasX = 0;
+       Variables.CanvasY = 0;
+       Variables.PosX = 0;
+       Variables.PosY = 0;
+       Variables.MouseX = 0;
+       Variables.MouseY = 0;
+       Variables.Zoom = 1;
+       Variables.ZoomLastValue = 1;
+       Variables.PreCanvas.style.transform = '';
 
-       this.ImportData(this.activeModule(Variables.module), false);
+       this.ImportData(this.activeModule(Variables.CurrentModule), false);
      }
    
     //  removeModule(name: any) {
-    //    if(Variables.module === name) {
+    //    if(Variables.CurrentModule === name) {
     //      this.changeModule('Home');
     //    }
     //    // delete Variables.drawflow.drawflow[name];
@@ -798,23 +798,23 @@ export class FlowTool extends DataFlowBaseClass {
     //  }
    
     //  clearModuleSelected() {
-    //    Variables.precanvas.innerHTML = "";
+    //    Variables.PreCanvas.innerHTML = "";
  
     //    Variables.DataFlowModuleData.find((e: DataFlowDataModel) => {
-    //      if (e.Module === Variables.module) {
+    //      if (e.Module === Variables.CurrentModule) {
     //          e.Data = {};
     //      }
     //    })
  
-    //    // this.activeModule(Variables.module) =  { "data": {} };
+    //    // this.activeModule(Variables.CurrentModule) =  { "data": {} };
     //  }
    
     /**
      * Clear canvas to add new nodes
      */
      protected clear (): void {
-         if (Variables.precanvas) {
-             Variables.precanvas.innerHTML = "";
+         if (Variables.PreCanvas) {
+             Variables.PreCanvas.innerHTML = "";
              // Variables.drawflow = { "drawflow": { "Home": { "data": {} }}};
          }
       

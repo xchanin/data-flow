@@ -2,57 +2,53 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <meta name="description" content="IoT projects to get you going in minutes, not weeks or months." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <meta name="description" content="IoT projects to get you going in minutes, not weeks or months." />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" href="./static/css/app.css" />
-    <script src="https://kit.fontawesome.com/0b7385f8de.js" crossorigin="anonymous"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="./static/css/app.css" />
+  <script src="https://kit.fontawesome.com/0b7385f8de.js" crossorigin="anonymous"></script>
 
-    <script type="module" src="./packages/es/index.js"></script>
+  <script type="module" src="./packages/es/index.js"></script>
+
+ 
 </head>
 
 <body>
 
-    <header>
-        <h2>Data Flow Tool</h2>
-    </header>
-  
-      <div class="wrapper">
-          <!-- 
+  <header>
+    <h2>Data Flow Tool</h2>
+  </header>
+
+  <div class="wrapper">
+    <!-- 
               Left side menu items
            -->
-        <div id="drag-items" class="col"></div>
+    <div id="drag-items" class="col"></div>
 
-        <div class="col-right">
-          <div class="top-menu">
-            <ul>
-                <li 
-                    onclick="flowTool.ChangeModule('Home'); 
-                    menuTabSelected(event);" 
-                    class="selected">
-                    Home
-                </li>
-                <li 
-                    onclick="flowTool.ChangeModule('Other'); 
+    <div class="col-right">
+      <div class="top-menu">
+        <ul>
+          <li onclick="flowTool.ChangeModule('Home'); 
+                    menuTabSelected(event);" class="selected">
+            Home
+          </li>
+          <li onclick="flowTool.ChangeModule('Other'); 
                     menuTabSelected(event);">
-                    Other Module
-                </li>
-            </ul>
-          </div>
+            Other Module
+          </li>
+        </ul>
+      </div>
 
-          <!-- Flow Tool -->
-            <div 
-                id="drawflow" 
-                ondrop="drop(event)" 
-                ondragover="allowDrop(event)">
-            </div>
+      <!-- Flow Tool -->
+      <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+      </div>
 
-            <!-- <div class="btn-export" onclick="Swal.fire({ title: 'Export',
+      <!-- <div class="btn-export" onclick="Swal.fire({ title: 'Export',
                 html: '<pre><code>'+JSON.stringify(flowTool.export(), null,4)+'</code></pre>'
                 })">Export</div>
             <div class="btn-clear" onclick="flowTool.clearModuleSelected()">Clear</div>
@@ -65,84 +61,85 @@
               <i class="fas fa-search" onclick="flowTool.zoom_reset()"></i>
               <i class="fas fa-search-plus" onclick="flowTool.zoom_in()"></i>
             </div> -->
-          </div>
-        </div>
-      </div>
-      
-   <script id="sjs-flow-tool" type="module">
-        import { 
-          FlowTool, 
-          MenuTemplates, 
-          Variables, 
-          Events,
-          ConstantUtils,
-          NodeTemplates,
-          DragItemsTemplates } from './packages/es/index.js';
+    </div>
+  </div>
+  </div>
 
-        let id = document.getElementById("drawflow");
-        let flowTool = new FlowTool(id);
+  <script id="sjs-flow-tool" type="module">
+    import {
+      FlowTool,
+      MenuTemplates,
+      Variables,
+      Events,
+      ConstantUtils,
+      NodeTemplates,
+      DragItemsTemplates
+    } from './packages/es/index.js';
 
-        /**
-         * Create side menu of draggable items
-         * 
-         * This calls MENU_TEMPLATES, but can be any external source
-        */
-        MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.MENU_TEMPLATES(drag));
+    let id = document.getElementById("drawflow");
+    let flowTool = new FlowTool(id);
 
-        // Variables.reroute = true;
-        // Variables.reroute_fix_curvature = true;
-        // Variables.force_first_input = false;
+    /**
+     * Create side menu of draggable items
+     * 
+     * This calls MENU_TEMPLATES, but can be any external source
+    */
+    MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.MENU_TEMPLATES(drag));
 
-        /**
-         * Array for storing module data
-        */
-        Variables.DataFlowModuleData = 
-        [
-            ConstantUtils.HOME_MODULE_DATA,
-            ConstantUtils.OTHER_MODULE_DATA
-        ]
-     
-        flowTool.Start();
-        flowTool.ImportData(Variables.DataFlowModuleData[0]);
-        
+    // Variables.reroute = true;
+    // Variables.reroute_fix_curvature = true;
+    // Variables.force_first_input = false;
+
+    /**
+     * Array for storing module data
+    */
+    Variables.DataFlowModuleData =
+      [
+        ConstantUtils.HOME_MODULE_DATA,
+        ConstantUtils.OTHER_MODULE_DATA
+      ]
+
+    flowTool.Start();
+    flowTool.ImportData(Variables.DataFlowModuleData[0]);
+
     /* DRAG EVENT */
 
     /* Mouse and Touch Actions */
 
     const elements = document.getElementsByClassName('drag-drawflow');
-   
+
     for (var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener('touchend', drop, false);
-        elements[i].addEventListener('touchmove', positionMobile, false);
-        elements[i].addEventListener('touchstart', drag, false );
+      elements[i].addEventListener('touchend', drop, false);
+      elements[i].addEventListener('touchmove', positionMobile, false);
+      elements[i].addEventListener('touchstart', drag, false);
     }
 
     let mobile_item_selec = '';
     let mobile_last_move = null;
 
-   function positionMobile(ev) {
-     mobile_last_move = ev;
-   }
+    function positionMobile(ev) {
+      mobile_last_move = ev;
+    }
 
-   function allowDrop(ev) {
+    function allowDrop(ev) {
       ev.preventDefault();
     }
 
     /**
      * When dragging an item from the side menu onto the canvas 
      **/
-   function drag(ev) {
+    function drag(ev) {
       if (ev.type === "touchstart") {
         mobile_item_selec = ev.target.closest(".drag-drawflow").getAttribute('data-node');
       } else {
-      ev.dataTransfer.setData("node", ev.target.getAttribute('data-node'));
+        ev.dataTransfer.setData("node", ev.target.getAttribute('data-node'));
       }
     }
 
     function drop(ev) {
       if (ev.type === "touchend") {
-        var parentdrawflow = document.elementFromPoint( mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY).closest("#drawflow");
-        if(parentdrawflow != null) {
+        var parentdrawflow = document.elementFromPoint(mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY).closest("#drawflow");
+        if (parentdrawflow != null) {
           addNodeToDrawFlow(mobile_item_selec, mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY);
         }
         mobile_item_selec = '';
@@ -155,101 +152,101 @@
     }
 
     function addNodeToDrawFlow(name, pos_x, pos_y) {
-      if(Variables.editor_mode === 'fixed') {
+      if (Variables.editor_mode === 'fixed') {
         return false;
       }
-      pos_x = pos_x * ( Variables.precanvas.clientWidth / (Variables.precanvas.clientWidth * Variables.zoom)) - (Variables.precanvas.getBoundingClientRect().x * ( Variables.precanvas.clientWidth / (Variables.precanvas.clientWidth * Variables.zoom)));
-      pos_y = pos_y * ( Variables.precanvas.clientHeight / (Variables.precanvas.clientHeight * Variables.zoom)) - (Variables.precanvas.getBoundingClientRect().y * ( Variables.precanvas.clientHeight / (Variables.precanvas.clientHeight * Variables.zoom)));
+      pos_x = pos_x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)));
+      pos_y = pos_y * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().y * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)));
 
 
       switch (name) {
         case 'facebook':
-          flowTool.AddNode('facebook', 0,  1, pos_x, pos_y, 'facebook', {}, NodeTemplates.Facebook );
+          flowTool.AddNode('facebook', 0, 1, pos_x, pos_y, 'facebook', {}, NodeTemplates.Facebook);
           break;
         case 'slack':
-          flowTool.AddNode('slack', 1, 0, pos_x, pos_y, 'slack', {}, NodeTemplates.Slack );
+          flowTool.AddNode('slack', 1, 0, pos_x, pos_y, 'slack', {}, NodeTemplates.Slack);
           break;
         case 'github':
-          flowTool.AddNode('github', 0, 1, pos_x, pos_y, 'github', { "name": ''}, NodeTemplates.Github );
+          flowTool.AddNode('github', 0, 1, pos_x, pos_y, 'github', { "name": '' }, NodeTemplates.Github);
           break;
         case 'telegram':
-          flowTool.AddNode('telegram', 1, 0, pos_x, pos_y, 'telegram', { "channel": 'channel_3'}, NodeTemplates.Telegram );
+          flowTool.AddNode('telegram', 1, 0, pos_x, pos_y, 'telegram', { "channel": 'channel_3' }, NodeTemplates.Telegram);
           break;
         case 'aws':
-          flowTool.AddNode('aws', 1, 1, pos_x, pos_y, 'aws', { "db": { "dbname": '', "key": '' }}, NodeTemplates.AWS );
+          flowTool.AddNode('aws', 1, 1, pos_x, pos_y, 'aws', { "db": { "dbname": '', "key": '' } }, NodeTemplates.AWS);
           break;
         case 'log':
-            flowTool.AddNode('log', 1, 0, pos_x, pos_y, 'log', {}, NodeTemplates.Log );
-            break;
-          case 'google':
-            flowTool.AddNode('google', 1, 0, pos_x, pos_y, 'google', {}, NodeTemplates.Google );
-            break;
-          case 'email':
-            flowTool.AddNode('email', 1, 0, pos_x, pos_y, 'email', {}, NodeTemplates.Email );
-            break;
+          flowTool.AddNode('log', 1, 0, pos_x, pos_y, 'log', {}, NodeTemplates.Log);
+          break;
+        case 'google':
+          flowTool.AddNode('google', 1, 0, pos_x, pos_y, 'google', {}, NodeTemplates.Google);
+          break;
+        case 'email':
+          flowTool.AddNode('email', 1, 0, pos_x, pos_y, 'email', {}, NodeTemplates.Email);
+          break;
 
-          case 'template':
-            flowTool.AddNode('template', 1, 1, pos_x, pos_y, 'template', { "template": 'Write your template'}, NodeTemplates.Template );
-            break;
-          case 'multiple':
-            flowTool.AddNode('multiple', 3, 4, pos_x, pos_y, 'multiple', {}, NodeTemplates.Multiple );
-            break;
-          case 'personalized':
-            flowTool.AddNode('personalized', 1, 1, pos_x, pos_y, 'personalized', {}, NodeTemplates.Personalized );
-            break;
-          case 'dbclick':
-            flowTool.AddNode('dbclick', 1, 1, pos_x, pos_y, 'dbclick', { name: ''}, NodeTemplates.DBLClick );
-            break;
+        case 'template':
+          flowTool.AddNode('template', 1, 1, pos_x, pos_y, 'template', { "template": 'Write your template' }, NodeTemplates.Template);
+          break;
+        case 'multiple':
+          flowTool.AddNode('multiple', 3, 4, pos_x, pos_y, 'multiple', {}, NodeTemplates.Multiple);
+          break;
+        case 'personalized':
+          flowTool.AddNode('personalized', 1, 1, pos_x, pos_y, 'personalized', {}, NodeTemplates.Personalized);
+          break;
+        case 'dbclick':
+          flowTool.AddNode('dbclick', 1, 1, pos_x, pos_y, 'dbclick', { name: '' }, NodeTemplates.DBLClick);
+          break;
 
         default:
       }
     }
 
-  var transform = '';
+    var transform = '';
 
-  function showpopup(e) {
-    e.target.closest(".drawflow-node").style.zIndex = "9999";
-    e.target.children[0].style.display = "block";
-    //document.getElementById("modalfix").style.display = "block";
+    function showpopup(e) {
+      e.target.closest(".drawflow-node").style.zIndex = "9999";
+      e.target.children[0].style.display = "block";
+      //document.getElementById("modalfix").style.display = "block";
 
-    //e.target.children[0].style.transform = 'translate('+translate.x+'px, '+translate.y+'px)';
-    transform = flowTool.precanvas.style.transform;
-    Variables.precanvas.style.transform = '';
-    Variables.precanvas.style.left = Variables.canvas_x +'px';
-    Variables.precanvas.style.top = Variables.canvas_y +'px';
-    console.log(transform);
+      //e.target.children[0].style.transform = 'translate('+translate.x+'px, '+translate.y+'px)';
+      transform = flowTool.precanvas.style.transform;
+      Variables.precanvas.style.transform = '';
+      Variables.precanvas.style.left = Variables.canvas_x + 'px';
+      Variables.precanvas.style.top = Variables.canvas_y + 'px';
+      console.log(transform);
 
-    //e.target.children[0].style.top  =  -flowTool.canvas_y - flowTool.container.offsetTop +'px';
-    //e.target.children[0].style.left  =  -flowTool.canvas_x  - flowTool.container.offsetLeft +'px';
-    Variables.editor_mode = "fixed";
+      //e.target.children[0].style.top  =  -flowTool.canvas_y - flowTool.container.offsetTop +'px';
+      //e.target.children[0].style.left  =  -flowTool.canvas_x  - flowTool.container.offsetLeft +'px';
+      Variables.editor_mode = "fixed";
 
-  }
+    }
 
-   function closemodal(e) {
-     e.target.closest(".drawflow-node").style.zIndex = "2";
-     e.target.parentElement.parentElement.style.display  ="none";
-     //document.getElementById("modalfix").style.display = "none";
-     Variables.precanvas.style.transform = transform;
-     Variables.precanvas.style.left = '0px';
-     Variables.precanvas.style.top = '0px';
-     Variables.editor_mode = "edit";
-   }
+    function closemodal(e) {
+      e.target.closest(".drawflow-node").style.zIndex = "2";
+      e.target.parentElement.parentElement.style.display = "none";
+      //document.getElementById("modalfix").style.display = "none";
+      Variables.precanvas.style.transform = transform;
+      Variables.precanvas.style.left = '0px';
+      Variables.precanvas.style.top = '0px';
+      Variables.editor_mode = "edit";
+    }
 
-   /**
-    * Add / remove styles on menu tab click
-    **/
+    /**
+     * Add / remove styles on menu tab click
+     **/
     function menuTabSelected(event) {
       var all = document.querySelectorAll(".top-menu ul li");
-        for (var i = 0; i < all.length; i++) {
-          all[i].classList.remove('selected');
-        }
+      for (var i = 0; i < all.length; i++) {
+        all[i].classList.remove('selected');
+      }
       event.target.classList.add('selected');
     }
 
     function changeMode(option) {
 
-    //console.log(lock.id);
-      if(option == 'lock') {
+      //console.log(lock.id);
+      if (option == 'lock') {
         lock.style.display = 'none';
         unlock.style.display = 'block';
       } else {
@@ -264,10 +261,11 @@
      * 
      * We don't want to do this, but this works for now - shannon
      **/
-        window.allowDrop = allowDrop;
-        window.drop = drop;
-        window.flowTool = flowTool;
-        window.menuTabSelected = menuTabSelected;
-    </script>
+    window.allowDrop = allowDrop;
+    window.drop = drop;
+    window.flowTool = flowTool;
+    window.menuTabSelected = menuTabSelected;
+  </script>
 </body>
+
 </html>

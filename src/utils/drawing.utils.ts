@@ -12,7 +12,7 @@ export class DrawingUtils {
         // path.innerHTML = 'a';
         connection.classList.add("connection");
         connection.appendChild(path);
-        variables.precanvas.appendChild(connection);
+        variables.PreCanvas.appendChild(connection);
         var id_output = ele.parentElement.parentElement.id.slice(5);
         var output_class = ele.classList[1];
 
@@ -73,8 +73,8 @@ export class DrawingUtils {
       }
 
     public static UpdateConnection(eX: number, eY: number): void {
-        const precanvas = variables.precanvas;
-        const zoom = variables.zoom;
+        const precanvas = variables.PreCanvas;
+        const zoom = variables.Zoom;
         let precanvasWitdhZoom = precanvas.clientWidth / (precanvas.clientWidth * zoom);
         precanvasWitdhZoom = precanvasWitdhZoom || 0;
         let precanvasHeightZoom = precanvas.clientHeight / (precanvas.clientHeight * zoom);
@@ -84,8 +84,8 @@ export class DrawingUtils {
         var line_x = variables.SelectedElement.offsetWidth/2 + (variables.SelectedElement.getBoundingClientRect().x - precanvas.getBoundingClientRect().x ) * precanvasWitdhZoom;
         var line_y = variables.SelectedElement.offsetHeight/2 + (variables.SelectedElement.getBoundingClientRect().y - precanvas.getBoundingClientRect().y ) * precanvasHeightZoom;
     
-        var x = eX * ( variables.precanvas.clientWidth / (variables.precanvas.clientWidth * variables.zoom)) - (variables.precanvas.getBoundingClientRect().x *  ( variables.precanvas.clientWidth / (variables.precanvas.clientWidth * variables.zoom)) );
-        var y = eY * ( variables.precanvas.clientHeight / (variables.precanvas.clientHeight * variables.zoom)) - (variables.precanvas.getBoundingClientRect().y *  ( variables.precanvas.clientHeight / (variables.precanvas.clientHeight * variables.zoom)) );
+        var x = eX * ( variables.PreCanvas.clientWidth / (variables.PreCanvas.clientWidth * variables.Zoom)) - (variables.PreCanvas.getBoundingClientRect().x *  ( variables.PreCanvas.clientWidth / (variables.PreCanvas.clientWidth * variables.Zoom)) );
+        var y = eY * ( variables.PreCanvas.clientHeight / (variables.PreCanvas.clientHeight * variables.Zoom)) - (variables.PreCanvas.getBoundingClientRect().y *  ( variables.PreCanvas.clientHeight / (variables.PreCanvas.clientHeight * variables.Zoom)) );
     
         var curvature = variables.curvature;
         var lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, curvature, 'openclose');
