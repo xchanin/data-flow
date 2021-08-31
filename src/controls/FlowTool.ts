@@ -127,21 +127,21 @@ export class FlowTool extends DataFlowBaseClass {
       */
      protected load(): void {
  
-      for (var key in this.activeModule(Variables.CurrentModule).Data) {
-        this.addNodeImport(this.activeModule(Variables.CurrentModule).Data[key], Variables.PreCanvas);
+      for (var key in this.activeModule(Variables.ActiveModule).Data) {
+        this.addNodeImport(this.activeModule(Variables.ActiveModule).Data[key], Variables.PreCanvas);
       }
 
        if(Variables.Reroute) {
-         for (var key in this.activeModule(Variables.CurrentModule).Data) {
-           this.addRerouteImport(this.activeModule(Variables.CurrentModule).Data[key]);
+         for (var key in this.activeModule(Variables.ActiveModule).Data) {
+           this.addRerouteImport(this.activeModule(Variables.ActiveModule).Data[key]);
          }
        }
    
-       for (var key in this.activeModule(Variables.CurrentModule).Data) {
+       for (var key in this.activeModule(Variables.ActiveModule).Data) {
          this.updateConnectionNodes('node-'+key);
        }
    
-       const flowTool: any = this.activeModule(Variables.CurrentModule);
+       const flowTool: any = this.activeModule(Variables.ActiveModule);
        let number = 1;
        Object.keys(flowTool).map(function(key, index) {
          Object.keys(flowTool[key]).map(function(id, index2) {
@@ -301,7 +301,7 @@ export class FlowTool extends DataFlowBaseClass {
           pos_x: ele_pos_x,
           pos_y: ele_pos_y,
         }
-        this.activeModule(Variables.CurrentModule).Data[newNodeId] = json;
+        this.activeModule(Variables.ActiveModule).Data[newNodeId] = json;
         this.Dispatch('nodeCreated', newNodeId);
         if (!Variables.UseUUID) {
           Variables.NodeId++;
@@ -765,7 +765,7 @@ export class FlowTool extends DataFlowBaseClass {
      */
      public ChangeModule(name: any): void {
        this.Dispatch('moduleChanged', name);
-       Variables.CurrentModule = name;
+       Variables.ActiveModule = name;
        Variables.PreCanvas.innerHTML = "";
        Variables.CanvasX = 0;
        Variables.CanvasY = 0;
@@ -777,7 +777,7 @@ export class FlowTool extends DataFlowBaseClass {
        Variables.ZoomLastValue = 1;
        Variables.PreCanvas.style.transform = '';
 
-       this.ImportData(this.activeModule(Variables.CurrentModule), false);
+       this.ImportData(this.activeModule(Variables.ActiveModule), false);
      }
    
     //  removeModule(name: any) {

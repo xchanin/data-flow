@@ -46,6 +46,7 @@ export class DataFlowBaseClass extends BaseFunctions {
         Variables.CanvasY = Variables.CanvasY + (-(Variables.PosY - e_pos_y));
         Variables.EditorIsSelected = false;
       }
+      
       if(Variables.Connection === true) {
         if(ele_last.classList[0] === 'input' || (Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === 'drawflow-node'))) {
   

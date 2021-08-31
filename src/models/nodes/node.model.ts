@@ -1,20 +1,34 @@
 import { NodeInputOutputModel } from "./node-input-output.model";
 
 /**
+ * Node types that can be created
+ */
+ type NodeType = 
+    'REQUEST' | 
+    'ACTION' | 
+    'PROJECT' | 
+    'ROUTER_FILTER' | 
+    'MODIFIER' | 
+    'JOIN' | 
+    'SPLIT' | 
+    'DECISION' |
+    'EVENT';
+
+/**
  * Model for Node properties
  */
 export class NodeModel {
 
-    
     /**
      * Styles 
      */
-    public Class!: string;
+    public ClassList!: Array<string>;
 
     /**
      * Internal node data
      */
-    public Data!: {};
+    public Data!: any;
+    
     /**
      * HTML string that builds the nodes
      */
@@ -28,7 +42,7 @@ export class NodeModel {
     /**
      * Input direction and connected nodes
      */
-    public Inputs!: NodeInputOutputModel;
+    public Inputs?: NodeInputOutputModel;
 
     /**
      * Node name
@@ -38,7 +52,7 @@ export class NodeModel {
     /**
      * Output direction and connected nodes
      */
-    public Outputs!: NodeInputOutputModel;
+    public Outputs?: NodeInputOutputModel;
 
     /**
      * Node 'Y' position
@@ -49,6 +63,16 @@ export class NodeModel {
      * Node 'X' position
      */
     public PosX!: number;
+
+    /**
+     * Node connection rules; types we can connect to
+     */
+    public Rules?: Array<string>;
+
+    /**
+     * Node Type
+     */
+     public Type!: NodeType
 
     /**
      * Not sure what this is yet

@@ -6,10 +6,11 @@ import { ConstantUtils } from '../utils/constants.utils.js';
 export class BaseFunctions {
 
     /**
-      * 
-      * @param module module name
-      * @returns active module
-      */
+     * Set active module
+     * 
+     * @param module module name
+     * @returns active module
+     */
     protected activeModule(moduleName?: string): DataFlowDataModel | any {
 
         return Variables.DataFlowModuleData.find((e: DataFlowDataModel) => {
