@@ -34,7 +34,7 @@ export class DataFlowBaseClass extends BaseFunctions {
         }
       }
   
-      if(Variables.drag_point) {
+      if(Variables.DragPoint) {
         Variables.SelectedElement.classList.remove("selected");
           if(Variables.PosXStart != e_pos_x || Variables.PosYStart != e_pos_y) {
             this.Dispatch('rerouteMoved', Variables.SelectedElement.parentElement.classList[2].slice(14));
@@ -110,7 +110,7 @@ export class DataFlowBaseClass extends BaseFunctions {
       }
   
       Variables.Dragging = false;
-      Variables.drag_point = false;
+      Variables.DragPoint = false;
       Variables.connection = false;
       Variables.SelectedElement = null;
       Variables.editor_selected = false;
@@ -156,7 +156,7 @@ export class DataFlowBaseClass extends BaseFunctions {
         this.updateConnectionNodes(Variables.SelectedElement.id)
       }
   
-      if(Variables.drag_point) {
+      if(Variables.DragPoint) {
   
         var x = (Variables.PosX - e_pos_x) * Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom);
         var y = (Variables.PosY - e_pos_y) * Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom);
@@ -323,7 +323,7 @@ export class DataFlowBaseClass extends BaseFunctions {
           }
         break;
         case 'point':
-            Variables.drag_point = true;
+            Variables.DragPoint = true;
             Variables.SelectedElement.classList.add("selected");
         break;
         case 'drawflow-delete':

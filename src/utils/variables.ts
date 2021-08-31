@@ -37,11 +37,18 @@ export class Variables {
 
     public static RerouteFixCurvature: boolean = false;
 
-    public static curvature: any = 0.5;
-    public static RerouteCurvatureStartEnd: any = 0.5;
-    public static RerouteCurvature: any = 0.5;
-    public static reroute_width: any = 6;
-    public static drag_point: any = false;
+    /**
+     * How much curve is in the connection line
+     */
+    public static Curvature: number = 0.5;
+
+    public static RerouteCurvatureStartEnd: number = 0.5;
+
+    public static RerouteCurvature: number = 0.5;
+
+    public static RerouteWidth: number = 6;
+
+    public static DragPoint: boolean = false;
     public static editor_selected: any = false;
     public static connection: any = false;
     public static connection_ele: any = null;

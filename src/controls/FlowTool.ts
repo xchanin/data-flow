@@ -444,7 +444,7 @@ export class FlowTool extends DataFlowBaseClass {
       }
     
       addRerouteImport(dataNode: any) {
-        const reroute_width = Variables.reroute_width
+        const reroute_width = Variables.RerouteWidth
         const reroute_fix_curvature = Variables.RerouteFixCurvature
         const container = Variables.MainContainer;
         Object.keys(dataNode.outputs).map(function(output_item, index) {
@@ -476,7 +476,7 @@ export class FlowTool extends DataFlowBaseClass {
     
                 point.setAttributeNS(null, 'cx', pos_x);
                 point.setAttributeNS(null, 'cy', pos_y);
-                point.setAttributeNS(null, 'r', reroute_width);
+                point.setAttributeNS(null, 'r', reroute_width.toString());
     
                 ele.appendChild(point);
               });

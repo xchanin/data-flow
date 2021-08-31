@@ -53,7 +53,7 @@ export class BaseFunctions {
                     const line_y: number = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
                     const x: number = eX;
                     const y : number= eY;
-                    const lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, Variables.curvature, 'openclose');
+                    const lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, Variables.Curvature, 'openclose');
 
                     elemsOut[item].children[0].setAttributeNS(null, 'd', lineCurve);
                 }
@@ -70,12 +70,12 @@ export class BaseFunctions {
                         // var elemtsearchId_out: any = Variables.MainContainer.querySelector(`#${id}`);
                         var elemtsearch = item;
 
-                        var eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        var eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
 
                         var elemtsearchOut = elemtsearchId_out.querySelectorAll('.' + item.parentElement.classList[3])[0]
-                        var line_x: any = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
-                        var line_y: any = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
+                        var line_x: number = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
+                        var line_y: number = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
                         var x = eX;
                         var y = eY;
 
@@ -89,12 +89,12 @@ export class BaseFunctions {
                         var elemtsearch: any = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[4])[0]
 
                         var elemtsearchIn: any = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[4])[0]
-                        var eX: any = elemtsearchIn.offsetWidth / 2 + (elemtsearchIn.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
-                        var eY: any = elemtsearchIn.offsetHeight / 2 + (elemtsearchIn.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
+                        var eX: number = elemtsearchIn.offsetWidth / 2 + (elemtsearchIn.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
+                        var eY: number = elemtsearchIn.offsetHeight / 2 + (elemtsearchIn.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
 
 
-                        var line_x: any = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var line_y: any = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        var line_x: number = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var line_y: number = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -107,12 +107,12 @@ export class BaseFunctions {
                         // var elemtsearchId_out: any = Variables.MainContainer.querySelector(`#${id}`);
                         var elemtsearch = item;
 
-                        var eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        var eX: number = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var eY: number = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
 
                         var elemtsearchOut = elemtsearchId_out.querySelectorAll('.' + item.parentElement.classList[3])[0]
-                        var line_x: any = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
-                        var line_y: any = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
+                        var line_x: number = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
+                        var line_y: number = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
 
                         var x = eX;
                         var y = eY;
@@ -125,10 +125,10 @@ export class BaseFunctions {
                         var elemtsearchId_out = item;
                         var elemtsearch: any = points[i + 1];
 
-                        var eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
-                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        var eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
+                        var line_x: number = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var line_y: number = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -145,10 +145,10 @@ export class BaseFunctions {
                         var elemtsearch = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[4])[0]
 
                         var elemtsearchIn = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[4])[0]
-                        var eX: any = elemtsearchIn.offsetWidth / 2 + (elemtsearchIn.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
-                        var eY: any = elemtsearchIn.offsetHeight / 2 + (elemtsearchIn.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
-                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) + Variables.reroute_width;
-                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) + Variables.reroute_width;
+                        var eX: number = elemtsearchIn.offsetWidth / 2 + (elemtsearchIn.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
+                        var eY: number = elemtsearchIn.offsetHeight / 2 + (elemtsearchIn.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
+                        var line_x: number = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) + Variables.RerouteWidth;
+                        var line_y: number = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -160,10 +160,10 @@ export class BaseFunctions {
                         var elemtsearchId_out = item;
                         var elemtsearch: any = points[i + 1];
 
-                        var eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) + Variables.reroute_width;
-                        var eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) + Variables.reroute_width;
-                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) + Variables.reroute_width;
-                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) + Variables.reroute_width;
+                        var eX: number = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) + Variables.RerouteWidth;
+                        var eY: number = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) + Variables.RerouteWidth;
+                        var line_x: number = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) + Variables.RerouteWidth;
+                        var line_y: number = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -195,14 +195,14 @@ export class BaseFunctions {
                 var elemtsearchId: any = Variables.MainContainer.querySelector(`#${id_search}`);
                 var elemtsearch = elemtsearchId.querySelectorAll('.' + elems[item].classList[3])[0]
 
-                var line_x = elemtsearch.offsetWidth / 2 + (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
-                var line_y = elemtsearch.offsetHeight / 2 + (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
+                var line_x: number = elemtsearch.offsetWidth / 2 + (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
+                var line_y: number = elemtsearch.offsetHeight / 2 + (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
 
                 var elemtsearchId_in = elemtsearchId_in.querySelectorAll('.' + elems[item].classList[4])[0]
                 var x = elemtsearchId_in.offsetWidth / 2 + (elemtsearchId_in.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
                 var y = elemtsearchId_in.offsetHeight / 2 + (elemtsearchId_in.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
 
-                const lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, Variables.curvature, 'openclose');
+                const lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, Variables.Curvature, 'openclose');
                 elems[item].children[0].setAttributeNS(null, 'd', lineCurve);
 
             } else {
@@ -217,8 +217,8 @@ export class BaseFunctions {
                         // var elemtsearchId_out: any = Variables.MainContainer.querySelector(`#${id}`);
                         var elemtsearch = item;
 
-                        var line_x = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var line_y = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        var line_x: number = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var line_y: number = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
 
                         var elemtsearchIn = elemtsearchId_out.querySelectorAll('.' + item.parentElement.classList[4])[0]
                         eX = elemtsearchIn.offsetWidth / 2 + (elemtsearchIn.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
@@ -237,11 +237,11 @@ export class BaseFunctions {
                         var elemtsearch: any = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[3])[0]
 
                         var elemtsearchOut = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[3])[0]
-                        var line_x: any = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
-                        var line_y: any = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
+                        var line_x: number = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
+                        var line_y: number = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
 
-                        eX = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        eY = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        eX = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        eY = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -257,11 +257,11 @@ export class BaseFunctions {
                         var elemtsearchId: any = Variables.MainContainer.querySelector(`#${id_search}`);
                         var elemtsearch = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[3])[0]
                         var elemtsearchOut = elemtsearchId.querySelectorAll('.' + item.parentElement.classList[3])[0]
-                        var line_x: any = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
-                        var line_y: any = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
+                        var line_x: number = elemtsearchOut.offsetWidth / 2 + (elemtsearchOut.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
+                        var line_y: number = elemtsearchOut.offsetHeight / 2 + (elemtsearchOut.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
 
-                        eX = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        eY = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        eX = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        eY = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -273,10 +273,10 @@ export class BaseFunctions {
                         var elemtsearchId_out = item;
                         var elemtsearch: any = points[i + 1];
 
-                        eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
-                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
+                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -296,8 +296,8 @@ export class BaseFunctions {
                         eX = elemtsearchIn.offsetWidth / 2 + (elemtsearchIn.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
                         eY = elemtsearchIn.offsetHeight / 2 + (elemtsearchIn.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom;
 
-                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -310,10 +310,10 @@ export class BaseFunctions {
                         var elemtsearchId_out = item;
                         var elemtsearch: any = points[i + 1];
 
-                        eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
-                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.reroute_width;
-                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.reroute_width;
+                        eX = (elemtsearch.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        eY = (elemtsearch.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
+                        var line_x = (elemtsearchId_out.getBoundingClientRect().x - Variables.PreCanvas.getBoundingClientRect().x) * precanvasWitdhZoom + Variables.RerouteWidth;
+                        var line_y = (elemtsearchId_out.getBoundingClientRect().y - Variables.PreCanvas.getBoundingClientRect().y) * precanvasHeightZoom + Variables.RerouteWidth;
                         var x = eX;
                         var y = eY;
 
@@ -351,7 +351,7 @@ export class BaseFunctions {
         var x = eX * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)));
         var y = eY * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().y * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)));
 
-        var curvature = Variables.curvature;
+        var curvature = Variables.Curvature;
         var lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, curvature, 'openclose');
         path.setAttributeNS(null, 'd', lineCurve);
 
@@ -560,7 +560,7 @@ export class BaseFunctions {
 
         point.setAttributeNS(null, 'cx', pos_x);
         point.setAttributeNS(null, 'cy', pos_y);
-        point.setAttributeNS(null, 'r', Variables.reroute_width);
+        point.setAttributeNS(null, 'r', Variables.RerouteWidth.toString());
 
         let position_add_array_point = 0;
         if (Variables.RerouteFixCurvature) {
