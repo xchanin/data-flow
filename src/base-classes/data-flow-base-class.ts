@@ -41,10 +41,10 @@ export class DataFlowBaseClass extends BaseFunctions {
           }
       }
   
-      if(Variables.editor_selected) {
+      if(Variables.EditorIsSelected) {
         Variables.CanvasX = Variables.CanvasX + (-(Variables.PosX - e_pos_x));
         Variables.CanvasY = Variables.CanvasY + (-(Variables.PosY - e_pos_y));
-        Variables.editor_selected = false;
+        Variables.EditorIsSelected = false;
       }
       if(Variables.connection === true) {
         if(ele_last.classList[0] === 'input' || (Variables.force_first_input && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === 'drawflow-node'))) {
@@ -113,7 +113,7 @@ export class DataFlowBaseClass extends BaseFunctions {
       Variables.DragPoint = false;
       Variables.connection = false;
       Variables.SelectedElement = null;
-      Variables.editor_selected = false;
+      Variables.EditorIsSelected = false;
   
     }
 
@@ -134,7 +134,7 @@ export class DataFlowBaseClass extends BaseFunctions {
       if(Variables.connection) {
         this.updateConnection(e_pos_x, e_pos_y);
       }
-      if(Variables.editor_selected) {
+      if(Variables.EditorIsSelected) {
         x =  Variables.CanvasX + (-(Variables.PosX - e_pos_x))
         y = Variables.CanvasY + (-(Variables.PosY - e_pos_y))
         this.Dispatch('translate', { x: x, y: y});
@@ -286,7 +286,7 @@ export class DataFlowBaseClass extends BaseFunctions {
             this.removeReouteConnectionSelected();
             Variables.connection_selected = null;
           }
-          Variables.editor_selected = true;
+          Variables.EditorIsSelected = true;
           break;
         case 'drawflow':
           if(Variables.SelectedNode != null) {
@@ -299,7 +299,7 @@ export class DataFlowBaseClass extends BaseFunctions {
             this.removeReouteConnectionSelected();
             Variables.connection_selected = null;
           }
-          Variables.editor_selected = true;
+          Variables.EditorIsSelected = true;
           break;
         case 'main-path':
           if(Variables.SelectedNode != null) {

@@ -49,19 +49,30 @@ export class Variables {
     public static RerouteWidth: number = 6;
 
     public static DragPoint: boolean = false;
-    public static editor_selected: any = false;
-    public static connection: any = false;
+
+    public static EditorIsSelected: boolean = false;
+    public static connection: boolean = false;
     public static connection_ele: any = null;
     public static connection_selected: any = null;
+
     public static CanvasX: number = 0;
+
     public static CanvasY: number = 0;
+
     public static PosX: number = 0;
+
     public static PosXStart: number = 0;
+
     public static PosY: number = 0;
+
     public static PosYStart: number = 0;
+
     public static MouseX: number = 0;
+
     public static MouseY: number = 0;
+
     public static line_path: any = 5;
+
     public static first_click: any = null;
     public static force_first_input: any = false;
     public static draggable_inputs: any = true;
