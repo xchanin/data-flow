@@ -15,8 +15,8 @@ export class FlowTool extends DataFlowBaseClass {
  
          super();
  
-         Variables.parent = parent;
-         Variables.render = render;
+         Variables.Parent = parent;
+         Variables.Render = render;
          Variables.MainContainer = container;
  
          this.eventListeners = [
@@ -184,7 +184,7 @@ export class FlowTool extends DataFlowBaseClass {
 
         let newNodeId: any;
 
-        if (Variables.useuuid) {
+        if (Variables.UseUUID) {
           newNodeId = this.getUuid();
         } else {
           newNodeId = Variables.NodeId;
@@ -231,20 +231,20 @@ export class FlowTool extends DataFlowBaseClass {
         if(typenode === false) {
           content.innerHTML = html;
         } else if (typenode === true) {
-          content.appendChild(Variables.noderegister[html].html.cloneNode(true));
+          content.appendChild(Variables.NodeRegister[html].html.cloneNode(true));
         } else {
-          if(parseInt(Variables.render.version) === 3 ) {
+          if(parseInt(Variables.Render.version) === 3 ) {
             //Vue 3
-            let wrapper = Variables.render.createApp({
-              parent: Variables.parent,
-              render: (h: any) => Variables.render.h(Variables.noderegister[html].html, Variables.noderegister[html].props, Variables.noderegister[html].options)
+            let wrapper = Variables.Render.createApp({
+              parent: Variables.Parent,
+              render: (h: any) => Variables.Render.h(Variables.NodeRegister[html].html, Variables.NodeRegister[html].props, Variables.NodeRegister[html].options)
             }).mount(content)
           } else {
             // Vue 2
-            let wrapper = new Variables.render({
-              parent: Variables.parent,
-              render: (h: any) => h(Variables.noderegister[html].html, { props: Variables.noderegister[html].props }),
-              ...Variables.noderegister[html].options
+            let wrapper = new Variables.Render({
+              parent: Variables.Parent,
+              render: (h: any) => h(Variables.NodeRegister[html].html, { props: Variables.NodeRegister[html].props }),
+              ...Variables.NodeRegister[html].options
             }).$mount()
             //
             content.appendChild(wrapper.$el);
@@ -303,7 +303,7 @@ export class FlowTool extends DataFlowBaseClass {
         }
         this.activeModule(Variables.CurrentModule).Data[newNodeId] = json;
         this.Dispatch('nodeCreated', newNodeId);
-        if (!Variables.useuuid) {
+        if (!Variables.UseUUID) {
           Variables.NodeId++;
         }
         return newNodeId;
@@ -379,20 +379,20 @@ export class FlowTool extends DataFlowBaseClass {
         if(dataNode.typenode === false) {
           content.innerHTML = dataNode.html;
         } else if (dataNode.typenode === true) {
-          content.appendChild(Variables.noderegister[dataNode.html].html.cloneNode(true));
+          content.appendChild(Variables.NodeRegister[dataNode.html].html.cloneNode(true));
         } else {
-          if(parseInt(Variables.render.version) === 3 ) {
+          if(parseInt(Variables.Render.version) === 3 ) {
             //Vue 3
-            let wrapper = Variables.render.createApp({
-              parent: Variables.parent,
-              render: (h: any) => Variables.render.h(Variables.noderegister[dataNode.html].html, Variables.noderegister[dataNode.html].props, Variables.noderegister[dataNode.html].options)
+            let wrapper = Variables.Render.createApp({
+              parent: Variables.Parent,
+              render: (h: any) => Variables.Render.h(Variables.NodeRegister[dataNode.html].html, Variables.NodeRegister[dataNode.html].props, Variables.NodeRegister[dataNode.html].options)
             }).mount(content)
           } else {
             //Vue 2
-            let wrapper = new Variables.render({
-              parent: Variables.parent,
-              render: (h: any) => h(Variables.noderegister[dataNode.html].html, { props: Variables.noderegister[dataNode.html].props }),
-              ...Variables.noderegister[dataNode.html].options
+            let wrapper = new Variables.Render({
+              parent: Variables.Parent,
+              render: (h: any) => h(Variables.NodeRegister[dataNode.html].html, { props: Variables.NodeRegister[dataNode.html].props }),
+              ...Variables.NodeRegister[dataNode.html].options
             }).$mount()
             content.appendChild(wrapper.$el);
           }

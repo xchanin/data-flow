@@ -5,7 +5,7 @@ export class DrawingUtils {
 
     public static DrawConnection(ele: any, callback: (val: string, output: {}) => void): void {
         const connection:SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg',"svg");
-        variables.connection_ele = connection;
+        variables.ConnectionElement = connection;
         const path = document.createElementNS('http://www.w3.org/2000/svg',"path");
         path.classList.add("main-path");
         path.setAttributeNS(null, 'd', '');
@@ -79,7 +79,7 @@ export class DrawingUtils {
         precanvasWitdhZoom = precanvasWitdhZoom || 0;
         let precanvasHeightZoom = precanvas.clientHeight / (precanvas.clientHeight * zoom);
         precanvasHeightZoom = precanvasHeightZoom || 0;
-        var path = variables.connection_ele.children[0];
+        var path = variables.ConnectionElement.children[0];
     
         var line_x = variables.SelectedElement.offsetWidth/2 + (variables.SelectedElement.getBoundingClientRect().x - precanvas.getBoundingClientRect().x ) * precanvasWitdhZoom;
         var line_y = variables.SelectedElement.offsetHeight/2 + (variables.SelectedElement.getBoundingClientRect().y - precanvas.getBoundingClientRect().y ) * precanvasHeightZoom;
@@ -87,7 +87,7 @@ export class DrawingUtils {
         var x = eX * ( variables.PreCanvas.clientWidth / (variables.PreCanvas.clientWidth * variables.Zoom)) - (variables.PreCanvas.getBoundingClientRect().x *  ( variables.PreCanvas.clientWidth / (variables.PreCanvas.clientWidth * variables.Zoom)) );
         var y = eY * ( variables.PreCanvas.clientHeight / (variables.PreCanvas.clientHeight * variables.Zoom)) - (variables.PreCanvas.getBoundingClientRect().y *  ( variables.PreCanvas.clientHeight / (variables.PreCanvas.clientHeight * variables.Zoom)) );
     
-        var curvature = variables.curvature;
+        var curvature = variables.Curvature;
         var lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, curvature, 'openclose');
         path.setAttributeNS(null, 'd', lineCurve);
     }

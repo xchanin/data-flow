@@ -343,7 +343,7 @@ export class BaseFunctions {
         precanvasWitdhZoom = precanvasWitdhZoom || 0;
         let precanvasHeightZoom = precanvas.clientHeight / (precanvas.clientHeight * zoom);
         precanvasHeightZoom = precanvasHeightZoom || 0;
-        var path = Variables.connection_ele.children[0];
+        var path = Variables.ConnectionElement.children[0];
 
         var line_x = Variables.SelectedElement.offsetWidth / 2 + (Variables.SelectedElement.getBoundingClientRect().x - precanvas.getBoundingClientRect().x) * precanvasWitdhZoom;
         var line_y = Variables.SelectedElement.offsetHeight / 2 + (Variables.SelectedElement.getBoundingClientRect().y - precanvas.getBoundingClientRect().y) * precanvasHeightZoom;
@@ -419,9 +419,9 @@ export class BaseFunctions {
     }
 
     protected removeConnection(): void {
-        if (Variables.connection_selected != null) {
-            var listclass = Variables.connection_selected.parentElement.classList;
-            Variables.connection_selected.parentElement.remove();
+        if (Variables.SelectedConnection != null) {
+            var listclass = Variables.SelectedConnection.parentElement.classList;
+            Variables.SelectedConnection.parentElement.remove();
             //console.log(listclass);
             var index_out = this.activeModule(Variables.CurrentModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[1].slice(13) && item.output === listclass[4]
@@ -433,7 +433,7 @@ export class BaseFunctions {
             });
             this.activeModule(Variables.CurrentModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
             this.Dispatch('connectionRemoved', { output_id: listclass[2].slice(14), input_id: listclass[1].slice(13), output_class: listclass[3], input_class: listclass[4] });
-            Variables.connection_selected = null;
+            Variables.SelectedConnection = null;
         }
     }
 
@@ -498,7 +498,7 @@ export class BaseFunctions {
     protected removeReouteConnectionSelected(): void {
         this.Dispatch('connectionUnselected', true);
         if (Variables.RerouteFixCurvature) {
-            Variables.connection_selected.parentElement.querySelectorAll(".main-path").forEach((item: any, i: any) => {
+            Variables.SelectedConnection.parentElement.querySelectorAll(".main-path").forEach((item: any, i: any) => {
                 item.classList.remove("selected");
             });
         }
@@ -547,12 +547,12 @@ export class BaseFunctions {
     }
 
     public createReroutePoint(ele: any): void {
-        Variables.connection_selected.classList.remove("selected");
-        const nodeUpdate = Variables.connection_selected.parentElement.classList[2].slice(9);
-        const nodeUpdateIn = Variables.connection_selected.parentElement.classList[1].slice(13);
-        const output_class = Variables.connection_selected.parentElement.classList[3];
-        const input_class = Variables.connection_selected.parentElement.classList[4];
-        Variables.connection_selected = null;
+        Variables.SelectedConnection.classList.remove("selected");
+        const nodeUpdate = Variables.SelectedConnection.parentElement.classList[2].slice(9);
+        const nodeUpdateIn = Variables.SelectedConnection.parentElement.classList[1].slice(13);
+        const output_class = Variables.SelectedConnection.parentElement.classList[3];
+        const input_class = Variables.SelectedConnection.parentElement.classList[4];
+        Variables.SelectedConnection = null;
         const point = document.createElementNS('http://www.w3.org/2000/svg', "circle");
         point.classList.add("point");
         var pos_x: any = Variables.PosX * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)));
@@ -638,9 +638,9 @@ export class BaseFunctions {
 
     public Remove_Event(ev: any): void {
         // Remove this event from the target's cache
-        for (var i = 0; i < Variables.evCache.length; i++) {
-            if (Variables.evCache[i].pointerId == ev.pointerId) {
-                Variables.evCache.splice(i, 1);
+        for (var i = 0; i < Variables.EVCache.length; i++) {
+            if (Variables.EVCache[i].pointerId == ev.pointerId) {
+                Variables.EVCache.splice(i, 1);
                 break;
             }
         }
