@@ -112,4 +112,18 @@ export class DragItemsTemplates {
             }
         ];
      } 
+
+     public static FLOW_DRAG_ITEMS(callback: () => {}): Array<any> {
+        return [
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'request',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'request',
+                Label: ' Request',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+        ]
+     }
 }

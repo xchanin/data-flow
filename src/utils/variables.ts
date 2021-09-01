@@ -87,7 +87,7 @@ export class Variables {
     /**
      * First element clicked?
      */
-        public static FirstClickedElement: HTMLElement;
+    public static FirstClickedElement: HTMLElement;
 
     /**
      * ?

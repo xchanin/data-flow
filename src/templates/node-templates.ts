@@ -118,11 +118,11 @@ export class NodeTemplates {
         `
             <div>
                 <div class="title-box"><i class="fas fa-mouse"></i> Db Click</div>
-                <div class="box dbclickbox" ondblclick="showpopup(event)">
+                <div class="box dbclickbox" ondblclick="showPopup(event)">
                     Db Click here
                     <div class="modal" style="display:none">
                     <div class="modal-content">
-                        <span class="close" onclick="closemodal(event)">&times;</span>
+                        <span class="close" onclick="closeModal(event)">&times;</span>
                         Change your variable {name} !
                         <input type="text" df-name>
                     </div>

@@ -90,11 +90,10 @@ export class FlowTool extends DataFlowBaseClass {
              }
          ]
      }
-   
-     /**
+    /**
       * Start creating nodes
       */
-     public Start (): void {
+     protected start (): void {
 
       /**
        * Initialize UI events
@@ -121,7 +120,7 @@ export class FlowTool extends DataFlowBaseClass {
  
        // Variables.load();
      }
-
+     
      /**
       * load platform data
       */
@@ -777,7 +776,7 @@ export class FlowTool extends DataFlowBaseClass {
        Variables.ZoomLastValue = 1;
        Variables.PreCanvas.style.transform = '';
 
-       this.ImportData(this.activeModule(Variables.ActiveModule), false);
+       this.Init(this.activeModule(Variables.ActiveModule), false);
      }
    
     //  removeModule(name: any) {
@@ -831,14 +830,16 @@ export class FlowTool extends DataFlowBaseClass {
     * @param notifi dispatch event when data has been imported
     * @returns 
     */
-     public ImportData (data: DataFlowDataModel, notifi: boolean = true): void {
+     public Init (data: DataFlowDataModel, notify: boolean = true): void {
 
       /**
        * If no data, then ignore functionality
        */
-      if (!data) {
-        return;
-      }
+        if (!data) {
+          return;
+        }
+
+        this.start();
 
          this.clear();
   
@@ -853,7 +854,7 @@ export class FlowTool extends DataFlowBaseClass {
  
        this.load();
  
-       if(notifi) {
+       if(notify) {
          this.Dispatch('import', 'import');
        }
      }
