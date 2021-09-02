@@ -124,6 +124,78 @@ export class DragItemsTemplates {
                 Label: ' Request',
                 IconClassList: ['fab', 'fa-facebook']
             },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'project',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'project',
+                Label: ' Project',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'route-filter',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'route-filter',
+                Label: ' Route Filter',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'application',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'application',
+                Label: ' Application',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'modifier',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'modifier',
+                Label: ' DFS Modifier',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'join',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'join',
+                Label: ' Join',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'split',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'split',
+                Label: ' Split',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'decision',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'decision',
+                Label: ' Decision',
+                IconClassList: ['fab', 'fa-facebook']
+            },
+            {
+                ClassList: ['drag-drawflow'],
+                DataNode: 'event',
+                Draggable: true,
+                DragAction: callback,
+                Id: 'event',
+                Label: ' Event',
+                IconClassList: ['fab', 'fa-facebook']
+            }
         ]
      }
 }

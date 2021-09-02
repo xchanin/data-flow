@@ -1,3 +1,6 @@
+/**
+* Main container
+*/
 .parent-drawflow {
     display: flex;
     overflow: hidden;
@@ -5,6 +8,9 @@
     outline:none;
   }
   
+  /**
+  * Canvas
+  */
   .drawflow {
     width: 100%;
     height: 100%;
@@ -23,7 +29,7 @@
     width: 60px !important;
   }
 
-  .diamond {
+  /* .diamond {
     transform:rotate(45deg) !important;
     height: 60px !important;
     width: 60px !important;
@@ -35,9 +41,9 @@
   
   .drawflow .diamond {
     background-color: #43b993 !important;
-  }
+  } */
 
-  .diamond .inputs {
+  /* .diamond .inputs {
     position: absolute;
     left: 0;
     top: -10px !important;
@@ -47,7 +53,7 @@
     position: absolute;
     right: 0;
     bottom: 10px !important;
-  }
+  } */
 
   .drawflow .drawflow-node {
     display: flex;
@@ -79,6 +85,16 @@
   .drawflow .drawflow-node .inputs {
     top: -10px;
     position:absolute;
+  }
+
+  .drawflow .drawflow-node .inputs > * {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .drawflow .drawflow-node .outputs > * {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .drawflow .drawflow-node .outputs {
@@ -116,6 +132,7 @@
     background: yellow;
     /* transform: rotate(-45deg) !important; */
   }
+  
   .drawflow .drawflow-node .output {
     /* right: -3px;
     top: 2px; */

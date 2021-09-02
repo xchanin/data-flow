@@ -1,4 +1,7 @@
 export class NodeTemplates {
+
+    public static Request: string = `<div class="request"></div>`;
+
     public static Facebook: string = 
         `
             <div>

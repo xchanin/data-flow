@@ -50,6 +50,16 @@ export class NodeModel {
     public Name!: string;
 
     /**
+     * Number of inputs per node
+     */
+    public NumOfInputs!: number;
+
+    /**
+     * Number of outputs per node
+     */
+    public NumOfOutputs!: number;
+
+    /**
      * Output direction and connected nodes
      */
     public Outputs?: NodeInputOutputModel;
@@ -72,12 +82,12 @@ export class NodeModel {
     /**
      * Node Type
      */
-     public Type!: NodeType
+     public Type?: NodeType
 
     /**
      * Not sure what this is yet
      */
-    public TypeNode!: boolean;
+    public TypeNode: boolean = false;
     
     constructor(opts: NodeModel) {
         Object.assign(this, opts); // destructure values
