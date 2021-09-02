@@ -3,6 +3,6 @@
  */
 export class ContainerEvent {
 
-    public Action!: () => void;
+    public Action!: (event?: Event, delta?: any) => void;
     public Event!: string;
 }

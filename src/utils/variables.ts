@@ -1,74 +1,241 @@
-import { Module } from 'module';
-import { DrawFlowModel } from './../models/drawflow.model';
+import { DataFlowDataModel } from "../models/dataflow-data.model.js";
+import { MenuTemplateModel } from "../models/menu/menu-template.model.js";
 
+type EditMode = 'fixed' | 'edit' | 'view';
 
 export class Variables {
 
-    public static events: object = {};
-    public static container: HTMLElement;
-    public static precanvas: HTMLElement;
-    public static nodeId: number = 1;
-    public static ele_selected: HTMLElement;
-    public static node_selected = null;
-    public static drag: boolean = false;
-    public static reroute: boolean = false;
-    public static reroute_fix_curvature: boolean = false;
-    public static curvature: number = 0.5;
-    public static reroute_curvature_start_end: number = 0.5;
-    public static reroute_curvature: number = 0.5;
-    public static reroute_width: number = 6;
-    public static drag_point: boolean = false;
-    public static editor_selected: boolean = false;
-    public static connection: boolean = false;
-    public static connection_ele: SVGSVGElement;
-    public static connection_selected = null;
-    public static canvas_x: number = 0;
-    public static canvas_y: number = 0;
-    public static pos_x: number = 0;
-    public static pos_x_start: number = 0;
-    public static pos_y: number = 0;
-    public static pos_y_start: number = 0;
-    public static mouse_x: number = 0;
-    public static mouse_y: number = 0;
-    public static line_path: number = 5;
-    public static first_click = null;
-    public static force_first_input = false;
-    public static draggable_inputs = true;
-    public static useuuid: boolean = false;
-    public static parent = parent;
+    /**
+     * Current module
+     */
+    public static ActiveModule: string = 'Home';
 
-    public static noderegister = {};
-    public static render = null;
-    public static drawflow: Array<DrawFlowModel> = 
-    [
-        {
-            Module: 'Home', 
-            Data: {}
-        }
-    ]
-    // public static drawflow: object = { 
-    //     "drawflow": 
-    //     { 
-    //         "Home": 
-    //         { 
-    //             "data": {} 
-    //         }
-    //     }
-    // };
-    // Configurable options
-    public static module: string = 'Home';
-    public static editor_mode: string = 'edit';
-    public static zoom: number = 1;
-    public static zoom_max: number = 1.6;
-    public static zoom_min: number = 0.5;
-    public static zoom_value: number = 0.1;
-    public static zoom_last_value: number = 1;
+    /**
+     * ?
+     */
+    public static CanvasX: number = 0;
+
+    /**
+     * ?
+     */
+    public static CanvasY: number = 0;
+
+    /**
+     * When a connection between nodes is set
+     */
+    public static Connection: boolean = false;
+
+    /**
+     * Element being connected
+     */
+    public static ConnectionElement: HTMLElement | any; 
+
+    /**
+     * How much curve is in the connection line
+     */
+    public static Curvature: number = 0.5;
+
+    /**
+     * List of data flow module data
+     */
+    public static DataFlowModuleData: Array<DataFlowDataModel> = [];
+
+
+    /**
+     * Are these draggable inputs
+     */
+    public static DraggableInputs: boolean = true;
+
+
+    /**
+     * When an element is being dragged
+     */
+    public static Dragging: boolean = false;
+
+    /**
+     * ?
+     */
+    public static DragPoint: boolean = false;
+
+    /**
+     * When editor is selected?
+     */
+    public static EditorIsSelected: boolean = false;
+
+    /**
+     * What type of mode we are in
+     * 
+     * View, Fixed, Edit
+     */
+    public static EditorMode: EditMode = 'edit';
+
+    
 
     // Mobile
-    public static evCache = new Array();
-    public static prevDiff: number = -1;
-    
+    /**
+     * Event cache
+     */
+    public static EVCache = new Array();
+
+    // public static Events: Array<DispatchedEventsModel>;
+
+    /**
+     * List of UI events
+     */
+    public static Events: any = {};
+
+    /**
+     * First element clicked?
+     */
+    public static FirstClickedElement: HTMLElement;
+
+    /**
+     * ?
+     */
+    public static ForceFirstInput: boolean = false;
+
+    /**
+     * Main canvas container
+     */
+    public static MainContainer: HTMLElement | any;
+
+
+    /**
+     * List of draggable menu items
+     */
+    public static MenuTemplates: Array<MenuTemplateModel>;
+
+    /**
+     * Mouse X position
+     */
+    public static MouseX: number = 0;
+
+    /**
+     * Mouse Y position
+     */
+    public static MouseY: number = 0;
+
+    /**
+     * Node id
+     */
+    public static NodeId: number = 1;
+
+    /**
+     * Cloned node?
+     */
+    public static NodeRegister: HTMLElement | any;
+
+    /**
+     * Parent element for the flow tool
+     */
+    public static Parent: any;
+
+    /**
+     * ?
+     */
+    public static PrevDiff: number = -1;
+
+    /**
+     * ?
+     */
+    public static PosX: number = 0;
+
+    /**
+     * ?
+     */
+    public static PosXStart: number = 0;
+
+    /**
+     * ?
+     */
+    public static PosY: number = 0;
+
+    /**
+     * ?
+     */
+    public static PosYStart: number = 0;
+
+    /**
+     * pre canvas container that holds nodes
+     */
+    public static PreCanvas: HTMLElement | any;
+
+    /**
+     * ?
+     */
+    public static Render: any;
+
+    /**
+     * ?
+     */
+    public static Reroute: boolean = false;
+
+    /**
+    * ?
+    */
+    public static RerouteCurvature: number = 0.5;
+
+    /**
+    * ?
+    */
+    public static RerouteCurvatureStartEnd: number = 0.5;
+
+    /**
+    * ?
+    */
+    public static RerouteFixCurvature: boolean = false;
+
+    /**
+    * ?
+    */
+    public static RerouteWidth: number = 6;
+
+    /**
+     * Selected connection
+     */
+    public static SelectedConnection: HTMLElement | any;
+
+    /**
+     * ?
+     */
+    public static SelectedElement: HTMLElement | any;
+
+    /**
+     * ?
+     */
+    public static SelectedNode: HTMLElement | any;
+
+    /**
+     * Whether or not to use UUID
+     */
+    public static UseUUID: boolean = false;
+
+    /**
+     * Zoom level
+     */
+    public static Zoom: number = 1;
+
+    /**
+     * ?
+     */
+    public static ZoomLastValue: number = 1;
+
+    /**
+     * Maximum zoom level
+     */
+    public static ZoomMax: number = 1.6;
+
+    /**
+     * Minimum zoom level
+     */
+    public static ZoomMin: number = 0.5;
+
+    /**
+     * ?
+     */
+    public static ZoomValue: number = 0.1;
+
     constructor() {
+        
     }
-    
 }

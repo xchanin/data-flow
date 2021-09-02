@@ -1,0 +1,7 @@
+.base-node, .request, .project {
+  height: 100px;
+  width: 100px; }
+
+.request {
+  background-color: cadetblue;
+  position: relative; }

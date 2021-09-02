@@ -14,7 +14,8 @@
     "watch": "npm run watch:es",
     "watch:es": "tsc -p tsconfig.es.json -w",
     "watch:cjs": "tsc -p tsconfig.cjs.json -w",
-    "start": "http-server"
+    "start": "http-server && npm run compile-scss",
+    "compile-scss": "node-sass --w static/scss/ -o ./static/css/sjs"
   },
   "repository": {
     "type": "git",
