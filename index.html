@@ -19,7 +19,8 @@
 </head>
 
 <body>
-  <div class="base gap" style="width: 100%; height: 300px;">
+
+  <div class="base gap" style="margin-top: 30px; width: 100%; height: 75px;">
     <div class="request">Request</div>
     <div class="project">Project</div>
     <div class="route-filter">Route Filter</div>
@@ -71,11 +72,12 @@
       Events,
       ConstantUtils,
       NodeTemplates,
-      DragItemsTemplates
+      DragItemsTemplates,
+      PositionUtils
     } from './packages/es/index.js';
 
-    let id = document.getElementById("drawflow");
-    let flowTool = new FlowTool(id);
+    let canvas = document.getElementById("drawflow");	
+    let flowTool = new FlowTool(canvas, canvas);
 
     /**
      * Create side menu of draggable items
@@ -148,51 +150,67 @@
 
     }
 
-    function addNodeToDrawFlow(name, pos_x, pos_y) {
+    function addNodeToDrawFlow(name, x, y) {
+
       if (Variables.editor_mode === 'fixed') {
         return false;
       }
+      
+      let posX = PositionUtils.DraggedNodeXPos(x);	
+      let posY = PositionUtils.DraggedNodeYPos(y);
 
-      pos_x = pos_x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)));
-      pos_y = pos_y * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().y * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)));
-
+      // flowTool.AddNode('facebook', 0, 1, posX, posY, 'facebook', {}, NodeTemplates.Facebook);
 
       switch (name) {
+        case 'request':
+          flowTool.AddNode('request', 0, 1, posX, posY, 'request', {}, NodeTemplates.Request);
+          break;
         case 'facebook':
-          flowTool.AddNode('facebook', 0, 1, pos_x, pos_y, 'facebook', {}, NodeTemplates.Facebook);
+          flowTool.AddNode(
+            {
+              Name: 'facebook', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['facebook'], 
+              Data: {}, 
+              HTML: NodeTemplates.Facebook,
+              TypeNode: false
+            });
           break;
         case 'slack':
-          flowTool.AddNode('slack', 1, 0, pos_x, pos_y, 'slack', {}, NodeTemplates.Slack);
+          flowTool.AddNode('slack', 1, 0, posX, posY, 'slack', {}, NodeTemplates.Slack);
           break;
         case 'github':
-          flowTool.AddNode('github', 0, 1, pos_x, pos_y, 'github', { "name": '' }, NodeTemplates.Github);
+          flowTool.AddNode('github', 0, 1, posX, posY, 'github', { "name": '' }, NodeTemplates.Github);
           break;
         case 'telegram':
-          flowTool.AddNode('telegram', 1, 0, pos_x, pos_y, 'telegram', { "channel": 'channel_3' }, NodeTemplates.Telegram);
+          flowTool.AddNode('telegram', 1, 0, posX, posY, 'telegram', { "channel": 'channel_3' }, NodeTemplates.Telegram);
           break;
         case 'aws':
-          flowTool.AddNode('aws', 1, 1, pos_x, pos_y, 'aws', { "db": { "dbname": '', "key": '' } }, NodeTemplates.AWS);
+          flowTool.AddNode('aws', 1, 1, posX, posY, 'aws', { "db": { "dbname": '', "key": '' } }, NodeTemplates.AWS);
           break;
         case 'log':
-          flowTool.AddNode('log', 1, 0, pos_x, pos_y, 'log', {}, NodeTemplates.Log);
+          flowTool.AddNode('log', 1, 0, posX, posY, 'log', {}, NodeTemplates.Log);
           break;
         case 'google':
-          flowTool.AddNode('google', 1, 0, pos_x, pos_y, 'google', {}, NodeTemplates.Google);
+          flowTool.AddNode('google', 1, 0, posX, posY, 'google', {}, NodeTemplates.Google);
           break;
         case 'email':
-          flowTool.AddNode('email', 1, 0, pos_x, pos_y, 'email', {}, NodeTemplates.Email);
+          flowTool.AddNode('email', 1, 0, posX, posY, 'email', {}, NodeTemplates.Email);
           break;
         case 'template':
-          flowTool.AddNode('template', 1, 1, pos_x, pos_y, 'template', { "template": 'Write your template' }, NodeTemplates.Template);
+          flowTool.AddNode('template', 1, 1, posX, posY, 'template', { "template": 'Write your template' }, NodeTemplates.Template);
           break;
         case 'multiple':
-          flowTool.AddNode('multiple', 3, 4, pos_x, pos_y, 'multiple', {}, NodeTemplates.Multiple);
+          flowTool.AddNode('multiple', 3, 4, posX, posY, 'multiple', {}, NodeTemplates.Multiple);
           break;
         case 'personalized':
-          flowTool.AddNode('personalized', 1, 1, pos_x, pos_y, 'personalized', {}, NodeTemplates.Personalized);
+          flowTool.AddNode('personalized', 1, 1, posX, posY, 'personalized', {}, NodeTemplates.Personalized);
           break;
         case 'dbclick':
-          flowTool.AddNode('dbclick', 1, 1, pos_x, pos_y, 'dbclick', { name: '' }, NodeTemplates.DBLClick);
+          flowTool.AddNode('dbclick', 1, 1, posX, posY, 'dbclick', { name: '' }, NodeTemplates.DBLClick);
           break;
 
         default:

@@ -1,3 +1,4 @@
+import { NodeModel } from './../models/nodes/node.model.js';
 import { Variables } from "../utils/variables.js";
 import { DataFlowBaseClass } from "../base-classes/data-flow-base-class.js";
 import { DataFlowDataModel } from "../models/dataflow-data.model.js";
@@ -170,23 +171,21 @@ export class FlowTool extends DataFlowBaseClass {
      * @param typenode 
      * @returns 
      */
-     public AddNode (
-       name: string, 
-       num_in: number, 
-       num_out: number, 
-       ele_pos_x: number, 
-       ele_pos_y: number, 
-       classoverride: string, 
-       data: any, 
-       html: string, 
-       typenode = false): void {
 
-        let newNodeId: any;
+    /**
+     * Add a new node to the canvas
+     * 
+     * @param val Node model
+     * @returns node id
+     */
+    public AddNode(val: NodeModel): string {
+
+        let newNodeId: string;
 
         if (Variables.UseUUID) {
           newNodeId = this.getUuid();
         } else {
-          newNodeId = Variables.NodeId;
+          newNodeId = Variables.NodeId.toString();
         }
 
         const parent: HTMLElement = document.createElement('div');
@@ -194,11 +193,11 @@ export class FlowTool extends DataFlowBaseClass {
     
         const node: HTMLElement = document.createElement('div');
         node.innerHTML = "";
-        node.setAttribute("id", "node-"+newNodeId);
+        node.setAttribute("id", "node-" + newNodeId);
         node.classList.add("drawflow-node");
         
-        if(classoverride != '') {
-          node.classList.add(classoverride);
+        if (val.ClassList) {
+          node.classList.add(...val.ClassList);
         }
     
         const inputs: HTMLElement = document.createElement('div');
@@ -208,7 +207,7 @@ export class FlowTool extends DataFlowBaseClass {
         outputs.classList.add("outputs");
     
         const json_inputs: any = {}
-        for(var x = 0; x < num_in; x++) {
+        for(var x = 0; x < val.NumOfInputs; x++) {
           const input = document.createElement('div');
           input.classList.add("input");
           input.classList.add("input_"+(x+1));
@@ -217,7 +216,7 @@ export class FlowTool extends DataFlowBaseClass {
         }
     
         const json_outputs: any = {}
-        for(var x = 0; x < num_out; x++) {
+        for(var x = 0; x < val.NumOfOutputs; x++) {
           const output = document.createElement('div');
           output.classList.add("output");
           output.classList.add("output_"+(x+1));
@@ -227,30 +226,30 @@ export class FlowTool extends DataFlowBaseClass {
     
         const content = document.createElement('div');
         content.classList.add("drawflow_content_node");
-        if(typenode === false) {
-          content.innerHTML = html;
-        } else if (typenode === true) {
-          content.appendChild(Variables.NodeRegister[html].html.cloneNode(true));
+        if(val.TypeNode === false) {
+          content.innerHTML = val.HTML;
+        } else if (val.TypeNode === true) {
+          content.appendChild(Variables.NodeRegister[val.HTML].html.cloneNode(true));
         } else {
           if(parseInt(Variables.Render.version) === 3 ) {
             //Vue 3
             let wrapper = Variables.Render.createApp({
               parent: Variables.Parent,
-              render: (h: any) => Variables.Render.h(Variables.NodeRegister[html].html, Variables.NodeRegister[html].props, Variables.NodeRegister[html].options)
+              render: (h: any) => Variables.Render.h(Variables.NodeRegister[val.HTML].html, Variables.NodeRegister[val.HTML].props, Variables.NodeRegister[val.HTML].options)
             }).mount(content)
           } else {
             // Vue 2
             let wrapper = new Variables.Render({
               parent: Variables.Parent,
-              render: (h: any) => h(Variables.NodeRegister[html].html, { props: Variables.NodeRegister[html].props }),
-              ...Variables.NodeRegister[html].options
+              render: (h: any) => h(Variables.NodeRegister[val.HTML].html, { props: Variables.NodeRegister[val.HTML].props }),
+              ...Variables.NodeRegister[val.HTML].options
             }).$mount()
             //
             content.appendChild(wrapper.$el);
           }
         }
     
-        Object.entries(data).forEach(function (key, value) {
+        Object.entries(val.Data).forEach(function (key, value) {
           if(typeof key[1] === "object") {
             insertObjectkeys(null, key[0], key[0]);
           } else {
@@ -263,7 +262,7 @@ export class FlowTool extends DataFlowBaseClass {
     
         function insertObjectkeys(object: any, name: any, completname: any) {
           if(object === null) {
-            var object = data[name];
+            var object = val.Data[name];
           } else {
             var object = object[name]
           }
@@ -283,28 +282,38 @@ export class FlowTool extends DataFlowBaseClass {
         node.appendChild(inputs);
         node.appendChild(content);
         node.appendChild(outputs);
-        node.style.top = ele_pos_y + "px";
-        node.style.left = ele_pos_x + "px";
+        node.style.top = val.PosY + "px";
+        node.style.left = val.PosX + "px";
         parent.appendChild(node);
         Variables.PreCanvas.appendChild(parent);
 
-        const json = {
-          id: newNodeId,
-          name: name,
-          data: data,
-          class: classoverride,
-          html: html,
-          typenode: typenode,
-          inputs: json_inputs,
-          outputs: json_outputs,
-          pos_x: ele_pos_x,
-          pos_y: ele_pos_y,
-        }
-        this.activeModule(Variables.ActiveModule).Data[newNodeId] = json;
+
+        const nodeModel: NodeModel = new NodeModel
+        (
+          {
+            Name: val.Name, 
+            Id: newNodeId,
+            Data: val.Data,
+            ClassList: val.ClassList,
+            HTML: val.HTML,
+            TypeNode: val.TypeNode,
+            Inputs: json_inputs,
+            Outputs: json_outputs,
+            PosX: val.PosX,
+            PosY: val.PosY,
+            NumOfInputs: val.NumOfInputs,
+            NumOfOutputs: val.NumOfOutputs
+          }
+        );
+
+        this.activeModule(Variables.ActiveModule).Data[newNodeId] = nodeModel;
+
         this.Dispatch('nodeCreated', newNodeId);
+
         if (!Variables.UseUUID) {
           Variables.NodeId++;
         }
+
         return newNodeId;
       }
     
@@ -322,7 +331,8 @@ export class FlowTool extends DataFlowBaseClass {
          * Change node shape
          */
         if (dataNode.shape === 'diamond') {
-          node.classList.add('diamond');
+          // node.classList.add('diamond');
+          node.classList.add('decision');
         }
 
         if (dataNode.shape === 'circle') {

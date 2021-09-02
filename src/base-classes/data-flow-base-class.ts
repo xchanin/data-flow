@@ -210,15 +210,21 @@ export class DataFlowBaseClass extends BaseFunctions {
      * @returns ?
      */
     public Click(event: any): any {
+      debugger;
       this.Dispatch('click', event);
+
       if(Variables.EditorMode === 'fixed') {
         //return false;
          if(event.target.classList[0] === 'parent-drawflow' || event.target.classList[0] === 'drawflow') {
             Variables.SelectedElement = event.target.closest(".parent-drawflow");
+
          } else {
+
            return false;
          }
+
       } else if(Variables.EditorMode === 'view') {
+        
         if(event.target.closest(".drawflow") != null || event.target.matches('.parent-drawflow')) {
             Variables.SelectedElement = event.target.closest(".parent-drawflow");
           event.preventDefault();
@@ -328,7 +334,6 @@ export class DataFlowBaseClass extends BaseFunctions {
             Variables.SelectedElement.classList.add("selected");
         break;
         case 'drawflow-delete':
-          debugger;
           if(Variables.SelectedNode ) {
             this.removeNodeId(Variables.SelectedNode.id);
           }

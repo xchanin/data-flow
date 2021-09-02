@@ -1,3 +1,6 @@
+/**
+* Base functionality
+*/
 .base {
     display: flex;
     justify-content: center;
@@ -58,23 +61,6 @@
     width: 100px;
     clip-path: polygon(0 25%, 25% 25%, 25% 0, 75% 0, 75% 25%, 100% 25%, 100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0 75%);
 }
-// .join {
-//     @extend .base;
-//     background-color: #11A1AC;
-//     height: 100px;
-//     position: relative;
-//     width: 50px;
-// }
-
-// .join:after {
-//     content: "";
-//     background-color: #11A1AC;
-//     height: 50px;
-//     left: -25px;
-//     position: absolute;
-//     top: 25px;
-//     width: 100px;
-// }
 
 /**
 * X shape
@@ -93,7 +79,9 @@
 * There are multiple ways to generate a diamond 
 * shape, using a mask allows the input and output 
 * markers to be vertical without some crazy 
-* repositioning
+* repositioning - however, using the mask hides
+* part of the inputs/outputs, because those items
+* sit inside of the shape and not outside of it
 */
 .decision {
     @extend .base;
@@ -102,26 +90,6 @@
     width: 100px;
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
-// .decision {
-//     @extend .base;
-//     width: 0;
-//     height: 0;
-//     border: 50px solid transparent;
-//     position: relative;
-//     top: -50px;
-//     border-bottom-color: #2D9BF0;
-// }
-
-// .decision:after {
-//     content: '';
-//     position: absolute;
-//     // left: -50px;
-//     // top: 50px;
-//     width: 0;
-//     height: 0;
-//     border: 50px solid transparent;
-//     border-top-color: #2D9BF0;
-//   }
 
 /**
 * Circle shape

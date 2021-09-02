@@ -6,5 +6,6 @@ import { PublicWebApplication } from './app/PublicWebApplication.js'
 import { FlowTool } from './controls/FlowTool.js';
 import { NodeTemplates } from './templates/node-templates.js';
 import { DragItemsTemplates } from './templates/drag-items-templates.js';
+import { PositionUtils } from './utils/position.utils.js';
 
-export { PublicWebApplication, FlowTool, MenuTemplates, Variables, Events, ConstantUtils, NodeTemplates, DragItemsTemplates }
+export { PublicWebApplication, FlowTool, MenuTemplates, Variables, Events, ConstantUtils, NodeTemplates, DragItemsTemplates, PositionUtils }
