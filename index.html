@@ -159,14 +159,26 @@
       let posX = PositionUtils.DraggedNodeXPos(x);	
       let posY = PositionUtils.DraggedNodeYPos(y);
 
-      // flowTool.AddNode('facebook', 0, 1, posX, posY, 'facebook', {}, NodeTemplates.Facebook);
-
       switch (name) {
         case 'request':
-          flowTool.AddNode('request', 0, 1, posX, posY, 'request', {}, NodeTemplates.Request);
+          flowTool.AddNode
+          (
+            {
+              Name: 'request', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['request'], 
+              Data: {}, 
+              HTML: NodeTemplates.Request,
+              TypeNode: false
+            }
+          );
           break;
         case 'facebook':
-          flowTool.AddNode(
+          flowTool.AddNode
+          (
             {
               Name: 'facebook', 
               NumOfInputs: 0, 
@@ -177,40 +189,184 @@
               Data: {}, 
               HTML: NodeTemplates.Facebook,
               TypeNode: false
-            });
+            }
+          );
           break;
         case 'slack':
-          flowTool.AddNode('slack', 1, 0, posX, posY, 'slack', {}, NodeTemplates.Slack);
+          flowTool.AddNode
+          (
+            {
+              Name: 'slack', 
+              NumOfInputs: 1, 
+              NumOfOutputs: 0, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['slack'], 
+              Data: {}, 
+              HTML: NodeTemplates.Slack,
+              TypeNode: false
+            }  
+          );
           break;
         case 'github':
-          flowTool.AddNode('github', 0, 1, posX, posY, 'github', { "name": '' }, NodeTemplates.Github);
+          flowTool.AddNode
+          (
+            {
+              Name: 'github', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['github'], 
+              Data: {}, 
+              HTML: NodeTemplates.Github,
+              TypeNode: false
+            }
+          );
           break;
         case 'telegram':
-          flowTool.AddNode('telegram', 1, 0, posX, posY, 'telegram', { "channel": 'channel_3' }, NodeTemplates.Telegram);
+          flowTool.AddNode
+          (
+            {
+              Name: 'telegram', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['telegram'], 
+              Data: {}, 
+              HTML: NodeTemplates.Telegram,
+              TypeNode: false
+            }
+          );
           break;
         case 'aws':
-          flowTool.AddNode('aws', 1, 1, posX, posY, 'aws', { "db": { "dbname": '', "key": '' } }, NodeTemplates.AWS);
+          flowTool.AddNode
+          (
+            {
+              Name: 'aws', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['aws'], 
+              Data: {}, 
+              HTML: NodeTemplates.AWS,
+              TypeNode: false
+            }
+          );
           break;
         case 'log':
-          flowTool.AddNode('log', 1, 0, posX, posY, 'log', {}, NodeTemplates.Log);
+          flowTool.AddNode
+          (
+            {
+              Name: 'log', 
+              NumOfInputs: 1, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['log'], 
+              Data: {}, 
+              HTML: NodeTemplates.Log,
+              TypeNode: false
+            }
+          );
           break;
         case 'google':
-          flowTool.AddNode('google', 1, 0, posX, posY, 'google', {}, NodeTemplates.Google);
+          flowTool.AddNode
+          (
+            {
+              Name: 'google', 
+              NumOfInputs: 1, 
+              NumOfOutputs: 0, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['google'], 
+              Data: {}, 
+              HTML: NodeTemplates.Google,
+              TypeNode: false
+            }
+          );
           break;
         case 'email':
-          flowTool.AddNode('email', 1, 0, posX, posY, 'email', {}, NodeTemplates.Email);
+          flowTool.AddNode
+          (
+            {
+              Name: 'email', 
+              NumOfInputs: 1, 
+              NumOfOutputs: 0, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['email'], 
+              Data: {}, 
+              HTML: NodeTemplates.Email,
+              TypeNode: false
+            }
+          );
           break;
         case 'template':
-          flowTool.AddNode('template', 1, 1, posX, posY, 'template', { "template": 'Write your template' }, NodeTemplates.Template);
+          flowTool.AddNode
+          (
+            {
+              Name: 'template', 
+              NumOfInputs: 1, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['template'], 
+              Data: {}, 
+              HTML: NodeTemplates.Template,
+              TypeNode: false
+            }
+          );
           break;
         case 'multiple':
-          flowTool.AddNode('multiple', 3, 4, posX, posY, 'multiple', {}, NodeTemplates.Multiple);
+          flowTool.AddNode
+          (
+            {
+              Name: 'multiple', 
+              NumOfInputs: 3, 
+              NumOfOutputs: 4, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['multiple'], 
+              Data: {}, 
+              HTML: NodeTemplates.Multiple,
+              TypeNode: false
+            }
+          );
           break;
         case 'personalized':
-          flowTool.AddNode('personalized', 1, 1, posX, posY, 'personalized', {}, NodeTemplates.Personalized);
+          flowTool.AddNode
+          (
+            {
+              Name: 'personalized', 
+              NumOfInputs: 1, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['personalized'], 
+              Data: {}, 
+              HTML: NodeTemplates.Personalized,
+              TypeNode: false
+            }
+          );
           break;
         case 'dbclick':
-          flowTool.AddNode('dbclick', 1, 1, posX, posY, 'dbclick', { name: '' }, NodeTemplates.DBLClick);
+          flowTool.AddNode
+          (
+            {
+              Name: 'dbclick', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['dbclick'], 
+              Data: {}, 
+              HTML: NodeTemplates.DBLClick,
+              TypeNode: false
+            }
+          );
           break;
 
         default:
