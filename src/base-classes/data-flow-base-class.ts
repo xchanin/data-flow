@@ -210,7 +210,7 @@ export class DataFlowBaseClass extends BaseFunctions {
      * @returns ?
      */
     public Click(event: any): any {
-      debugger;
+ 
       this.Dispatch('click', event);
 
       if(Variables.EditorMode === 'fixed') {
@@ -377,7 +377,7 @@ export class DataFlowBaseClass extends BaseFunctions {
         return false;
       }
       if(Variables.PreCanvas.getElementsByClassName("drawflow-delete").length) {
-        debugger;
+      
         Variables.PreCanvas.getElementsByClassName("drawflow-delete")[0].remove()
       };
       if(Variables.SelectedNode || Variables.SelectedConnection) {
