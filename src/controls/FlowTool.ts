@@ -112,6 +112,9 @@ export class FlowTool extends DataFlowBaseClass {
         */
        const precanvas: HTMLElement | null = document.getElementById('flow-canvas');
 
+       /**
+        * if precanvas already exists, then remove it
+        */
        if (precanvas) {
          if (precanvas.parentNode) {
            debugger;
@@ -122,12 +125,6 @@ export class FlowTool extends DataFlowBaseClass {
 
        Variables.PreCanvas = document.createElement('div');
        Variables.PreCanvas.setAttribute('id', 'flow-canvas');
-
-      //  Variables.PreCanvas.querySelectorAll(".drawflow")
-      //   .forEach((el: HTMLElement) => { 
-      //     el.remove();
-      //   });
-
        Variables.PreCanvas.classList.add("drawflow");
        Variables.MainContainer.appendChild(Variables.PreCanvas);
  
