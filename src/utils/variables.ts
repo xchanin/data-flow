@@ -116,6 +116,16 @@ export class Variables {
     public static MouseY: number = 0;
 
     /**
+     * Mobile item selected
+     */
+    public static MobileItemSelected: any;
+
+    /**
+     * Mobile item's last move
+     */
+    public static MobileLastMove: any;
+
+    /**
      * Node id
      */
     public static NodeId: number = 1;
