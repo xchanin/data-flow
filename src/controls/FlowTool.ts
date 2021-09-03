@@ -142,14 +142,18 @@ export class FlowTool extends DataFlowBaseClass {
        }
    
        const flowTool: any = this.activeModule(Variables.ActiveModule);
+
        let number = 1;
+
        Object.keys(flowTool).map(function(key, index) {
          Object.keys(flowTool[key]).map(function(id, index2) {
+
            if(parseInt(id) >= number) {
              number = parseInt(id) + 1;
            }
          });
        });
+
        Variables.NodeId = number;
      }
    
@@ -159,21 +163,6 @@ export class FlowTool extends DataFlowBaseClass {
 
     /**
      * When dragging a node onto the canvas
-     * 
-     * @param name 
-     * @param num_in 
-     * @param num_out 
-     * @param ele_pos_x 
-     * @param ele_pos_y 
-     * @param classoverride 
-     * @param data 
-     * @param html 
-     * @param typenode 
-     * @returns 
-     */
-
-    /**
-     * Add a new node to the canvas
      * 
      * @param val Node model
      * @returns node id
@@ -772,8 +761,10 @@ export class FlowTool extends DataFlowBaseClass {
      * 
      * @param name module to load
      */
-     public ChangeModule(name: any): void {
+     public ChangeModule(name: string): void {
+
        this.Dispatch('moduleChanged', name);
+
        Variables.ActiveModule = name;
        Variables.PreCanvas.innerHTML = "";
        Variables.CanvasX = 0;
@@ -824,6 +815,7 @@ export class FlowTool extends DataFlowBaseClass {
      protected clear (): void {
          if (Variables.PreCanvas) {
              Variables.PreCanvas.innerHTML = "";
+             Variables.PreCanvas = null;
              // Variables.drawflow = { "drawflow": { "Home": { "data": {} }}};
          }
       
@@ -849,9 +841,8 @@ export class FlowTool extends DataFlowBaseClass {
           return;
         }
 
-        this.start();
-
          this.clear();
+         this.start();
   
          const flowData: DataFlowDataModel = new DataFlowDataModel(
             {
@@ -869,51 +860,19 @@ export class FlowTool extends DataFlowBaseClass {
        }
      }
    
-     /* Events */
-    //  public OnEvent(event: any, callback: any): void | boolean {
-    //       // Check if the callback is not a function
-    //       if (typeof callback !== 'function') {
-    //           console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
-    //           return false;
-    //       }
-    //       // Check if the event is not a string
-    //       if (typeof event !== 'string') {
-    //           console.error(`The event name must be a string, the given type is ${typeof event}`);
-    //           return false;
-    //       }
-    //       // Check if this event not exists
-    //       if (Variables.events[event] === undefined) {
-    //           Variables.events[event] = {
-    //               listeners: []
-    //           }
-    //       }
-    //       Variables.events[event].listeners.push(callback);
-    //   }
-   
-    //   removeListener (event: any, callback: any) {
-    //       // Check if this event not exists
-    //       if (Variables.events[event] === undefined) {
-    //           //console.error(`This event: ${event} does not exist`);
-    //           return false;
-    //       }
-    //     Variables.events[event].listeners = Variables.events[event].listeners.filter((listener: any) => {
-    //         return listener.toString() !== callback.toString();
-    //     });
-    //   }
-   
-       getUuid() {
-           // http://www.ietf.org/rfc/rfc4122.txt
-           var s: Array<any> = [];
-           var hexDigits = "0123456789abcdef";
-           for (var i = 0; i < 36; i++) {
-               s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-           }
-           s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
-           s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
-           s[8] = s[13] = s[18] = s[23] = "-";
-   
-           var uuid = s.join("");
-           return uuid;
-       }
+      protected getUuid(): string {
+        // http://www.ietf.org/rfc/rfc4122.txt
+        let s: Array<any> = [];
+        const hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "-";
+
+        const uuid = s.join("");
+        return uuid;
+      }
    }
    
