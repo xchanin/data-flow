@@ -110,7 +110,24 @@ export class FlowTool extends DataFlowBaseClass {
        /**
         * Container that holds everything
         */
+       const precanvas: HTMLElement | null = document.getElementById('flow-canvas');
+
+       if (precanvas) {
+         if (precanvas.parentNode) {
+           debugger;
+           
+          precanvas.parentNode.removeChild(precanvas);
+        }
+       }
+
        Variables.PreCanvas = document.createElement('div');
+       Variables.PreCanvas.setAttribute('id', 'flow-canvas');
+
+      //  Variables.PreCanvas.querySelectorAll(".drawflow")
+      //   .forEach((el: HTMLElement) => { 
+      //     el.remove();
+      //   });
+
        Variables.PreCanvas.classList.add("drawflow");
        Variables.MainContainer.appendChild(Variables.PreCanvas);
  
@@ -812,10 +829,9 @@ export class FlowTool extends DataFlowBaseClass {
     /**
      * Clear canvas to add new nodes
      */
-     protected clear (): void {
+     protected clear(): void {
          if (Variables.PreCanvas) {
              Variables.PreCanvas.innerHTML = "";
-             Variables.PreCanvas = null;
              // Variables.drawflow = { "drawflow": { "Home": { "data": {} }}};
          }
       
@@ -851,7 +867,10 @@ export class FlowTool extends DataFlowBaseClass {
             }
          );
       
-       Variables.DataFlowModuleData.push(flowData);
+         /**
+          * Should only do this when adding new data
+          */
+      //  Variables.DataFlowModuleData.push(flowData);
  
        this.load();
  
