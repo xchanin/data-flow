@@ -46,18 +46,25 @@
       <div class="top-menu">
         <ul>
           <li onclick="flowTool.ChangeModule('Home'); 
-                    menuTabSelected(event);" class="selected">
+              menuTabSelected(event);" class="selected">
             Home
           </li>
           <li onclick="flowTool.ChangeModule('Other'); 
-                    menuTabSelected(event);">
+              menuTabSelected(event);">
             Other Module
+          </li>
+          <li onclick="flowTool.ChangeModule('Test'); 
+            menuTabSelected(event);">
+            Test Module
           </li>
         </ul>
       </div>
 
       <!-- Flow Tool -->
-      <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div 
+        id="drawflow" 
+        ondrop="drop(event)" 
+        ondragover="allowDrop(event)">
       </div>
     </div>
   </div>
@@ -77,7 +84,7 @@
     } from './packages/es/index.js';
 
     let canvas = document.getElementById("drawflow");	
-    let flowTool = new FlowTool(canvas, canvas);
+    let flowTool = new FlowTool(canvas);
 
     /**
      * Create side menu of draggable items
@@ -408,24 +415,29 @@
      * Add / remove styles on menu tab click
      **/
     function menuTabSelected(event) {
-      var all = document.querySelectorAll(".top-menu ul li");
+      const all = document.querySelectorAll(".top-menu ul li");
+
+      /**
+       * all this does is set the font in the tab to bold
+      */
       for (var i = 0; i < all.length; i++) {
         all[i].classList.remove('selected');
       }
+
       event.target.classList.add('selected');
     }
 
-    function changeMode(option) {
+    // function changeMode(option) {
 
-      //console.log(lock.id);
-      if (option == 'lock') {
-        lock.style.display = 'none';
-        unlock.style.display = 'block';
-      } else {
-        lock.style.display = 'block';
-        unlock.style.display = 'none';
-      }
-    }
+    //   //console.log(lock.id);
+    //   if (option == 'lock') {
+    //     lock.style.display = 'none';
+    //     unlock.style.display = 'block';
+    //   } else {
+    //     lock.style.display = 'block';
+    //     unlock.style.display = 'none';
+    //   }
+    // }
 
     /**
      * Need to create global properties, so we 
