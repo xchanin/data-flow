@@ -115,6 +115,7 @@ export class FlowTool extends DataFlowBaseClass {
        if (precanvas) {
          if (precanvas.parentNode) {
            debugger;
+           
           precanvas.parentNode.removeChild(precanvas);
         }
        }
