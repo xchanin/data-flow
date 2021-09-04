@@ -126,6 +126,11 @@ export class Variables {
     public static MobileLastMove: any;
 
     /**
+     * Class name for node styles
+     */
+    public static NodeClass: string = 'drawflow-node';
+
+    /**
      * Node id
      */
     public static NodeId: number = 1;

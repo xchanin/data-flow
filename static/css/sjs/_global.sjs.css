@@ -13,6 +13,19 @@
     --background-color: #ffffff;
     --background-box-title: #f7f7f7;
 
+    /**
+    * Node colors
+    */
+    --node-request: #DA0063;
+    --node-project: #652CB3;
+    --node-filter: #12CDD4;
+    --node-application: #8FD14F;
+    --node-modifier: #2DC6F0;
+    --node-join: #11A1AC;
+    --node-split: #11A1AC;
+    --node-decision: #2D9BF0;
+    --node-event: #DA0063;
+    
     /* Standard Breakpoints
     320px — 480px: Mobile devices
     481px — 768px: iPads, Tablets

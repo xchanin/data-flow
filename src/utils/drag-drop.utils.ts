@@ -13,19 +13,6 @@ export class DragDropUtils {
     }
 
     /**
-     * When dragging an item from the side menu onto the canvas 
-     **/
-    
-
-  // function drag(ev) {
-    //   if (ev.type === "touchstart") {
-    //     mobile_item_selec = ev.target.closest(".drag-drawflow").getAttribute('data-node');
-    //   } else {
-    //     ev.dataTransfer.setData("node", ev.target.getAttribute('data-node'));
-    //   }
-    // }
-
-    /**
      * When dragging begins
      * 
      * @param e DragEvent
@@ -46,20 +33,12 @@ export class DragDropUtils {
         }
     }
 
-    // public static Drop(ev): void  {
-    //   if (ev.type === 'touchend') {
-    //     var parentdrawflow = document.elementFromPoint(mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY).closest("#drawflow");
-    //     if (parentdrawflow != null) {
-    //       addNodeToDrawFlow(mobile_item_selec, mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY);
-    //     }
-    //     mobile_item_selec = '';
-    //   } else {
-    //     ev.preventDefault();
-    //     var data = ev.dataTransfer.getData("node");
-    //     addNodeToDrawFlow(data, ev.clientX, ev.clientY);
-    //   }
-    // }
-
+    /**
+     * Drop event after dragging
+     * 
+     * @param e DragEvent
+     * @param callback function to add dragged node to canvas
+     */
     public static Drop(e: DragEvent, callback: (name: string, x: number, y: number) => {}): void  {
 
         if (e.type === 'touchend') {

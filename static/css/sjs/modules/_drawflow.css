@@ -71,6 +71,21 @@
     
   }
 
+  .drawflow .fathym-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background: rgb(0, 183, 255);
+    /* width: 160px;
+    min-height: 40px;
+    border-radius:4px;
+    border: 2px solid black;
+    color: black; */
+    z-index: 2;
+    padding: 15px;
+  }
+
   .drawflow .drawflow-node.selected {
     background: red;
   }
