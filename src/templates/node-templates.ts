@@ -1,6 +1,27 @@
 export class NodeTemplates {
 
-    public static Request: string = `<div class="request"></div>`;
+    public static Request: string = `<div class="request">Request</div>`;
+
+    public static Project: string = `<div class="project">Project</div>`;
+
+    public static Filter: string = `<div class="filter">Filter</div>`;
+
+    public static Application: string = `<div class="application">Application</div>`;
+
+    public static Modifier: string = `<div class="modifier">Modifier</div>`;
+
+    public static Join: string = 
+    
+        `   <div class="clip-path-parent">
+                <div class="join">Join</div>
+            </div>
+        `;
+
+    public static Split: string = `<div class="split">Split</div>`;
+
+    public static Decision: string = `<div class="decision">Decision</div>`;
+
+    public static Event: string = `<div class="event">Event</div>`;
 
     public static Facebook: string = 
         `

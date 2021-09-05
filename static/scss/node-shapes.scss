@@ -17,38 +17,46 @@
     height: 30px;
     width: 100px;
     border-radius: 7px;
+}
 
+/**
+* Parent to clipped path elements
+*
+* Use this so we can have drop shadows on clipped paths
+*/
+.clip-path-parent {
+    filter: drop-shadow(0 2px 15px 2px var(--border-color));
 }
 
 .request {
     @extend .basic-node;
     @extend .base;
-    background-color: #DA0063;
+    background-color: var(--node-request);
 }
 
 .project {
     @extend .basic-node;
     @extend .base;
     color: white;
-    background-color: #652CB3;
+    background-color: var(--node-project);
 }
 
-.route-filter {
+.filter {
     @extend .basic-node;
     @extend .base;
-    background-color: #12CDD4;
+    background-color: var(--node-filter);
 }
 
 .application {
     @extend .basic-node;
     @extend .base;
-    background-color: #8FD14F;
+    background-color: var(--node-application);
 }
 
 .modifier {
     @extend .basic-node;
     @extend .base;
-    background-color: #2DC6F0;
+    background-color: var(--node-modifier);
 }
 
 /**
@@ -56,7 +64,7 @@
 */
 .join {
     @extend .base;
-    background-color: #11A1AC;
+    background-color: var(--node-join);
     height: 100px;
     width: 100px;
     clip-path: polygon(0 25%, 25% 25%, 25% 0, 75% 0, 75% 25%, 100% 25%, 100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0 75%);
@@ -70,7 +78,7 @@
     width: 100px;
     height: 100px;
     clip-path: polygon(25% 0, 0 25%, 25% 50%, 0 75%, 25% 100%, 50% 75%, 75% 100%, 100% 75%, 75% 50%, 100% 25%, 75% 0, 49% 25%);
-    background-color: #11A1AC;
+    background-color: var(--node-split);
 }
 
 /**
@@ -85,7 +93,7 @@
 */
 .decision {
     @extend .base;
-    background-color: #2D9BF0;
+    background-color: var(--node-decision);
     height: 100px;
     width: 100px;
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
@@ -97,7 +105,7 @@
 .event {
     @extend .base;
     border-radius: 50%;
-    background-color: #DA0063;
+    background-color: var(--node-event);
     width: 60px;
     height: 60px;
 }

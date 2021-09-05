@@ -112,22 +112,15 @@ export class FlowTool extends DataFlowBaseClass {
         */
        const precanvas: HTMLElement | null = document.getElementById('flow-canvas');
 
-       if (precanvas) {
-         if (precanvas.parentNode) {
-           debugger;
-           
+       /**
+        * if precanvas already exists, then remove it
+        */
+       if (precanvas && precanvas.parentNode) {
           precanvas.parentNode.removeChild(precanvas);
-        }
        }
 
        Variables.PreCanvas = document.createElement('div');
        Variables.PreCanvas.setAttribute('id', 'flow-canvas');
-
-      //  Variables.PreCanvas.querySelectorAll(".drawflow")
-      //   .forEach((el: HTMLElement) => { 
-      //     el.remove();
-      //   });
-
        Variables.PreCanvas.classList.add("drawflow");
        Variables.MainContainer.appendChild(Variables.PreCanvas);
  
@@ -200,7 +193,7 @@ export class FlowTool extends DataFlowBaseClass {
         const node: HTMLElement = document.createElement('div');
         node.innerHTML = "";
         node.setAttribute("id", "node-" + newNodeId);
-        node.classList.add("drawflow-node");
+        node.classList.add(Variables.NodeClass);
         
         if (val.ClassList) {
           node.classList.add(...val.ClassList);
@@ -330,7 +323,7 @@ export class FlowTool extends DataFlowBaseClass {
         const node = document.createElement('div');
         node.innerHTML = "";
         node.setAttribute("id", "node-"+dataNode.id);
-        node.classList.add("drawflow-node");
+        node.classList.add(Variables.NodeClass);
 
 
         /**

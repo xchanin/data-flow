@@ -116,6 +116,21 @@ export class Variables {
     public static MouseY: number = 0;
 
     /**
+     * Mobile item selected
+     */
+    public static MobileItemSelected: any;
+
+    /**
+     * Mobile item's last move
+     */
+    public static MobileLastMove: any;
+
+    /**
+     * Class name for node styles
+     */
+    public static NodeClass: string = 'drawflow-node';
+
+    /**
      * Node id
      */
     public static NodeId: number = 1;

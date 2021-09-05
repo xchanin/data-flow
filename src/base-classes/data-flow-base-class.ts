@@ -48,9 +48,9 @@ export class DataFlowBaseClass extends BaseFunctions {
       }
       
       if(Variables.Connection === true) {
-        if(ele_last.classList[0] === 'input' || (Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === 'drawflow-node'))) {
+        if(ele_last.classList[0] === 'input' || (Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === Variables.NodeClass))) {
   
-          if(Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === 'drawflow-node')) {
+          if(Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === Variables.NodeClass)) {
             if(ele_last.closest(".drawflow_content_node") != null) {
               var input_id = ele_last.closest(".drawflow_content_node").parentElement.id;
             } else {
@@ -241,7 +241,7 @@ export class DataFlowBaseClass extends BaseFunctions {
         }
       }
       switch (Variables.SelectedElement.classList[0]) {
-        case 'drawflow-node':
+        case Variables.NodeClass:
           if(Variables.SelectedNode != null) {
             Variables.SelectedNode.classList.remove("selected");
             if(Variables.SelectedNode != Variables.SelectedElement) {

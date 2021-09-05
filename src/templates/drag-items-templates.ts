@@ -135,10 +135,10 @@ export class DragItemsTemplates {
             },
             {
                 ClassList: ['drag-drawflow'],
-                DataNode: 'route-filter',
+                DataNode: 'filter',
                 Draggable: true,
                 DragAction: callback,
-                Id: 'route-filter',
+                Id: 'filter',
                 Label: ' Route Filter',
                 IconClassList: ['fab', 'fa-facebook']
             },

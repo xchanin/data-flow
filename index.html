@@ -12,10 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="stylesheet" href="./static/css/app.css" />
   <script src="https://kit.fontawesome.com/0b7385f8de.js" crossorigin="anonymous"></script>
-
   <script type="module" src="./packages/es/index.js"></script>
-
- 
 </head>
 
 <body>
@@ -23,7 +20,7 @@
   <div class="base gap" style="margin-top: 30px; width: 100%; height: 75px;">
     <div class="request">Request</div>
     <div class="project">Project</div>
-    <div class="route-filter">Route Filter</div>
+    <div class="filter">Route Filter</div>
     <div class="application">Application</div>
     <div class="modifier">DFS Modifier</div>
     <div class="join">Join</div>
@@ -38,8 +35,8 @@
 
   <div class="wrapper">
     <!-- 
-              Left side menu items
-           -->
+      Left side menu items
+    -->
     <div id="drag-items" class="col"></div>
 
     <div class="col-right">
@@ -47,15 +44,15 @@
         <ul>
           <li onclick="flowTool.ChangeModule('Home'); 
               menuTabSelected(event);" class="selected">
-            Home
+              Home
           </li>
           <li onclick="flowTool.ChangeModule('Other'); 
               menuTabSelected(event);">
-            Other Module
+              Other Module
           </li>
           <li onclick="flowTool.ChangeModule('Test'); 
-            menuTabSelected(event);">
-            Test Module
+              menuTabSelected(event);">
+              Test Module
           </li>
         </ul>
       </div>
@@ -63,8 +60,8 @@
       <!-- Flow Tool -->
       <div 
         id="drawflow" 
-        ondrop="drop(event)" 
-        ondragover="allowDrop(event)">
+        ondrop="DragDropUtils.Drop(event, addNodeToDrawFlow)" 
+        ondragover="DragDropUtils.AllowDrop(event)">
       </div>
     </div>
   </div>
@@ -80,7 +77,8 @@
       ConstantUtils,
       NodeTemplates,
       DragItemsTemplates,
-      PositionUtils
+      PositionUtils,
+      DragDropUtils
     } from './packages/es/index.js';
 
     let canvas = document.getElementById("drawflow");	
@@ -91,7 +89,7 @@
      * 
      * This calls MENU_TEMPLATES, but can be any external source
     */
-    MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.MENU_TEMPLATES(drag));
+    MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.FLOW_DRAG_ITEMS(DragDropUtils.Drag));
 
     // Variables.reroute = true;
     // Variables.reroute_fix_curvature = true;
@@ -103,10 +101,12 @@
     Variables.DataFlowModuleData =
     [
       ConstantUtils.HOME_MODULE_DATA,
-      ConstantUtils.OTHER_MODULE_DATA
+      ConstantUtils.OTHER_MODULE_DATA,
+      ConstantUtils.TEST_MODULE
     ]
 
     flowTool.Init(Variables.DataFlowModuleData[0]);
+    Variables.NodeClass = 'fathym-node';
 
     /* DRAG EVENT */
 
@@ -115,46 +115,15 @@
     const elements = document.getElementsByClassName('drag-drawflow');
 
     for (var i = 0; i < elements.length; i++) {
-      elements[i].addEventListener('touchend', drop, false);
-      elements[i].addEventListener('touchmove', positionMobile, false);
-      elements[i].addEventListener('touchstart', drag, false);
-    }
+      elements[i].addEventListener('touchmove', DragDropUtils.PositionMobile, false);
 
-    let mobile_item_selec = '';
-    let mobile_last_move = null;
+      elements[i].addEventListener('touchend', () => {
+        DragDropUtils.Drop(event, addNodeToDrawFlow);
+      }, false);
 
-    function positionMobile(ev) {
-      mobile_last_move = ev;
-    }
-
-    function allowDrop(ev) {
-      ev.preventDefault();
-    }
-
-    /**
-     * When dragging an item from the side menu onto the canvas 
-     **/
-    function drag(ev) {
-      if (ev.type === "touchstart") {
-        mobile_item_selec = ev.target.closest(".drag-drawflow").getAttribute('data-node');
-      } else {
-        ev.dataTransfer.setData("node", ev.target.getAttribute('data-node'));
-      }
-    }
-
-    function drop(ev) {
-      if (ev.type === "touchend") {
-        var parentdrawflow = document.elementFromPoint(mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY).closest("#drawflow");
-        if (parentdrawflow != null) {
-          addNodeToDrawFlow(mobile_item_selec, mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY);
-        }
-        mobile_item_selec = '';
-      } else {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("node");
-        addNodeToDrawFlow(data, ev.clientX, ev.clientY);
-      }
-
+      elements[i].addEventListener('touchstart', () => {
+        DragDropUtils.Drag(event);
+      }, false);
     }
 
     function addNodeToDrawFlow(name, x, y) {
@@ -182,7 +151,135 @@
               TypeNode: false
             }
           );
-          break;
+        break;
+        case 'project':
+          flowTool.AddNode
+          (
+            {
+              Name: 'project', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['project'], 
+              Data: {}, 
+              HTML: NodeTemplates.Project,
+              TypeNode: false
+            }
+          );
+        break;
+        case 'filter':
+          flowTool.AddNode
+          (
+            {
+              Name: 'filter', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['filter'], 
+              Data: {}, 
+              HTML: NodeTemplates.Filter,
+              TypeNode: false
+            }
+          );
+        break;
+        case 'application':
+          flowTool.AddNode
+          (
+            {
+              Name: 'application', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['application'], 
+              Data: {}, 
+              HTML: NodeTemplates.Application,
+              TypeNode: false
+            }
+          );
+        break;
+        case 'modifier':
+          flowTool.AddNode
+          (
+            {
+              Name: 'modifier', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['modifier'], 
+              Data: {}, 
+              HTML: NodeTemplates.Modifier,
+              TypeNode: false
+            }
+          );
+        break;
+        case 'join':
+          flowTool.AddNode
+          (
+            {
+              Name: 'join', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['join'], 
+              Data: {}, 
+              HTML: NodeTemplates.Join,
+              TypeNode: false
+            }
+          );
+        break;
+        case 'split':
+          flowTool.AddNode
+          (
+            {
+              Name: 'split', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['split'], 
+              Data: {}, 
+              HTML: NodeTemplates.Split,
+              TypeNode: false
+            }
+          );
+        break;
+        case 'decision':
+          flowTool.AddNode
+          (
+            {
+              Name: 'decision', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['decision'], 
+              Data: {}, 
+              HTML: NodeTemplates.Decision,
+              TypeNode: false
+            }
+          );
+        break;
+        case 'event':
+          flowTool.AddNode
+          (
+            {
+              Name: 'event', 
+              NumOfInputs: 0, 
+              NumOfOutputs: 1, 
+              PosX: posX, 
+              PosY: posY, 
+              ClassList: ['event'], 
+              Data: {}, 
+              HTML: NodeTemplates.Event,
+              TypeNode: false
+            }
+          );
+        break;
         case 'facebook':
           flowTool.AddNode
           (
@@ -384,7 +481,7 @@
 
     function showPopup(e) {
       console.log('showPopup');
-      e.target.closest(".drawflow-node").style.zIndex = "9999";
+      e.target.closest('.' + Variables.NodeClass).style.zIndex = "9999";
       e.target.children[0].style.display = "block";
       //document.getElementById("modalfix").style.display = "block";
 
@@ -402,7 +499,7 @@
     }
 
     function closeModal(e) {
-      e.target.closest(".drawflow-node").style.zIndex = "2";
+      e.target.closest('.' + Variables.NodeClass).style.zIndex = "2";
       e.target.parentElement.parentElement.style.display = "none";
       //document.getElementById("modalfix").style.display = "none";
       Variables.PreCanvas.style.transform = transform;
@@ -445,12 +542,14 @@
      * 
      * We don't want to do this, but this works for now - shannon
      **/
-    window.allowDrop = allowDrop;
-    window.drop = drop;
+    window.allowDrop = DragDropUtils.AllowDrop;
+    window.drop = DragDropUtils.Drop;
     window.flowTool = flowTool;
     window.menuTabSelected = menuTabSelected;
     window.showPopup = showPopup;
     window.closepopup = closeModal;
+    window.DragDropUtils = DragDropUtils;
+    window.addNodeToDrawFlow = addNodeToDrawFlow;
   </script>
 </body>
 

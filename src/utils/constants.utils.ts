@@ -240,6 +240,7 @@ export class ConstantUtils {
                             }
                         },
                         "outputs":{},
+                        
                         "pos_x":1131,
                         "pos_y":600
                     }
@@ -377,6 +378,11 @@ export class ConstantUtils {
                     }
                 }
     }
+
+    public static TEST_MODULE: DataFlowDataModel = {
+        Module: 'Test',
+        Data: {}
+    };
 
     public static DISPATCHED_EVENTS: Array<DispatchedEventsModel> = [
         { Event: 'mouseMove', Message: 'Mouse position', Params: ['x','y'] },
