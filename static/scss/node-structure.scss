@@ -1,16 +1,41 @@
+@import './global-scss.scss';
 
-.drawflow .fathym-node {
+.drawflow {
+
+  .input, .output { 
+    position: absolute;
+    left: 50%;
+    width: var(--node-size);
+    height: var(--node-size);
+    background: white;
+    border-radius: 50%;
+    border: 2px solid black;
+    cursor: crosshair;
+    z-index: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .input {
+    top: calc(5px - var(--node-size));
+    background-color: var(--node-input-color);
+  }
+
+  .output {
+    bottom: calc(5px - var(--node-size));
+    background-color: var(--node-output-color);
+  }
+
+  .fathym-node {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
     z-index: 2;
     padding: 15px;
-    -webkit-box-shadow: 0 2px 15px 2px var(--border-color);
-    box-shadow: 0 2px 15px 2px var(--border-color);
+    @include box-shadow;
   }
 
-  .drawflow .fathym-node.selected {
+  .fathym-node.selected {
     // filter: invert(1);
     filter: brightness(2);
     border: 1px solid #4ea9ff;
@@ -18,6 +43,7 @@
     box-shadow: 0 2px 20px 2px #4ea9ff;
   }
 
-  .drawflow .fathym-node:hover {
+  .fathym-node:hover {
     cursor: move;
   }
+}

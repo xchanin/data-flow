@@ -27,6 +27,11 @@
     <div class="split">Split</div>
     <div class="decision">Decision</div>
     <div class="event">Event</div>
+    <span class="clip-path-parent">
+      <span class="join">
+        Join
+      </span>
+    </span>
   </div>
 
   <header>
@@ -173,7 +178,7 @@
           (
             {
               Name: 'filter', 
-              NumOfInputs: 0, 
+              NumOfInputs: 1, 
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
@@ -225,7 +230,7 @@
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['join'], 
+              ClassList: [], 
               Data: {}, 
               HTML: NodeTemplates.Join,
               TypeNode: false
