@@ -2,28 +2,28 @@
 
 .drawflow {
 
-  .input, .output { 
-    position: absolute;
-    left: 50%;
-    width: var(--node-size);
-    height: var(--node-size);
-    background: white;
-    border-radius: 50%;
-    border: 2px solid black;
-    cursor: crosshair;
-    z-index: 1;
-    transform: translate(-50%, 0);
-  }
+.input, .output { 
+      position: absolute;
+      left: 50%;
+      width: var(--node-size);
+      height: var(--node-size);
+      background: white;
+      border-radius: 50%;
+      border: 2px solid black;
+      cursor: crosshair;
+      z-index: 1;
+      transform: translate(-50%, 0);
+    }
 
-  .input {
-    top: calc(5px - var(--node-size));
-    background-color: var(--node-input-color);
-  }
+    .input {
+      top: calc(5px - var(--node-size));
+      background-color: var(--node-input-color);
+    }
 
-  .output {
-    bottom: calc(5px - var(--node-size));
-    background-color: var(--node-output-color);
-  }
+    .output {
+      bottom: calc(5px - var(--node-size));
+      background-color: var(--node-output-color);
+    }
 
   .fathym-node {
     display: flex;

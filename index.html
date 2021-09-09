@@ -95,6 +95,7 @@
      * This calls MENU_TEMPLATES, but can be any external source
     */
     MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.FLOW_DRAG_ITEMS(DragDropUtils.Drag));
+    // MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.MENU_TEMPLATES(DragDropUtils.Drag));
 
     // Variables.reroute = true;
     // Variables.reroute_fix_curvature = true;
@@ -230,7 +231,7 @@
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: [], 
+              ClassList: ['join'], 
               Data: {}, 
               HTML: NodeTemplates.Join,
               TypeNode: false
