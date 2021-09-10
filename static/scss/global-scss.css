@@ -62,4 +62,22 @@ html, body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--background-color);
 }
+
+@media only screen and (max-width: 768px) {
+  .col {
+    width: 50px;
+  }
+  .col .drag-item span {
+    display: none;
+  }
+  #drawflow {
+    width: calc(100vw - 51px);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .modal-content {
+    width: 80%;
+  }
+}
 /*# sourceMappingURL=global-scss.css.map */

@@ -64,29 +64,40 @@
   .parent-node {
     position: relative;
   }
+
+  // > .drawflow-delete {
+  //   margin-left: -15px;
+  //   margin-top: 15px;
+  // }
 }
 
 .drawflow-delete {
   position: absolute;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30px;
   height: 30px;
-  background: black;
+  background: rgb(255, 0, 0);
   color: white;
   z-index: 4;
+  font-size: large;
   border: 2px solid white;
-  line-height: 30px;
+  line-height: 0;
   font-weight: bold;
-  text-align: center;
   border-radius: 50%;
   font-family: monospace;
   cursor: pointer;
 }
-.drawflow > .drawflow-delete {
-  margin-left: -15px;
-  margin-top: 15px;
-}
 
+// .drawflow > .drawflow-delete {
+//   margin-left: -15px;
+//   margin-top: 15px;
+// }
+
+/**
+* Position of delete icon
+*/
 .parent-node .drawflow-delete {
   right: -15px;
   top: -15px;

@@ -247,20 +247,3 @@
   cursor:pointer;
 }
 
-@media only screen and (max-width: 768px) {
-  .col {
-    width: 50px;
-  }
-  .col .drag-item span {
-    display:none;
-  }
-  #drawflow {
-    width: calc(100vw - 51px);
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .modal-content {
-    width: 80%;
-  }
-}
