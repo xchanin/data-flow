@@ -20,7 +20,7 @@ export class DragDropUtils {
     public static Drag(e: DragEvent) {
 
         const target: HTMLElement = e.target as HTMLElement;
-        const closest: HTMLElement | null = target.closest('.drag-drawflow');
+        const closest: HTMLElement | null = target.closest('.drag-item');
 
         if (e.type === 'touchstart') {
             if (closest) {

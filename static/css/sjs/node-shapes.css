@@ -21,8 +21,8 @@
 *
 * Use this so we can have drop shadows on clipped paths
 */
-.clip-path-parent {
-  filter: drop-shadow(0 2px 15px 2px var(--border-color)); }
+.node-drop-shadow {
+  filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.25)); }
 
 .request {
   background-color: var(--node-request); }

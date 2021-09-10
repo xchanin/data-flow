@@ -28,7 +28,7 @@ export class MenuTemplates {
 }
 
 /**
- *   <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="facebook">
+ *   <div class="drag-item" draggable="true" ondragstart="drag(event)" data-node="facebook">
         <i class="fab fa-facebook"></i><span> Facebook</span>
     </div>
 */

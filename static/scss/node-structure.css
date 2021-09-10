@@ -43,14 +43,16 @@
     769px — 1024px: Small screens, laptops
     1025px — 1200px: Desktops, large screens
     1201px and more —  Extra large screens, TV
-    */ }
+    */
+}
 
 /*  Global Styles */
 * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
+          box-sizing: border-box;
+}
 
 html, body {
   margin: 0px;
@@ -59,19 +61,26 @@ html, body {
   height: 100vh;
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
-  background-color: var(--background-color); }
+  background-color: var(--background-color);
+}
 
 @media only screen and (max-width: 768px) {
   .col {
-    width: 50px; }
+    width: 50px;
+  }
   .col .drag-item span {
-    display: none; }
+    display: none;
+  }
   #drawflow {
-    width: calc(100vw - 51px); } }
+    width: calc(100vw - 51px);
+  }
+}
 
 @media only screen and (max-width: 768px) {
   .modal-content {
-    width: 80%; } }
+    width: 80%;
+  }
+}
 
 .parent-drawflow {
   display: -webkit-box;
@@ -79,8 +88,9 @@ html, body {
   display: flex;
   overflow: hidden;
   -ms-touch-action: none;
-  touch-action: none;
-  outline: none; }
+      touch-action: none;
+  outline: none;
+}
 
 /**
 * Canvas
@@ -90,38 +100,43 @@ html, body {
   height: 100%;
   position: relative;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
 
 .drawflow .fathym-node {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: absolute;
   z-index: 2;
   /**
     * Items that sit inside nodes
-    */ }
+    */
+}
 
 .drawflow .fathym-node.selected {
   -webkit-filter: brightness(2);
-  filter: brightness(2);
+          filter: brightness(2);
   border: 1px solid #4ea9ff;
   -webkit-box-shadow: 0 2px 20px 2px #4ea9ff;
-  box-shadow: 0 2px 20px 2px #4ea9ff; }
+  box-shadow: 0 2px 20px 2px #4ea9ff;
+}
 
 .drawflow .fathym-node:hover {
-  cursor: move; }
+  cursor: move;
+}
 
 .drawflow .fathym-node .inputs, .drawflow .fathym-node .outputs {
-  z-index: 2; }
+  z-index: 2;
+}
 
 .drawflow .fathym-node .input, .drawflow .fathym-node .output {
   position: absolute;
@@ -133,18 +148,22 @@ html, body {
   border: 2px solid black;
   cursor: crosshair;
   -webkit-transform: translate(-50%, 0);
-  transform: translate(-50%, 0); }
+          transform: translate(-50%, 0);
+}
 
 .drawflow .fathym-node .input {
   top: calc(5px - var(--node-size));
-  background-color: var(--node-input-color); }
+  background-color: var(--node-input-color);
+}
 
 .drawflow .fathym-node .output {
   bottom: calc(5px - var(--node-size));
-  background-color: var(--node-output-color); }
+  background-color: var(--node-output-color);
+}
 
 .drawflow .parent-node {
-  position: relative; }
+  position: relative;
+}
 
 .drawflow-delete {
   position: absolute;
@@ -152,11 +171,11 @@ html, body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 30px;
   height: 30px;
   background: var(--node-delete);
@@ -168,13 +187,14 @@ html, body {
   font-weight: bold;
   border-radius: 50%;
   font-family: monospace;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 /**
 * Position of delete icon
 */
 .parent-node .drawflow-delete {
   right: -15px;
-  top: -15px; }
-
+  top: -15px;
+}
 /*# sourceMappingURL=node-structure.css.map */

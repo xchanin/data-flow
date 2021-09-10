@@ -128,7 +128,8 @@ export class Variables {
     /**
      * Class name for node styles
      */
-    public static NodeClass: string = 'drawflow-node';
+    // public static NodeClass: string = 'drawflow-node';
+    public static NodeClass: string = 'fathym-node';
 
     /**
      * Node id

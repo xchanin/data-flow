@@ -83,8 +83,8 @@ export class DataFlowBaseClass extends BaseFunctions {
             var id_input = input_id.slice(5);
             var id_output = output_id.slice(5);
   
-            this.activeModule(Variables.ActiveModule).Data[id_output].outputs[output_class].connections.push( {"node": id_input, "output": input_class});
-            this.activeModule(Variables.ActiveModule).Data[id_input].inputs[input_class].connections.push( {"node": id_output, "input": output_class});
+            this.activeModule(Variables.ActiveModule).Data[id_output].Outputs[output_class].connections.push( {"node": id_input, "output": input_class});
+            this.activeModule(Variables.ActiveModule).Data[id_input].Inputs[input_class].connections.push( {"node": id_output, "input": output_class});
             this.updateConnectionNodes('node-'+id_output);
             this.updateConnectionNodes('node-'+id_input);
             this.Dispatch('connectionCreated', { output_id: id_output, input_id: id_input, output_class:  output_class, input_class: input_class});

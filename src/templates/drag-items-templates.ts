@@ -3,7 +3,7 @@ export class DragItemsTemplates {
      public static MENU_TEMPLATES(callback: () => {}): Array<any> {
         return [
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'facebook',
                 Draggable: true,
                 DragAction: callback,
@@ -12,7 +12,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'slack',
                 Draggable: true,
                 DragAction: callback,
@@ -21,7 +21,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-slack']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'github',
                 Draggable: true,
                 DragAction: callback,
@@ -30,7 +30,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-github']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'telegram',
                 Draggable: true,
                 DragAction: callback,
@@ -39,7 +39,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-telegram']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'aws',
                 Draggable: true,
                 DragAction: callback,
@@ -48,7 +48,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-aws']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'log',
                 Draggable: true,
                 DragAction: callback,
@@ -57,7 +57,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fas', 'fa-file-signature']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'google',
                 Draggable: true,
                 DragAction: callback,
@@ -66,7 +66,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-google-drive']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'email',
                 Draggable: true,
                 DragAction: callback,
@@ -75,7 +75,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fas', 'fa-at']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'template',
                 Draggable: true,
                 DragAction: callback,
@@ -84,7 +84,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fas', 'fa-code']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'multiple',
                 Draggable: true,
                 DragAction: callback,
@@ -93,7 +93,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fas', 'fa-code-branch']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'personalized',
                 Draggable: true,
                 DragAction: callback,
@@ -102,7 +102,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fas', 'fa-fill']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'dbclick',
                 Draggable: true,
                 DragAction: callback,
@@ -116,7 +116,7 @@ export class DragItemsTemplates {
      public static FLOW_DRAG_ITEMS(callback: () => {}): Array<any> {
         return [
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'request',
                 Draggable: true,
                 DragAction: callback,
@@ -125,7 +125,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'project',
                 Draggable: true,
                 DragAction: callback,
@@ -134,7 +134,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'filter',
                 Draggable: true,
                 DragAction: callback,
@@ -143,7 +143,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'application',
                 Draggable: true,
                 DragAction: callback,
@@ -152,7 +152,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'modifier',
                 Draggable: true,
                 DragAction: callback,
@@ -161,7 +161,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'join',
                 Draggable: true,
                 DragAction: callback,
@@ -170,7 +170,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'split',
                 Draggable: true,
                 DragAction: callback,
@@ -179,7 +179,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'decision',
                 Draggable: true,
                 DragAction: callback,
@@ -188,7 +188,7 @@ export class DragItemsTemplates {
                 IconClassList: ['fab', 'fa-facebook']
             },
             {
-                ClassList: ['drag-drawflow'],
+                ClassList: ['drag-item'],
                 DataNode: 'event',
                 Draggable: true,
                 DragAction: callback,

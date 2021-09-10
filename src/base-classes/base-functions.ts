@@ -424,15 +424,15 @@ export class BaseFunctions {
             var listclass = Variables.SelectedConnection.parentElement.classList;
             Variables.SelectedConnection.parentElement.remove();
             //console.log(listclass);
-            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
+            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].Outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[1].slice(13) && item.output === listclass[4]
             });
-            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].Outputs[listclass[3]].connections.splice(index_out, 1);
 
-            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
+            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].Inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[2].slice(14) && item.input === listclass[3]
             });
-            this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].Inputs[listclass[4]].connections.splice(index_in, 1);
             this.Dispatch('connectionRemoved', { output_id: listclass[2].slice(14), input_id: listclass[1].slice(13), output_class: listclass[3], input_class: listclass[4] });
             Variables.SelectedConnection = null;
         }
@@ -446,15 +446,15 @@ export class BaseFunctions {
         for (var i = elemsOut.length - 1; i >= 0; i--) {
             var listclass = elemsOut[i].classList;
 
-            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
+            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].Inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[2].slice(14) && item.input === listclass[3]
             });
             this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
 
-            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
+            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].Outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[1].slice(13) && item.output === listclass[4]
             });
-            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].Outputs[listclass[3]].connections.splice(index_out, 1);
 
             elemsOut[i].remove();
 
@@ -466,15 +466,15 @@ export class BaseFunctions {
 
             var listclass = elemsIn[i].classList;
 
-            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
+            var index_out = this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].Outputs[listclass[3]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[1].slice(13) && item.output === listclass[4]
             });
-            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].outputs[listclass[3]].connections.splice(index_out, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[2].slice(14)].Outputs[listclass[3]].connections.splice(index_out, 1);
 
-            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
+            var index_in = this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].Inputs[listclass[4]].connections.findIndex(function (item: any, i: any) {
                 return item.node === listclass[2].slice(14) && item.input === listclass[3]
             });
-            this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].inputs[listclass[4]].connections.splice(index_in, 1);
+            this.activeModule(Variables.ActiveModule).Data[listclass[1].slice(13)].Inputs[listclass[4]].connections.splice(index_in, 1);
 
             elemsIn[i].remove();
 

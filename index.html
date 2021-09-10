@@ -27,6 +27,11 @@
     <div class="split">Split</div>
     <div class="decision">Decision</div>
     <div class="event">Event</div>
+    <span class="node-drop-shadow">
+      <span class="join">
+        Join
+      </span>
+    </span>
   </div>
 
   <header>
@@ -40,7 +45,7 @@
     <div id="drag-items" class="col"></div>
 
     <div class="col-right">
-      <div class="top-menu">
+      <div class="tab-menu">
         <ul>
           <li onclick="flowTool.ChangeModule('Home'); 
               menuTabSelected(event);" class="selected">
@@ -90,6 +95,7 @@
      * This calls MENU_TEMPLATES, but can be any external source
     */
     MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.FLOW_DRAG_ITEMS(DragDropUtils.Drag));
+    // MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.MENU_TEMPLATES(DragDropUtils.Drag));
 
     // Variables.reroute = true;
     // Variables.reroute_fix_curvature = true;
@@ -112,7 +118,7 @@
 
     /* Mouse and Touch Actions */
 
-    const elements = document.getElementsByClassName('drag-drawflow');
+    const elements = document.getElementsByClassName('drag-item');
 
     for (var i = 0; i < elements.length; i++) {
       elements[i].addEventListener('touchmove', DragDropUtils.PositionMobile, false);
@@ -145,7 +151,7 @@
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['request'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Request,
               TypeNode: false
@@ -161,7 +167,7 @@
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['project'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Project,
               TypeNode: false
@@ -173,11 +179,11 @@
           (
             {
               Name: 'filter', 
-              NumOfInputs: 0, 
+              NumOfInputs: 1, 
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['filter'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Filter,
               TypeNode: false
@@ -193,7 +199,7 @@
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['application'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Application,
               TypeNode: false
@@ -209,7 +215,7 @@
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['modifier'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Modifier,
               TypeNode: false
@@ -221,11 +227,11 @@
           (
             {
               Name: 'join', 
-              NumOfInputs: 0, 
-              NumOfOutputs: 1, 
+              NumOfInputs: 1, 
+              NumOfOutputs: 2, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['join'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Join,
               TypeNode: false
@@ -237,11 +243,11 @@
           (
             {
               Name: 'split', 
-              NumOfInputs: 0, 
-              NumOfOutputs: 1, 
+              NumOfInputs: 2, 
+              NumOfOutputs: 2, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['split'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Split,
               TypeNode: false
@@ -253,11 +259,11 @@
           (
             {
               Name: 'decision', 
-              NumOfInputs: 0, 
+              NumOfInputs: 1, 
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['decision'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Decision,
               TypeNode: false
@@ -273,7 +279,7 @@
               NumOfOutputs: 1, 
               PosX: posX, 
               PosY: posY, 
-              ClassList: ['event'], 
+              ClassList: ['node-drop-shadow'], 
               Data: {}, 
               HTML: NodeTemplates.Event,
               TypeNode: false
