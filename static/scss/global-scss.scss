@@ -26,9 +26,19 @@
     --node-decision: #2D9BF0;
     --node-event: #DA0063;
 
+    /**
+    * Node connectors
+    */
     --node-size: 20px;
     --node-input-color: rgb(251, 251, 0);
     --node-output-color: rgb(2, 255, 200);
+
+    /**
+    * Node paths
+    */
+    --node-path-main: rgb(70, 130, 180);
+    --node-path-hover: rgb(17, 104, 175);
+    --node-path-selected: rgb(67, 185, 147);
     
     /* Standard Breakpoints
     320px — 480px: Mobile devices
@@ -55,10 +65,6 @@ html, body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--background-color);
 }
-/* .flex-filler {
-    flex: 1;
-} */
-
 
 @mixin box-shadow  {
     -webkit-box-shadow: 0 2px 15px 2px var(--border-color);

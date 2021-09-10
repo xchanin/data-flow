@@ -72,7 +72,9 @@
   background-color: var(--node-decision);
   height: 100px;
   width: 100px;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+  transform: rotate(45deg); }
+  .decision span {
+    transform: rotate(-45deg); }
 
 /**
 * Circle shape

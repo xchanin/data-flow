@@ -96,8 +96,28 @@
     background-color: var(--node-decision);
     height: 100px;
     width: 100px;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    transform: rotate(45deg);
+    // transform-origin: 0 100%;
+    // clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+    span {
+        transform: rotate(-45deg);
+    }
+
+    // .drawflow .input {
+    //     position: absolute;
+    //     left: -10px;
+    //     top: -10px;
+    // }
+    
+    // .drawflow .output {
+    //     position: absolute;
+    //     right: -10px;
+    //     bottom: -10px;
+    // }
 }
+
+
 
 /**
 * Circle shape

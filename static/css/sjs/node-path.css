@@ -1,0 +1,31 @@
+.drawflow svg {
+  z-index: 0;
+  position: absolute;
+  overflow: visible !important; }
+
+.drawflow .main-path {
+  fill: none;
+  stroke-width: 5px;
+  stroke: var(--node-path-main); }
+
+.drawflow .connection {
+  position: absolute;
+  pointer-events: none; }
+  .drawflow .connection .main-path {
+    fill: none;
+    stroke-width: 5px;
+    stroke: var(--node-path-main);
+    pointer-events: all; }
+  .drawflow .connection .main-path:hover {
+    stroke: var(--node-path-hover);
+    cursor: pointer; }
+  .drawflow .connection .main-path.selected {
+    stroke: var(--node-path-selected); }
+  .drawflow .connection .point {
+    cursor: move;
+    stroke: black;
+    stroke-width: 2;
+    fill: white;
+    pointer-events: all; }
+    .drawflow .connection .point .selected, .drawflow .connection .point:hover {
+      fill: var(--node-path-hover); }

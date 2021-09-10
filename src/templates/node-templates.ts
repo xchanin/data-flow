@@ -20,7 +20,12 @@ export class NodeTemplates {
 
     public static Split: string = `<div class="split">Split</div>`;
 
-    public static Decision: string = `<div class="decision">Decision</div>`;
+    public static Decision: string = 
+        `
+            <div class="decision">  
+                <span>Decision</span>
+            </div>
+        `;
 
     public static Event: string = `<div class="event">Event</div>`;
 

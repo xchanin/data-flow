@@ -1,29 +1,43 @@
 @import './global-scss.scss';
 
+.parent-drawflow {
+  display: flex;
+  overflow: hidden;
+  touch-action: none;
+  outline:none;
+}
+
+/**
+* Canvas
+*/
 .drawflow {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  user-select: none;
 
-.input, .output { 
-      position: absolute;
-      left: 50%;
-      width: var(--node-size);
-      height: var(--node-size);
-      background: white;
-      border-radius: 50%;
-      border: 2px solid black;
-      cursor: crosshair;
-      z-index: 1;
-      transform: translate(-50%, 0);
-    }
+  .input, .output { 
+    position: absolute;
+    left: 50%;
+    width: var(--node-size);
+    height: var(--node-size);
+    background: white;
+    border-radius: 50%;
+    border: 2px solid black;
+    cursor: crosshair;
+    z-index: 1;
+    transform: translate(-50%, 0);
+  }
 
-    .input {
-      top: calc(5px - var(--node-size));
-      background-color: var(--node-input-color);
-    }
+  .input {
+    top: calc(5px - var(--node-size));
+    background-color: var(--node-input-color);
+  }
 
-    .output {
-      bottom: calc(5px - var(--node-size));
-      background-color: var(--node-output-color);
-    }
+  .output {
+    bottom: calc(5px - var(--node-size));
+    background-color: var(--node-output-color);
+  }
 
   .fathym-node {
     display: flex;
@@ -46,4 +60,34 @@
   .fathym-node:hover {
     cursor: move;
   }
+
+  .parent-node {
+    position: relative;
+  }
+}
+
+.drawflow-delete {
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: black;
+  color: white;
+  z-index: 4;
+  border: 2px solid white;
+  line-height: 30px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
+  font-family: monospace;
+  cursor: pointer;
+}
+.drawflow > .drawflow-delete {
+  margin-left: -15px;
+  margin-top: 15px;
+}
+
+.parent-node .drawflow-delete {
+  right: -15px;
+  top: -15px;
 }
