@@ -21,8 +21,8 @@
 *
 * Use this so we can have drop shadows on clipped paths
 */
-.clip-path-parent {
-  filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5)); }
+.node-drop-shadow {
+  filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.25)); }
 
 .request {
   background-color: var(--node-request); }
@@ -72,9 +72,7 @@
   background-color: var(--node-decision);
   height: 100px;
   width: 100px;
-  transform: rotate(45deg); }
-  .decision span {
-    transform: rotate(-45deg); }
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
 
 /**
 * Circle shape

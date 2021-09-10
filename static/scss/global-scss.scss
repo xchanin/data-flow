@@ -31,7 +31,9 @@
     */
     --node-size: 20px;
     --node-input-color: rgb(251, 251, 0);
-    --node-output-color: rgb(2, 255, 200);
+    --node-output-color: rgb(0, 180, 251);
+
+    --node-delete: rgb(255, 0, 0);
 
     /**
     * Node paths
@@ -78,6 +80,7 @@ html, body {
     .col .drag-item span {
       display:none;
     }
+    
     #drawflow {
       width: calc(100vw - 51px);
     }

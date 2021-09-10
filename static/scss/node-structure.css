@@ -29,7 +29,8 @@
     */
   --node-size: 20px;
   --node-input-color: rgb(251, 251, 0);
-  --node-output-color: rgb(2, 255, 200);
+  --node-output-color: rgb(0, 180, 251);
+  --node-delete: rgb(255, 0, 0);
   /**
     * Node paths
     */
@@ -104,30 +105,6 @@ html, body {
           user-select: none;
 }
 
-.drawflow .input, .drawflow .output {
-  position: absolute;
-  left: 50%;
-  width: var(--node-size);
-  height: var(--node-size);
-  background: white;
-  border-radius: 50%;
-  border: 2px solid black;
-  cursor: crosshair;
-  z-index: 1;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-}
-
-.drawflow .input {
-  top: calc(5px - var(--node-size));
-  background-color: var(--node-input-color);
-}
-
-.drawflow .output {
-  bottom: calc(5px - var(--node-size));
-  background-color: var(--node-output-color);
-}
-
 .drawflow .fathym-node {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -140,9 +117,9 @@ html, body {
           justify-content: center;
   position: absolute;
   z-index: 2;
-  padding: 15px;
-  -webkit-box-shadow: 0 2px 15px 2px var(--border-color);
-  box-shadow: 0 2px 15px 2px var(--border-color);
+  /**
+    * Items that sit inside nodes
+    */
 }
 
 .drawflow .fathym-node.selected {
@@ -155,6 +132,33 @@ html, body {
 
 .drawflow .fathym-node:hover {
   cursor: move;
+}
+
+.drawflow .fathym-node .inputs, .drawflow .fathym-node .outputs {
+  z-index: 2;
+}
+
+.drawflow .fathym-node .input, .drawflow .fathym-node .output {
+  position: absolute;
+  left: 50%;
+  width: var(--node-size);
+  height: var(--node-size);
+  background: white;
+  border-radius: 50%;
+  border: 2px solid black;
+  cursor: crosshair;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.drawflow .fathym-node .input {
+  top: calc(5px - var(--node-size));
+  background-color: var(--node-input-color);
+}
+
+.drawflow .fathym-node .output {
+  bottom: calc(5px - var(--node-size));
+  background-color: var(--node-output-color);
 }
 
 .drawflow .parent-node {
@@ -174,7 +178,7 @@ html, body {
           align-items: center;
   width: 30px;
   height: 30px;
-  background: red;
+  background: var(--node-delete);
   color: white;
   z-index: 4;
   font-size: large;

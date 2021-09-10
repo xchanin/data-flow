@@ -13,7 +13,7 @@ export class NodeTemplates {
     public static Join: string = 
     
         `   
-            <div class="clip-path-parent">
+            <div class="node-drop-shadow">
                 <div class="join">Join</div>
             </div>
         `;
