@@ -16,14 +16,6 @@
   width: 100px;
   border-radius: 7px; }
 
-/**
-* Parent to clipped path elements
-*
-* Use this so we can have drop shadows on clipped paths
-*/
-.node-drop-shadow {
-  filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.25)); }
-
 .request {
   background-color: var(--node-request); }
 

@@ -1,33 +1,86 @@
 export class NodeTemplates {
 
-    public static Request: string = `<div class="request">Request</div>`;
+    public static Request: string = 
+        `
+            <div class="node-drop-shadow">
+                <div class="request">
+                    <span>Request</span>
+                </div>
+            </div>
+        `;
 
-    public static Project: string = `<div class="project">Project</div>`;
+    public static Project: string = 
+        `
+            <div class="node-drop-shadow">
+                <div class="project">
+                    <span>Project</span>
+                </div>
+            </div>
+        `;
 
-    public static Filter: string = `<div class="filter">Filter</div>`;
+    public static Filter: string = 
+        `
+            <div class="node-drop-shadow">
+                <div class="filter">
+                    <span>Filter</span>
+                </div>
+            </div>
+        `;
 
-    public static Application: string = `<div class="application">Application</div>`;
+    public static Application: string = 
+        `
+            <div class="node-drop-shadow">
+                <div class="application">
+                    <span>Application</span>
+                </div>
+            </div>
+        `;
 
-    public static Modifier: string = `<div class="modifier">Modifier</div>`;
+    public static Modifier: string = 
+        `
+            <div class="node-drop-shadow">
+                <div class="modifier">
+                    <span>Modifier</span>
+                </div>
+            </div>
+        `;
 
     public static Join: string = 
     
         `   
             <div class="node-drop-shadow">
-                <div class="join">Join</div>
+                <div class="join">
+                    <span>Join</span>
+                </div>
             </div>
         `;
 
-    public static Split: string = `<div class="split">Split</div>`;
+    public static Split: string = 
+        `
+            <div class="node-drop-shadow">
+                <div class="split">
+                    <span>Split</span>
+                </div>
+            </div>
+        `;
 
     public static Decision: string = 
         `
-            <div class="decision">  
-                <span>Decision</span>
+            <div class="node-drop-shadow">
+                <div class="decision">  
+                    <span>Decision</span>
+                </div>
             </div>
         `;
 
-    public static Event: string = `<div class="event">Event</div>`;
+    public static Event: string = 
+        `
+            <div class="node-drop-shadow">
+                <div class="event">
+                    <span>Event</span>
+                </div>
+            </div>
+        `;
 
     public static Facebook: string = 
         `

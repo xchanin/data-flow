@@ -48,6 +48,10 @@ export class DataFlowBaseClass extends BaseFunctions {
       }
       
       if(Variables.Connection === true) {
+
+        /**
+         * Check if the connection line is being set to an input connection
+         */
         if(ele_last.classList[0] === 'input' || (Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === Variables.NodeClass))) {
   
           if(Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === Variables.NodeClass)) {
@@ -204,6 +208,36 @@ export class DataFlowBaseClass extends BaseFunctions {
       this.Dispatch('mouseMove', {x: e_pos_x,y: e_pos_y });
     }
 
+    protected getAllDescendants(selectedNode: HTMLElement): void {
+      const descendants: Array<any> = [];
+      let t: NodeListOf<ChildNode> = selectedNode.childNodes;
+
+      for (let i = 0; i < t.length; i++) {
+        if (t[i].nodeType === 1) {
+          this.recurseAndAdd(t[i], descendants);
+        }
+      }
+    }
+
+    protected recurseAndAdd(el: any, desc?: Array<any>): void {
+      if ( desc)
+        desc.push(el.id);
+      
+      const children: any = el.childNodes;
+
+      for (let i = 0; i < children; i++) {
+
+        /**
+         * nodeType 1 is element node
+         */
+        if (children[i].nodeType === 1) {
+          this.recurseAndAdd(children);
+        }
+      }
+
+      debugger;
+    }
+
     /**
      * Click node event
      * @param event MouseEvent
@@ -257,6 +291,9 @@ export class DataFlowBaseClass extends BaseFunctions {
             this.Dispatch('nodeSelected', Variables.SelectedElement.id.slice(5));
           }
           Variables.SelectedNode = Variables.SelectedElement;
+
+          this.getAllDescendants(Variables.SelectedNode);
+
           Variables.SelectedNode.classList.add("selected");
           if(!Variables.DraggableInputs) {
             if(event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'SELECT' && event.target.hasAttribute('contenteditable') !== true) {
