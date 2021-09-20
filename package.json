@@ -14,7 +14,7 @@
     "watch": "npm run watch:es",
     "watch:es": "tsc -p tsconfig.es.json -w",
     "watch:cjs": "tsc -p tsconfig.cjs.json -w",
-    "start": "http-server && npm run compile-scss",
+    "start": "http-server",
     "compile-scss": "node-sass --w static/scss/ -o ./static/css/sjs"
   },
   "repository": {
@@ -40,7 +40,8 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@semanticjs/common": "^0.0.17"
+    "@semanticjs/common": "^0.0.17",
+    "@semanticjs/napkin-ide": "^0.2.0"
   },
   "module": "./packages/es/common.js",
   "files": [

@@ -224,28 +224,40 @@ export class FlowTool extends DataFlowBaseClass {
         }
     
         const content = document.createElement('div');
+
         content.classList.add("drawflow_content_node");
+
         if(val.TypeNode === false) {
-          content.innerHTML = val.HTML;
-        } else if (val.TypeNode === true) {
-          content.appendChild(Variables.NodeRegister[val.HTML].html.cloneNode(true));
-        } else {
-          if(parseInt(Variables.Render.version) === 3 ) {
-            //Vue 3
-            let wrapper = Variables.Render.createApp({
-              parent: Variables.Parent,
-              render: (h: any) => Variables.Render.h(Variables.NodeRegister[val.HTML].html, Variables.NodeRegister[val.HTML].props, Variables.NodeRegister[val.HTML].options)
-            }).mount(content)
+          
+          if (typeof val.HTML === 'string') {
+            content.innerHTML = val.HTML;
           } else {
-            // Vue 2
-            let wrapper = new Variables.Render({
-              parent: Variables.Parent,
-              render: (h: any) => h(Variables.NodeRegister[val.HTML].html, { props: Variables.NodeRegister[val.HTML].props }),
-              ...Variables.NodeRegister[val.HTML].options
-            }).$mount()
-            //
-            content.appendChild(wrapper.$el);
+            content.appendChild(val.HTML);
           }
+        
+        // } else if (val.TypeNode === true) {
+
+        //   content.appendChild(Variables.NodeRegister[val.HTML].html.cloneNode(true));
+        // } else {
+
+          // if(parseInt(Variables.Render.version) === 3 ) {
+          //   //Vue 3
+          //   let wrapper = Variables.Render.createApp({
+          //     parent: Variables.Parent,
+          //     render: (h: any) => Variables.Render.h(Variables.NodeRegister[val.HTML].html, Variables.NodeRegister[val.HTML].props, Variables.NodeRegister[val.HTML].options)
+          //   }).mount(content)
+
+          // } else {
+
+          //   // Vue 2
+          //   let wrapper = new Variables.Render({
+          //     parent: Variables.Parent,
+          //     render: (h: any) => h(Variables.NodeRegister[val.HTML].html, { props: Variables.NodeRegister[val.HTML].props }),
+          //     ...Variables.NodeRegister[val.HTML].options
+          //   }).$mount()
+          //   //
+          //   content.appendChild(wrapper.$el);
+          // }
         }
     
         Object.entries(val.Data).forEach(function (key, value) {
@@ -846,7 +858,7 @@ export class FlowTool extends DataFlowBaseClass {
       /**
        * If no data, then ignore functionality
        */
-        if (!data) {
+        if (!data || Object.keys(data.Data).length === 0) {
           return;
         }
 

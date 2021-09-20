@@ -9,6 +9,7 @@ export class PublicWebApplication {
 
   //  Constructors
   constructor() {
+    
     // this.Head = {
     //   Title: "IoT Ensemble - Connect. Combine. Code.",
     //   Description: "IoT ensemble provides recipes and workspace for creating your solutions."
