@@ -4,6 +4,11 @@ import { NodeTemplates } from "../templates/node-templates.js";
 
 export class ConstantUtils {
 
+    public static TEST_MODULE: DataFlowDataModel = {
+        Module: 'Test',
+        Data: {}
+    };
+
     public static HOME_MODULE_DATA: DataFlowDataModel = {
         Module: 'Home',
         Data: {
@@ -378,11 +383,6 @@ export class ConstantUtils {
                     }
                 }
     }
-
-    public static TEST_MODULE: DataFlowDataModel = {
-        Module: 'Test',
-        Data: {}
-    };
 
     public static DISPATCHED_EVENTS: Array<DispatchedEventsModel> = [
         { Event: 'mouseMove', Message: 'Mouse position', Params: ['x','y'] },

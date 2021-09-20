@@ -32,7 +32,8 @@ export class NodeModel {
     /**
      * HTML string that builds the nodes
      */
-    public HTML!: string;
+    public HTML!: string | HTMLElement | HTMLTemplateElement;
+    // public HTML!: any;
 
     /**
      * Node id

@@ -34,6 +34,16 @@
     </span>
   </div>
 
+  <template id="request">
+    <div class="node-drop-shadow">
+      <div class="request">
+          <span>Request</span>
+      </div>
+  </div>
+  </template>
+
+  <div id='tester'></div>
+
   <header>
     <h2>Data Flow Tool</h2>
   </header>
@@ -51,14 +61,14 @@
               menuTabSelected(event);" class="selected">
               Home
           </li>
-          <li onclick="flowTool.ChangeModule('Other'); 
+          <li onclick="flowTool.ChangeModule('Test'); 
+            menuTabSelected(event);">
+            Test Module
+          </li>
+          <!-- <li onclick="flowTool.ChangeModule('Other'); 
               menuTabSelected(event);">
               Other Module
-          </li>
-          <li onclick="flowTool.ChangeModule('Test'); 
-              menuTabSelected(event);">
-              Test Module
-          </li>
+          </li> -->
         </ul>
       </div>
 
@@ -107,8 +117,9 @@
     Variables.DataFlowModuleData =
     [
       ConstantUtils.HOME_MODULE_DATA,
-      ConstantUtils.OTHER_MODULE_DATA,
       ConstantUtils.TEST_MODULE
+      // ConstantUtils.OTHER_MODULE_DATA
+      
     ]
 
     flowTool.Init(Variables.DataFlowModuleData[0]);
@@ -153,7 +164,7 @@
               PosY: posY, 
               ClassList: [], 
               Data: {}, 
-              HTML: NodeTemplates.Request,
+              HTML: document.getElementById('request').content,
               TypeNode: false
             }
           );
