@@ -7,6 +7,8 @@
     align-items: center;
     font-size: 12px;
     color: white;
+    // -webkit-transition: background-color 3s; /* For Safari 3.0 to 6.0 */
+    // transition: background-color 3s; /* For modern browsers */
 }
 
 .gap > * {
@@ -17,15 +19,6 @@
     height: 30px;
     width: 100px;
     border-radius: 7px;
-}
-
-/**
-* Parent to clipped path elements
-*
-* Use this so we can have drop shadows on clipped paths
-*/
-.node-drop-shadow {
-    filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.25));
 }
 
 .request {
@@ -96,25 +89,7 @@
     background-color: var(--node-decision);
     height: 100px;
     width: 100px;
-    // transform: rotate(45deg);
-    // transform-origin: 0 100%;
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-
-    > * {
-        // transform: rotate(-45deg);
-    }
-
-    // .drawflow .input {
-    //     position: absolute;
-    //     left: -10px;
-    //     top: -10px;
-    // }
-    
-    // .drawflow .output {
-    //     position: absolute;
-    //     right: -10px;
-    //     bottom: -10px;
-    // }
 }
 
 

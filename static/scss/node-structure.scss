@@ -45,18 +45,24 @@
     justify-content: center;
     position: absolute;
     z-index: 2;
+    // transition: 0.5s;
     // padding: 15px;
     // @include box-shadow;
 
     &.selected {
-      filter: brightness(2);
-      border: 1px solid #4ea9ff;
-      -webkit-box-shadow: 0 2px 20px 2px #4ea9ff;
-      box-shadow: 0 2px 20px 2px #4ea9ff;
+      // transition: 0.5s;
+      filter: brightness(1.25);
+      -webkit-filter: brightness(1.25);
+      // border: 1px solid #4ea9ff;
+      // -webkit-box-shadow: 0 2px 20px 2px #4ea9ff;
+      // box-shadow: 0 2px 20px 2px #4ea9ff;
     }
 
     &:hover {
       cursor: move;
+      // transition: 0.5s;
+      // filter: grayscale(1.25);
+      // -webkit-filter: grayscale(1.25);
     }
 
     /**
@@ -81,6 +87,10 @@
       border: 2px solid black;
       cursor: crosshair;
       transform: translate(-50%, 0);
+
+      &:hover {
+        background-color: greenyellow;
+      }
     }
   
     .input {
@@ -94,9 +104,18 @@
     }
   }
 
-  .parent-node {
-    position: relative;
-  }
+/**
+* Parent to clipped path elements
+*
+* Use this so we can have drop shadows on clipped paths
+*/
+.node-drop-shadow {
+  filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.25));
+}
+
+.parent-node {
+  position: relative;
+}
 
   // > .drawflow-delete {
   //   margin-left: -15px;

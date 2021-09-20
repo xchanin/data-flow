@@ -33,7 +33,7 @@ export class Variables {
     /**
      * How much curve is in the connection line
      */
-    public static Curvature: number = 0.5;
+    public static Curvature: number = 0.2;
 
     /**
      * List of data flow module data
