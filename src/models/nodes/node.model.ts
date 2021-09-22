@@ -64,7 +64,8 @@ export class NodeModel {
     /**
      * Output direction and connected nodes
      */
-    public Outputs?: NodeInputOutputModel;
+    // public Outputs?: NodeInputOutputModel;
+    public Outputs?: any;
 
     /**
      * Node 'Y' position

@@ -16,12 +16,24 @@ export class ConstantUtils {
                     PosX: 50, 
                     PosY: 100, 
                     ClassList: [], 
-                    Data: {}, 
+                    Outputs:
+                    {
+                        "output_1":
+                        {
+                            "Connections":
+                            [
+                                {"node":"2","input":"output_1"}
+                            ]
+                        }
+                    },
+                    Data: {'shannon': 'this is a test', 'link': 'http://www.bluepow.com'},
                     HTML: 
                     `
                         <div class="node-drop-shadow">
-                            <div class="request">
+                            <div class="gap flexbox-row flexbox-base request">
                                 <span>Request Test</span>
+                                <input type=\"text\" df-shannon>
+                                <a href="#" df-link></a>
                             </div>
                         </div>
                     `,
@@ -32,10 +44,20 @@ export class ConstantUtils {
                     Name: 'two', 
                     NumOfInputs: 0, 
                     NumOfOutputs: 1, 
-                    PosX: 50, 
+                    PosX: 250, 
                     PosY: 100, 
                     ClassList: [], 
                     Data: {}, 
+                    Inputs:
+                    {
+                        "input_1":
+                        {
+                            "Connections":
+                            [
+                                {"node":"1","input":"output_1"}
+                            ]
+                        }
+                    },
                     HTML: NodeTemplates.Project, // this calls an HTML string
                     TypeNode: false
                 },

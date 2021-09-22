@@ -155,8 +155,8 @@ export class DataFlowBaseClass extends BaseFunctions {
         Variables.SelectedElement.style.top = (Variables.SelectedElement.offsetTop - y) + "px";
         Variables.SelectedElement.style.left = (Variables.SelectedElement.offsetLeft - x) + "px";
   
-        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5)].PosX = (Variables.SelectedElement.offsetLeft - x);
-        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5)].PosY = (Variables.SelectedElement.offsetTop - y);
+        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5) - 1].PosX = (Variables.SelectedElement.offsetLeft - x);
+        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5) - 1].PosY = (Variables.SelectedElement.offsetTop - y);
   
         this.updateConnectionNodes(Variables.SelectedElement.id)
       }

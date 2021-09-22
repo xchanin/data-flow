@@ -12,7 +12,7 @@
   margin: 14px; }
 
 .basic-node, .request, .project, .filter, .application, .modifier {
-  height: 30px;
+  min-height: 30px;
   width: 100px;
   border-radius: 7px; }
 

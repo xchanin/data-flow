@@ -60,6 +60,14 @@ html, body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--background-color); }
 
+.flexbox-base {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.flexbox-row {
+  flex-direction: column; }
+
 @media only screen and (max-width: 768px) {
   .col {
     width: 50px; }

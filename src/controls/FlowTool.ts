@@ -342,8 +342,7 @@ export class FlowTool extends DataFlowBaseClass {
        * @param precanvas 
        */
       protected loadNodeFromConfig (dataNode: NodeModel, precanvas: HTMLElement) {
-        debugger;
-
+    
         const parent = document.createElement('div');
         parent.classList.add('parent-node');
     
@@ -371,9 +370,9 @@ export class FlowTool extends DataFlowBaseClass {
           Object.keys(dataNode.Inputs)
             .map((input_item: string, index: number) => {
             
-              /**
-               * Input item
-               */
+            /**
+             * Input item
+             */
             const input = document.createElement('div');
               input.classList.add('input');
               input.classList.add(input_item);
@@ -383,7 +382,7 @@ export class FlowTool extends DataFlowBaseClass {
                * TODO: Inputs (NodeInputOutputModel) need to be looked at a bit more, how
                * the model is defined, etc. - shannon
                */
-            Object.keys(dataNode.Inputs[input_item].connections)
+            Object.keys(dataNode.Inputs[input_item].Connections)
             .map((output_item, index) => {
       
               let connection = document.createElementNS('http://www.w3.org/2000/svg','svg');
@@ -392,9 +391,9 @@ export class FlowTool extends DataFlowBaseClass {
               path.setAttributeNS(null, 'd', '');
               // path.innerHTML = 'a';
               connection.classList.add('connection');
-              connection.classList.add('node_in_node-'+dataNode.ID);
-              connection.classList.add('node_out_node-'+dataNode.Inputs[input_item].connections[output_item].node);
-              connection.classList.add(dataNode.Inputs[input_item].connections[output_item].input);
+              connection.classList.add('node_in_node-' + dataNode.ID);
+              connection.classList.add('node_out_node-' + dataNode.Inputs[input_item].Connections[output_item].node);
+              connection.classList.add(dataNode.Inputs[input_item].Connections[output_item].input);
               connection.classList.add(input_item);
       
               connection.appendChild(path);
@@ -432,7 +431,7 @@ export class FlowTool extends DataFlowBaseClass {
 
         } else {
 
-          if(parseInt(Variables.Render.version) === 3 ) {
+          // if(parseInt(Variables.Render.version) === 3 ) {
             //Vue 3
             // let wrapper = Variables.Render.createApp({
             //   parent: Variables.Parent,
@@ -441,7 +440,7 @@ export class FlowTool extends DataFlowBaseClass {
             //     Variables.NodeRegister[dataNode.HTML].props, 
             //     Variables.NodeRegister[dataNode.HTML].options)
             // }).mount(content)
-          } else {
+         // } else {
             //Vue 2
             // let wrapper = new Variables.Render({
             //   parent: Variables.Parent,
@@ -453,16 +452,41 @@ export class FlowTool extends DataFlowBaseClass {
             //     ...Variables.NodeRegister[dataNode.HTML].options
             // }).$mount()
             // content.appendChild(wrapper.$el);
-          }
+          // }
         }
     
-        Object.entries(dataNode.Data).forEach(function (key, value) {
+        /**
+         * Dig into node data property
+         */
+        Object.entries(dataNode.Data).forEach((key: [string, any], index: number) => {
+          
           if(typeof key[1] === 'object') {
             insertObjectkeys(null, key[0], key[0]);
+
           } else {
-            var elems: any = content.querySelectorAll('[df-'+key[0]+']');
-              for(var i = 0; i < elems.length; i++) {
+
+            /**
+             * Look for all elements that have the attribute of 'df-' + key name
+             */
+            const elems: any = content.querySelectorAll('[df-' + key[0] + ']');
+
+              for(let i = 0; i < elems.length; i++) {
+                /**
+                 * Set the value from the data object to the element,
+                 * in this case we are setting the elements value property
+                 * to the value from the data object
+                 */
                 elems[i].value = key[1];
+
+                /**
+                 * Set the value from the data object to the element,
+                 * in this case we are checking for a <a href> and setting
+                 * the link and anchor value accordingly
+                 */
+                if (elems[i].closest('a')) {
+                  elems[i].href = key[1];
+                  elems[i].innerHTML = key[1];
+                }
               }
           }
         })
