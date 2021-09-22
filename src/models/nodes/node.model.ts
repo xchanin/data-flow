@@ -38,12 +38,13 @@ export class NodeModel {
     /**
      * Node id
      */
-    public Id!: string;
+    public ID!: string;
 
     /**
      * Input direction and connected nodes
      */
-    public Inputs?: NodeInputOutputModel;
+    // public Inputs?: NodeInputOutputModel;
+    public Inputs?: any;
 
     /**
      * Node name
@@ -68,12 +69,12 @@ export class NodeModel {
     /**
      * Node 'Y' position
      */
-    public PosY!: number;
+    public PosY!: number | string;
 
     /**
      * Node 'X' position
      */
-    public PosX!: number;
+    public PosX!: number | string;
 
     /**
      * Node connection rules; types we can connect to
@@ -86,7 +87,11 @@ export class NodeModel {
      public Type?: NodeType
 
     /**
-     * Not sure what this is yet
+     * I believe TypeNode is used to determine when 
+     * the node HTML value is either a string or an HTML Element (template, div, etc.)
+     * 
+     * I have added logic to check whether or not HTML is a string or else; need to look
+     * at this a little more - shannon
      */
     public TypeNode: boolean = false;
     

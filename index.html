@@ -34,15 +34,21 @@
     </span>
   </div>
 
-  <template id="request">
-    <div class="node-drop-shadow">
-      <div class="request">
-          <span>Request</span>
-      </div>
-  </div>
-  </template>
-
-  <div id='tester'></div>
+  <!-- 
+    Test using a template for 
+    draggable node 
+  -->
+    <template id="request">
+      <div class="node-drop-shadow">
+        <div class="request">
+            <span>Request</span>
+        </div>
+    </div>
+    </template>
+ <!-- 
+    Test using a template for 
+    draggable node 
+  -->
 
   <header>
     <h2>Data Flow Tool</h2>
@@ -57,12 +63,12 @@
     <div class="col-right">
       <div class="tab-menu">
         <ul>
-          <li onclick="flowTool.ChangeModule('Home'); 
+          <!-- <li onclick="flowTool.ChangeModule('Home'); 
               menuTabSelected(event);" class="selected">
               Home
-          </li>
+          </li> -->
           <li onclick="flowTool.ChangeModule('Test'); 
-            menuTabSelected(event);">
+              menuTabSelected(event);">
             Test Module
           </li>
           <!-- <li onclick="flowTool.ChangeModule('Other'); 
@@ -104,7 +110,10 @@
      * 
      * This calls MENU_TEMPLATES, but can be any external source
     */
-    MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.FLOW_DRAG_ITEMS(DragDropUtils.Drag));
+    MenuTemplates.Render(
+      document.getElementById('drag-items'), 
+      DragItemsTemplates.FLOW_DRAG_ITEMS(DragDropUtils.Drag)
+    );
     // MenuTemplates.Render(document.getElementById('drag-items'), DragItemsTemplates.MENU_TEMPLATES(DragDropUtils.Drag));
 
     // Variables.reroute = true;
@@ -116,7 +125,7 @@
     */
     Variables.DataFlowModuleData =
     [
-      ConstantUtils.HOME_MODULE_DATA,
+      // ConstantUtils.HOME_MODULE_DATA,
       ConstantUtils.TEST_MODULE
       // ConstantUtils.OTHER_MODULE_DATA
       
@@ -529,7 +538,7 @@
      * Add / remove styles on menu tab click
      **/
     function menuTabSelected(event) {
-      const all = document.querySelectorAll(".top-menu ul li");
+      const all = document.querySelectorAll(".tab-menu ul li");
 
       /**
        * all this does is set the font in the tab to bold
