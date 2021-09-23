@@ -3,7 +3,19 @@ import { IdsUtils } from './../utils/ids.utils.js';
 import { Variables } from './../utils/variables.js';
 import { NodeModel } from "../models/nodes/node.model.js";
 import { BaseFunctions } from '../base-classes/base-functions.js';
+
+export class LocalNodesModel {
+  public Parent!: HTMLElement; 
+  public Node!: HTMLElement; 
+  public Inputs!: HTMLElement; 
+  public Outputs!: HTMLElement;
+
+  constructor(opts: LocalNodesModel) {
+    Object.assign(this, opts); // destructure values
+}
+}
 export class NodeBaseClass extends BaseFunctions {
+  
   static LoadNodeFromConfig(arg0: any, PreCanvas: any) {
     throw new Error('Method not implemented.');
   }
@@ -13,32 +25,77 @@ export class NodeBaseClass extends BaseFunctions {
     }
 
     /**
-     * Loading nodes based off config values
+     * Create parent div to attach to
+     * 
+     * @returns HTMLElement
+     */
+    protected createParent(): HTMLElement {
+      const parent: HTMLElement = document.createElement('div');
+      parent.classList.add('parent-node');
+
+      return parent;
+    }
+
+    /**
+     * Create node
+     * 
+     * @param id node id
+     * @returns HTMLElement
+     */
+    protected createNode(id: string): HTMLElement {
+      const node = document.createElement('div');
+      node.innerHTML = '';
+      node.setAttribute('id', 'node-' + id);
+      node.classList.add(Variables.NodeClass);
+
+      return node;
+    }
+
+    /**
+     * Create input and output connectors for each node
+     * 
+     * @param classlist list of styles for connectors
+     * @returns HTMLElement
+     */
+    protected createConnector(classlist: Array<string>): HTMLElement {
+      const con: HTMLElement = document.createElement('div');
+      con.classList.add(...classlist);
+
+      return con;
+    }
+
+    /**
+     * Create nodes and connectors
+     * 
+     * @param id node id
+     * @param inputsClasslist list of styles for input connectors
+     * @param outputsClasslist list of styles for outpus connectors
+     * @returns LocalNodesModel
+     */
+    protected setupNodes(id: string, inputsClasslist: Array<string>, outputsClasslist: Array<string>): LocalNodesModel {
+
+      return new LocalNodesModel( 
+        {
+          Parent: this.createParent(),
+          Inputs: this.createConnector(inputsClasslist),
+          Outputs: this.createConnector(outputsClasslist),
+          Node: this.createNode(id)
+        }
+      )
+    }
+
+    /**
+     * Loading nodes from data config
      * 
      * @param dataNode 
      * @param precanvas 
      */
     public LoadNodesFromConfig(dataNode: NodeModel, precanvas: HTMLElement): void {
 
-        const parent: HTMLElement = document.createElement('div');
-        parent.classList.add('parent-node');
-
-        const node = document.createElement('div');
-        node.innerHTML = '';
-        node.setAttribute('id', 'node-' + dataNode.ID);
-        node.classList.add(Variables.NodeClass);
-
-        /**
-         * Parent div for inputs
-         */
-        const inputs: HTMLElement = document.createElement('div');
-        inputs.classList.add('inputs');
-
-        /**
-         * Parent div for outputs
-         */
-        const outputs: HTMLElement = document.createElement('div');
-        outputs.classList.add('outputs');
+      /**
+       * setup nodes and connectors
+       */
+      const setups: LocalNodesModel = this.setupNodes(dataNode.ID, ['inputs'], ['outputs']);
 
         /**
          * Add inputs to node
@@ -53,7 +110,7 @@ export class NodeBaseClass extends BaseFunctions {
                     const input = document.createElement('div');
                     input.classList.add('input');
                     input.classList.add(input_item);
-                    inputs.appendChild(input);
+                    setups.Inputs.appendChild(input);
 
                     /**
                      * TODO: Inputs (NodeInputOutputModel) need to be looked at a bit more, how
@@ -88,7 +145,7 @@ export class NodeBaseClass extends BaseFunctions {
                 const output = document.createElement('div');
                 output.classList.add('output');
                 output.classList.add('output_' + (x + 1));
-                outputs.appendChild(output);
+                setups.Outputs.appendChild(output);
             }
         }
 
@@ -188,17 +245,17 @@ export class NodeBaseClass extends BaseFunctions {
             }
         }
 
-        node.appendChild(inputs);
-        node.appendChild(content);
-        node.appendChild(outputs);
+        setups.Node.appendChild(setups.Inputs);
+        setups.Node.appendChild(content);
+        setups.Node.appendChild(setups.Outputs);
 
         /**
          * Set node positions on the canvas
          */
-        node.style.top = dataNode.PosY + 'px';
-        node.style.left = dataNode.PosX + 'px';
-        parent.appendChild(node);
-        Variables.PreCanvas.appendChild(parent);
+        setups.Node.style.top = dataNode.PosY + 'px';
+        setups.Node.style.left = dataNode.PosX + 'px';
+        setups.Parent.appendChild(setups.Node);
+        Variables.PreCanvas.appendChild(setups.Parent);
     }
 
       /**
@@ -217,23 +274,20 @@ export class NodeBaseClass extends BaseFunctions {
           newNodeId = Variables.NodeId.toString();
         }
 
-        const parent: HTMLElement = document.createElement('div');
-        parent.classList.add('parent-node');
-    
-        const node: HTMLElement = document.createElement('div');
-        node.innerHTML = '';
-        node.setAttribute('id', 'node-' + newNodeId);
-        node.classList.add(Variables.NodeClass);
-        
+        /**
+         * setup nodes and connectors
+         */
+        const setups: LocalNodesModel = this.setupNodes(newNodeId, ['inputs'], ['outputs']);
+
         if (val.ClassList) {
-          node.classList.add(...val.ClassList);
+          setups.Node.classList.add(...val.ClassList);
         }
     
-        const inputs: HTMLElement = document.createElement('div');
-        inputs.classList.add('inputs');
+        // const inputs: HTMLElement = document.createElement('div');
+        // inputs.classList.add('inputs');
     
-        const outputs: HTMLElement = document.createElement('div');
-        outputs.classList.add('outputs');
+        // const outputs: HTMLElement = document.createElement('div');
+        // outputs.classList.add('outputs');
     
         const json_inputs: any = {}
         for(var x = 0; x < val.NumOfInputs; x++) {
@@ -241,7 +295,7 @@ export class NodeBaseClass extends BaseFunctions {
           input.classList.add('input');
           input.classList.add('input_'+(x+1));
           json_inputs['input_'+(x+1)] = { 'connections': []};
-          inputs.appendChild(input);
+          setups.Inputs.appendChild(input);
         }
     
         const json_outputs: any = {}
@@ -250,7 +304,7 @@ export class NodeBaseClass extends BaseFunctions {
           output.classList.add('output');
           output.classList.add('output_'+(x+1));
           json_outputs['output_'+(x+1)] = { 'connections': []};
-          outputs.appendChild(output);
+          setups.Outputs.appendChild(output);
         }
     
         const content = document.createElement('div');
@@ -325,12 +379,12 @@ export class NodeBaseClass extends BaseFunctions {
           }
         }
         
-        node.appendChild(inputs);
-        node.appendChild(content);
-        node.appendChild(outputs);
-        node.style.top = val.PosY + 'px';
-        node.style.left = val.PosX + 'px';
-        parent.appendChild(node);
+        setups.Node.appendChild(setups.Inputs);
+        setups.Node.appendChild(content);
+        setups.Node.appendChild(setups.Outputs);
+        setups.Node.style.top = val.PosY + 'px';
+        setups.Node.style.left = val.PosX + 'px';
+        setups.Parent.appendChild(setups.Node);
         Variables.PreCanvas.appendChild(parent);
 
 
