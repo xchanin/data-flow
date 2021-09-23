@@ -3,7 +3,7 @@ import { DrawingUtils } from '../utils/drawing.utils.js';
 import { DataFlowDataModel } from '../models/dataflow-data.model.js';
 import { ConstantUtils } from '../utils/constants.utils.js';
 
-export class BaseFunctions {
+export abstract class BaseFunctions {
 
     /**
      * Set active module

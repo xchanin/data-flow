@@ -1,9 +1,11 @@
+import { IdsUtils } from './../utils/ids.utils.js';
 import { NodeModel } from './../models/nodes/node.model.js';
 import { Variables } from '../utils/variables.js';
 import { DataFlowBaseClass } from '../base-classes/data-flow-base-class.js';
 import { DataFlowDataModel } from '../models/dataflow-data.model.js';
 import { ContainerEvent } from '../models/nodes/container-event.model.js';
-import { Events } from '../utils/events.js';
+import { EventsUtils } from '../utils/events.utils.js';
+import { NodeBaseClass } from '../templates/node-base-class.js';
 
 export class FlowTool extends DataFlowBaseClass {
  
@@ -11,11 +13,13 @@ export class FlowTool extends DataFlowBaseClass {
      * List of event listeners
      */
      protected eventListeners: Array<ContainerEvent>;
+     protected nodeBaseClass: NodeBaseClass;
 
      constructor(container: HTMLElement, render = null, parent = null) {
  
          super();
- 
+
+         this.nodeBaseClass = new NodeBaseClass();
          Variables.Parent = parent;
          Variables.Render = render;
          Variables.MainContainer = container;
@@ -99,7 +103,7 @@ export class FlowTool extends DataFlowBaseClass {
       /**
        * Initialize UI events
        */
-      Events.InitializeDispatchedEvents();
+       EventsUtils.InitializeDispatchedEvents();
 
       /**
        * Parent container
@@ -127,7 +131,7 @@ export class FlowTool extends DataFlowBaseClass {
      /**
       * add eventlisteners to the container
       */
-     Events.AddEventListeners(Variables.MainContainer, this.eventListeners);
+      EventsUtils.AddEventListeners(Variables.MainContainer, this.eventListeners);
  
        // Variables.load();
      }
@@ -142,7 +146,7 @@ export class FlowTool extends DataFlowBaseClass {
         /**
          * Load nodes from config values
          */
-        this.loadNodeFromConfig(this.activeModule(Variables.ActiveModule).Data[key], Variables.PreCanvas);
+        this.nodeBaseClass.LoadNodesFromConfig(this.activeModule(Variables.ActiveModule).Data[key], Variables.PreCanvas);
       }
 
        if(Variables.Reroute) {
@@ -181,348 +185,9 @@ export class FlowTool extends DataFlowBaseClass {
      * @param val Node model
      * @returns node id
      */
-    public AddNode(val: NodeModel): string {
-
-        let newNodeId: string;
-
-        if (Variables.UseUUID) {
-          newNodeId = this.getUuid();
-        } else {
-          newNodeId = Variables.NodeId.toString();
-        }
-
-        const parent: HTMLElement = document.createElement('div');
-        parent.classList.add('parent-node');
-    
-        const node: HTMLElement = document.createElement('div');
-        node.innerHTML = '';
-        node.setAttribute('id', 'node-' + newNodeId);
-        node.classList.add(Variables.NodeClass);
-        
-        if (val.ClassList) {
-          node.classList.add(...val.ClassList);
-        }
-    
-        const inputs: HTMLElement = document.createElement('div');
-        inputs.classList.add('inputs');
-    
-        const outputs: HTMLElement = document.createElement('div');
-        outputs.classList.add('outputs');
-    
-        const json_inputs: any = {}
-        for(var x = 0; x < val.NumOfInputs; x++) {
-          const input = document.createElement('div');
-          input.classList.add('input');
-          input.classList.add('input_'+(x+1));
-          json_inputs['input_'+(x+1)] = { 'connections': []};
-          inputs.appendChild(input);
-        }
-    
-        const json_outputs: any = {}
-        for(var x = 0; x < val.NumOfOutputs; x++) {
-          const output = document.createElement('div');
-          output.classList.add('output');
-          output.classList.add('output_'+(x+1));
-          json_outputs['output_'+(x+1)] = { 'connections': []};
-          outputs.appendChild(output);
-        }
-    
-        const content = document.createElement('div');
-
-        content.classList.add('drawflow_content_node');
-
-        /**
-         * Add template for node that was dragged onto the canvas
-         */
-        if(val.TypeNode === false) {
-          
-          if (typeof val.HTML === 'string') {
-            content.innerHTML = val.HTML;
-          } else {
-            content.appendChild(val.HTML);
-          }
-        
-        // } else if (val.TypeNode === true) {
-
-        //   content.appendChild(Variables.NodeRegister[val.HTML].html.cloneNode(true));
-        // } else {
-
-          // if(parseInt(Variables.Render.version) === 3 ) {
-          //   //Vue 3
-          //   let wrapper = Variables.Render.createApp({
-          //     parent: Variables.Parent,
-          //     render: (h: any) => Variables.Render.h(Variables.NodeRegister[val.HTML].html, Variables.NodeRegister[val.HTML].props, Variables.NodeRegister[val.HTML].options)
-          //   }).mount(content)
-
-          // } else {
-
-          //   // Vue 2
-          //   let wrapper = new Variables.Render({
-          //     parent: Variables.Parent,
-          //     render: (h: any) => h(Variables.NodeRegister[val.HTML].html, { props: Variables.NodeRegister[val.HTML].props }),
-          //     ...Variables.NodeRegister[val.HTML].options
-          //   }).$mount()
-          //   //
-          //   content.appendChild(wrapper.$el);
-          // }
-        }
-    
-        Object.entries(val.Data).forEach(function (key, value) {
-          if(typeof key[1] === 'object') {
-            insertObjectkeys(null, key[0], key[0]);
-          } else {
-            var elems: any = content.querySelectorAll('[df-'+key[0]+']');
-              for(var i = 0; i < elems.length; i++) {
-                elems[i].value = key[1];
-              }
-          }
-        })
-    
-        function insertObjectkeys(object: any, name: any, completname: any) {
-          if(object === null) {
-            var object = val.Data[name];
-          } else {
-            var object = object[name]
-          }
-          if(object !== null) {
-            Object.entries(object).forEach(function (key, value) {
-              if(typeof key[1] === 'object') {
-                insertObjectkeys(object, key[0], completname+'-'+key[0]);
-              } else {
-                var elems: any = content.querySelectorAll('[df-'+completname+'-'+key[0]+']');
-                  for(var i = 0; i < elems.length; i++) {
-                    elems[i].value = key[1];
-                  }
-              }
-            });
-          }
-        }
-        node.appendChild(inputs);
-        node.appendChild(content);
-        node.appendChild(outputs);
-        node.style.top = val.PosY + 'px';
-        node.style.left = val.PosX + 'px';
-        parent.appendChild(node);
-        Variables.PreCanvas.appendChild(parent);
-
-
-        const nodeModel: NodeModel = new NodeModel
-        (
-          {
-            Name: val.Name, 
-            ID: newNodeId,
-            Data: val.Data,
-            ClassList: val.ClassList,
-            HTML: val.HTML,
-            TypeNode: val.TypeNode,
-            Inputs: json_inputs,
-            Outputs: json_outputs,
-            PosX: val.PosX,
-            PosY: val.PosY,
-            NumOfInputs: val.NumOfInputs,
-            NumOfOutputs: val.NumOfOutputs
-          }
-        );
-
-        this.activeModule(Variables.ActiveModule).Data[newNodeId] = nodeModel;
-
-        this.Dispatch('nodeCreated', newNodeId);
-
-        if (!Variables.UseUUID) {
-          Variables.NodeId++;
-        }
-
-        return newNodeId;
-      }
-    
-      /**
-       * Loading nodes based off config values
-       * 
-       * @param dataNode 
-       * @param precanvas 
-       */
-      protected loadNodeFromConfig (dataNode: NodeModel, precanvas: HTMLElement) {
-    
-        const parent = document.createElement('div');
-        parent.classList.add('parent-node');
-    
-        const node = document.createElement('div');
-        node.innerHTML = '';
-        node.setAttribute('id', 'node-' + dataNode.ID);
-        node.classList.add(Variables.NodeClass);
-
-        /**
-         * Parent div for inputs
-         */
-        const inputs = document.createElement('div');
-        inputs.classList.add('inputs');
-    
-        /**
-         * Parent div for outputs
-         */
-        const outputs = document.createElement('div');
-        outputs.classList.add('outputs');
-    
-        /**
-         * Add inputs to node
-         */
-        if (dataNode.Inputs) {
-          Object.keys(dataNode.Inputs)
-            .map((input_item: string, index: number) => {
-            
-            /**
-             * Input item
-             */
-            const input = document.createElement('div');
-              input.classList.add('input');
-              input.classList.add(input_item);
-              inputs.appendChild(input);
-
-              /**
-               * TODO: Inputs (NodeInputOutputModel) need to be looked at a bit more, how
-               * the model is defined, etc. - shannon
-               */
-            Object.keys(dataNode.Inputs[input_item].Connections)
-            .map((output_item, index) => {
-      
-              let connection = document.createElementNS('http://www.w3.org/2000/svg','svg');
-              let path = document.createElementNS('http://www.w3.org/2000/svg','path');
-              path.classList.add('main-path');
-              path.setAttributeNS(null, 'd', '');
-              // path.innerHTML = 'a';
-              connection.classList.add('connection');
-              connection.classList.add('node_in_node-' + dataNode.ID);
-              connection.classList.add('node_out_node-' + dataNode.Inputs[input_item].Connections[output_item].node);
-              connection.classList.add(dataNode.Inputs[input_item].Connections[output_item].input);
-              connection.classList.add(input_item);
-      
-              connection.appendChild(path);
-              precanvas.appendChild(connection);
-      
-            });
-          });
-        }
-    
-        /**
-         * Output item
-         */
-        if (dataNode.Outputs) {
-          for(var x = 0; x < Object.keys(dataNode.Outputs).length; x++) {
-            const output = document.createElement('div');
-            output.classList.add('output');
-            output.classList.add('output_' + ( x + 1 ));
-            outputs.appendChild(output);
-          }
-        }
-    
-        /**
-         * Div to hold inner content of the node
-         */
-        const content = document.createElement('div');
-        content.classList.add('drawflow_content_node');
-    
-        // if(dataNode.TypeNode === false
-        if(dataNode.TypeNode === false) {
-          content.innerHTML = dataNode.HTML.toString();
-          
-        } else if (dataNode.TypeNode === true) {
-          // content.appendChild(Variables.NodeRegister[dataNode.HTML].html.cloneNode(true));
-          content.appendChild(<Node>dataNode.HTML);
-
-        } else {
-
-          // if(parseInt(Variables.Render.version) === 3 ) {
-            //Vue 3
-            // let wrapper = Variables.Render.createApp({
-            //   parent: Variables.Parent,
-            //   render: (h: any) => Variables.Render.h(
-            //     Variables.NodeRegister[dataNode.HTML].html, 
-            //     Variables.NodeRegister[dataNode.HTML].props, 
-            //     Variables.NodeRegister[dataNode.HTML].options)
-            // }).mount(content)
-         // } else {
-            //Vue 2
-            // let wrapper = new Variables.Render({
-            //   parent: Variables.Parent,
-            //   render: (h: any) => h(
-            //     Variables.NodeRegister[dataNode.HTML].html, 
-            //     { 
-            //       props: Variables.NodeRegister[dataNode.HTML].props 
-            //     }),
-            //     ...Variables.NodeRegister[dataNode.HTML].options
-            // }).$mount()
-            // content.appendChild(wrapper.$el);
-          // }
-        }
-    
-        /**
-         * Dig into node data property
-         */
-        Object.entries(dataNode.Data).forEach((key: [string, any], index: number) => {
-          
-          if(typeof key[1] === 'object') {
-            insertObjectkeys(null, key[0], key[0]);
-
-          } else {
-
-            /**
-             * Look for all elements that have the attribute of 'df-' + key name
-             */
-            const elems: any = content.querySelectorAll('[df-' + key[0] + ']');
-
-              for(let i = 0; i < elems.length; i++) {
-                /**
-                 * Set the value from the data object to the element,
-                 * in this case we are setting the elements value property
-                 * to the value from the data object
-                 */
-                elems[i].value = key[1];
-
-                /**
-                 * Set the value from the data object to the element,
-                 * in this case we are checking for a <a href> and setting
-                 * the link and anchor value accordingly
-                 */
-                if (elems[i].closest('a')) {
-                  elems[i].href = key[1];
-                  elems[i].innerHTML = key[1];
-                }
-              }
-          }
-        })
-    
-        function insertObjectkeys(object: any, name: any, completname: any) {
-          if(object === null) {
-            var object = dataNode.Data[name];
-          } else {
-            var object = object[name]
-          }
-          if(object !== null) {
-            Object.entries(object).forEach(function (key, value) {
-              if(typeof key[1] === 'object') {
-                insertObjectkeys(object, key[0], completname+'-'+key[0]);
-              } else {
-                var elems: any = content.querySelectorAll('[df-'+completname+'-'+key[0]+']');
-                  for(var i = 0; i < elems.length; i++) {
-                    elems[i].value = key[1];
-                  }
-              }
-            });
-          }
-        }
-
-        node.appendChild(inputs);
-        node.appendChild(content);
-        node.appendChild(outputs);
-
-        /**
-         * Set node positions on the canvas
-         */
-        node.style.top = dataNode.PosY + 'px';
-        node.style.left = dataNode.PosX + 'px';
-        parent.appendChild(node);
-        Variables.PreCanvas.appendChild(parent);
-      }
+    public AddNode(val:NodeModel): string {
+      return this.nodeBaseClass.AddNode(val);
+    }
     
       protected addRerouteImport(dataNode: any): void {
         const reroute_width = Variables.RerouteWidth
@@ -941,23 +606,8 @@ export class FlowTool extends DataFlowBaseClass {
        this.load();
  
        if(notify) {
-         this.Dispatch('import', 'import');
+         EventsUtils.Dispatch('import', 'import');
        }
      }
-   
-      protected getUuid(): string {
-        // http://www.ietf.org/rfc/rfc4122.txt
-        let s: Array<any> = [];
-        const hexDigits = '0123456789abcdef';
-        for (var i = 0; i < 36; i++) {
-            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-        }
-        s[14] = '4';  // bits 12-15 of the time_hi_and_version field to 0010
-        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
-        s[8] = s[13] = s[18] = s[23] = '-';
-
-        const uuid = s.join('');
-        return uuid;
-      }
    }
    

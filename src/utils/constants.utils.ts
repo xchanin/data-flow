@@ -20,10 +20,7 @@ export class ConstantUtils {
                     {
                         "output_1":
                         {
-                            "Connections":
-                            [
-                                {"node":"2","input":"output_1"}
-                            ]
+                          
                         }
                     },
                     Data: {'shannon': 'this is a test', 'link': 'http://www.bluepow.com'},
@@ -54,7 +51,10 @@ export class ConstantUtils {
                         {
                             "Connections":
                             [
-                                {"node":"1","input":"output_1"}
+                                {
+                                    "node":"1",
+                                    "input":"output_1"
+                                }
                             ]
                         }
                     },

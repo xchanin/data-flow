@@ -1,9 +1,9 @@
-import { DispatchedEventsModel } from './../models/events/dispatched-events.model.js';
+import { DispatchedEventsModel } from '../models/events/dispatched-events.model.js';
 import { ContainerEvent } from '../models/nodes/container-event.model.js';
 import { ConstantUtils } from './constants.utils.js';
 import { Variables } from './variables.js';
 
-export class Events {
+export class EventsUtils {
     
     /**
      * @param parent HTMLElement
@@ -38,6 +38,17 @@ export class Events {
         Variables.Events[event].listeners.push(callback);
     }
 
+    public static Dispatch(event: any, details: any): boolean | void {
+        // Check if this event not exists
+        if (Variables.Events[event] === undefined) {
+            // console.error(`This event: ${event} does not exist`);
+            return false;
+        }
+        Variables.Events[event].listeners.forEach((listener: any) => {
+            listener(details);
+        });
+    }
+
  /**
      * Events that are dispatched from base-functions.Dispatch
     */
@@ -45,7 +56,7 @@ export class Events {
        
         for (const e of ConstantUtils.DISPATCHED_EVENTS) {
             // events.OnEvent(e.Event, e.Callback);
-            Events.OnEvent(e.Event, (val: DispatchedEventsModel["Params"] | string) => {
+            EventsUtils.OnEvent(e.Event, (val: DispatchedEventsModel["Params"] | string) => {
                 if (val && e.Params && e.Params.length > 0) {
                     for (let v of e.Params) {
 
