@@ -294,7 +294,7 @@ export class NodeBaseClass extends BaseFunctions {
           const input = document.createElement('div');
           input.classList.add('input');
           input.classList.add('input_'+(x+1));
-          json_inputs['input_'+(x+1)] = { 'connections': []};
+          json_inputs['input_'+(x+1)] = { 'Connections': []};
           setups.Inputs.appendChild(input);
         }
     
@@ -303,7 +303,7 @@ export class NodeBaseClass extends BaseFunctions {
           const output = document.createElement('div');
           output.classList.add('output');
           output.classList.add('output_'+(x+1));
-          json_outputs['output_'+(x+1)] = { 'connections': []};
+          json_outputs['output_'+(x+1)] = { 'Connections': []};
           setups.Outputs.appendChild(output);
         }
     
@@ -385,7 +385,7 @@ export class NodeBaseClass extends BaseFunctions {
         setups.Node.style.top = val.PosY + 'px';
         setups.Node.style.left = val.PosX + 'px';
         setups.Parent.appendChild(setups.Node);
-        Variables.PreCanvas.appendChild(parent);
+        Variables.PreCanvas.appendChild(setups.Parent);
 
 
         const nodeModel: NodeModel = new NodeModel

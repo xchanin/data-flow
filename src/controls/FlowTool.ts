@@ -194,13 +194,13 @@ export class FlowTool extends DataFlowBaseClass {
         const reroute_fix_curvature = Variables.RerouteFixCurvature
         const container = Variables.MainContainer;
         Object.keys(dataNode.outputs).map(function(output_item, index) {
-          Object.keys(dataNode.outputs[output_item].connections).map(function(input_item, index) {
-            const points = dataNode.outputs[output_item].connections[input_item].points
+          Object.keys(dataNode.outputs[output_item].Connections).map(function(input_item, index) {
+            const points = dataNode.outputs[output_item].Connections[input_item].points
             if(points !== undefined) {
     
               points.forEach((item: any, i: any) => {
-                const input_id = dataNode.outputs[output_item].connections[input_item].node;
-                const input_class = dataNode.outputs[output_item].connections[input_item].output;
+                const input_id = dataNode.outputs[output_item].Connections[input_item].node;
+                const input_class = dataNode.outputs[output_item].Connections[input_item].output;
                 const ele: any = container.querySelector('.connection.node_in_node-'+input_id+'.node_out_node-'+dataNode.id+'.'+output_item+'.'+input_class);
     
                 if(reroute_fix_curvature) {
