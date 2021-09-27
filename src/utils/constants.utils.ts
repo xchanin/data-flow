@@ -20,17 +20,17 @@ export class ConstantUtils {
                     {
                         "output_1":
                         {
-                          
+                          Connections: []
                         }
                     },
-                    Data: {'shannon': 'this is a test', 'link': 'http://www.bluepow.com'},
+                    Data: {'Name': 'this is a test', 'Host': 'http://www.iot-ensemble.com'},
                     HTML: 
                     `
                         <div class="node-drop-shadow">
                             <div class="gap flexbox-row flexbox-base request">
-                                <span>Request Test</span>
-                                <input type=\"text\" df-shannon>
-                                <a href="#" df-link></a>
+                                <span>Request</span>
+                                <input type=\"text\" df-Name>
+                                <a href="#" df-Host></a>
                             </div>
                         </div>
                     `,
@@ -56,6 +56,13 @@ export class ConstantUtils {
                                     "input":"output_1"
                                 }
                             ]
+                        }
+                    },
+                    Outputs: 
+                    {
+                        "output_1":
+                        {
+                            "Connections":[]
                         }
                     },
                     HTML: NodeTemplates.Project, // this calls an HTML string
