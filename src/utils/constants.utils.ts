@@ -77,248 +77,290 @@ export class ConstantUtils {
             ]
     };
 
-    // public static HOME_MODULE_DATA: DataFlowDataModel = {
-    //     Module: 'Home',
-    //     Data: {
-    //         "1":
-    //         {
-    //             "id":1,
-    //             "name":"welcome",
-    //             "data":{},
-    //             "class":"welcome",
-    //             "html":"\n    <div>\n      <div class=\"title-box\">👏 Welcome!!</div>\n      <div class=\"box\">\n        <p>Simple flow library <b>demo</b>\n        <a href=\"https://github.com/jerosoler/Drawflow\" target=\"_blank\">Drawflow</a> by <b>Jero Soler</b></p><br>\n\n        <p>Multiple input / outputs<br>\n           Data sync nodes<br>\n           Import / export<br>\n           Modules support<br>\n           Simple use<br>\n           Type: Fixed or Edit<br>\n           Events: view console<br>\n           Pure Javascript<br>\n        </p>\n        <br>\n        <p><b><u>Shortkeys:</u></b></p>\n        <p>🎹 <b>Delete</b> for remove selected<br>\n        💠 Mouse Left Click == Move<br>\n        ❌ Mouse Right == Delete Option<br>\n        🔍 Ctrl + Wheel == Zoom<br>\n        📱 Mobile support<br>\n        ...</p>\n      </div>\n    </div>\n    ", 
-    //             "typenode": false, 
-    //             "inputs":{},
-    //             "outputs":{},
-    //             "pos_x":50,
-    //             "pos_y":50
-    //         },
-    //         "2":
-    //         {
-    //             "id":2,
-    //             "name":"slack",
-    //             "data":{},
-    //             "class":"slack",
-    //             "html": NodeTemplates.Slack, 
-    //             "typenode": false, 
-    //             "inputs":
-    //             {
-    //                 "input_1":
-    //                 {
-    //                     "connections":
-    //                     [
-    //                         {"node":"9","input":"output_1"}
-    //                     ]
-    //                 }
-    //             },"outputs":{},
-    //             "pos_x":1028,
-    //             "pos_y":87
-    //         },
-    //         "3":
-    //         {
-    //             "id":3,
-    //             "name":"telegram",
-    //             "data":
-    //             {
-    //                 "channel":"channel_2"
-    //             },
-    //             "class":"telegram",
-    //             "html":NodeTemplates.Telegram,
-    //             "typenode": false, 
-    //             "inputs":
-    //             {
-    //                 "input_1":
-    //                 {
-    //                     "connections":
-    //                     [
-    //                         {"node":"7","input":"output_1"}
-    //                     ]
-    //                 }
-    //             },
-    //             "outputs":{},
-    //             "pos_x":1032,
-    //             "pos_y":184
-    //             },
-    //         "4":
-    //         {
-    //             "id":4,
-    //             "name":"email",
-    //             "data":{},
-    //             "class":"email",
-    //             "html":NodeTemplates.Email,
-    //             "typenode": false, 
-    //             "inputs":
-    //             {
-    //                 "input_1":
-    //                 {
-    //                     "connections":
-    //                     [
-    //                         {"node":"5","input":"output_1"} // input from template
-    //                     ]
-    //                 }
-    //             },
-    //             "outputs":{},
-    //             "pos_x":1033,
-    //             "pos_y":439
-    //         },
-    //         "5":
-    //         {
-    //             "id":5,
-    //             "name":"template",
-    //             "data":
-    //             {
-    //                 "template":"Write your template"
-    //             },
-    //             "class":"template",
-    //                 "html":NodeTemplates.Template, 
-    //         "typenode": false, 
-    //         "inputs":
-    //         {
-    //             "input_1":
-    //             {
-    //                 "connections":[
-    //                     {"node":"8","input":"output_1"} // input from template
-    //                 ]
-    //             }
-    //         },
-    //             "outputs":
-    //             {
-    //                 "output_1":
-    //                 {
-    //                     "connections":
-    //                     [
-    //                         { "node":"4","output":"input_1" }, // output to email
-    //                         { "node":"11","output":"input_1" } // output to log file
-    //                     ]
-    //                 }
-    //             },
-    //             "pos_x":298,
-    //             "pos_y":500
-    //             },
-    //             "6":
-    //             {
-    //                 "id":6,
-    //                 "name":"github",
-    //                 "data":
-    //                 {
-    //                     "name":"https://github.com/jerosoler/Drawflow"
-    //                 },
-    //                 "class":"github",
-    //                 "html":NodeTemplates.Github, 
-    //                 "typenode": false, 
-    //                 "inputs":{},
-    //                 "outputs":
-    //                 {
-    //                     "output_1":
-    //                     {
-    //                         "connections":
-    //                         [
-    //                             {"node":"5","output":"input_1"}
-    //                         ]
-    //                     }
-    //                 },
-    //                 "pos_x":295,
-    //                 "pos_y":50
-    //             },
-    //             "7":
-    //             {
-    //                 "id":7,
-    //                 "name":"facebook",
-    //                 "data":{},
-    //                 "class":"facebook",
-    //                 "html": NodeTemplates.Facebook, 
-    //                 "typenode": false, 
-    //                 "inputs":{},
-    //                 "outputs":
-    //                 {
-    //                     "output_1":
-    //                     {
-    //                         "connections":
-    //                         [
-    //                             {"node": "9", "output": "input_1"},
-    //                             {"node":"3","output":"input_1"},
-    //                             {"node":"11","output":"input_1"}
-    //                         ]
-    //                     }
-    //                 },
-    //                 "pos_x":500,
-    //                 "pos_y":87},
-    //             "8":
-    //             {
-    //                 "id":8,
-    //                 "name":"diamondTest",
-    //                 "data":{},
-    //                 "class":"",
-    //                 "html":"\n<div>\n<div>DDD</div>\n</div>\n", 
-    //                 "typenode": false, 
-    //                 "inputs":
-    //                 {
-    //                     "input_1":
-    //                     {
-    //                         "connections":[{"node":"6","input":"output_1"}] // input connection from github
-    //                     }
-    //                 },
-    //                 "outputs":
-    //                 {
-    //                     "output_1":{} // seems to need at least an empty output to show the output marker
-    //                 },
-    //                 "pos_x":350,
-    //                 "pos_y":350,
-    //                 "shape": "diamond"
-    //             },
-    //             "9":
-    //             {
-    //                 "id":9,
-    //                 "name":"circleTest",
-    //                 "data":{},
-    //                 "class":"",
-    //                 "html":"\n<div>\n<div>circle</div>\n</div>\n", 
-    //                 "typenode": false, 
-    //                 "inputs":{
-    //                   "input_1":
-    //                     {
-    //                         "connections":[{"node":"7","input":"output_1"}] 
-    //                     }
-    //                 },
-    //                 "outputs":{
-    //                   "output_1":
-    //                     {
-    //                         "connections":
-    //                         [
-    //                             {"node":"2","output":"input_1"}
-    //                         ]
-    //                     }
-    //                 },
-    //                 "pos_x":700,
-    //                 "pos_y":75,
-    //                 "shape": "circle"
-    //             },
-    //             "11":
-    //                 {
-    //                     "id":11,
-    //                     "name":"log",
-    //                     "data":{},
-    //                     "class":"log",
-    //                     "html":NodeTemplates.Log, 
-    //                     "typenode": false, 
-    //                     "inputs":
-    //                     {
-    //                         "input_1":
-    //                         {
-    //                             "connections":
-    //                             [
-    //                                 {"node":"5","input":"output_1"},
-    //                                 {"node":"7","input":"output_1"}
-    //                             ]
-    //                         }
-    //                     },
-    //                     "outputs":{},
-                        
-    //                     "pos_x":1131,
-    //                     "pos_y":600
-    //                 }
-    //             }
-    // }    
+    public static HOME_MODULE_DATA: DataFlowDataModel = {
+        Module: 'Home',
+        Data: [
+            {
+                ID:'1',
+                Name:"welcome",
+                Data:{},
+                ClassList: ["welcome"],
+                HTML:"\n    <div>\n      <div class=\"title-box\">👏 Welcome!!</div>\n      <div class=\"box\">\n        <p>Simple flow library <b>demo</b>\n        <a href=\"https://github.com/jerosoler/Drawflow\" target=\"_blank\">Drawflow</a> by <b>Jero Soler</b></p><br>\n\n        <p>Multiple input / outputs<br>\n           Data sync nodes<br>\n           Import / export<br>\n           Modules support<br>\n           Simple use<br>\n           Type: Fixed or Edit<br>\n           Events: view console<br>\n           Pure Javascript<br>\n        </p>\n        <br>\n        <p><b><u>Shortkeys:</u></b></p>\n        <p>🎹 <b>Delete</b> for remove selected<br>\n        💠 Mouse Left Click == Move<br>\n        ❌ Mouse Right == Delete Option<br>\n        🔍 Ctrl + Wheel == Zoom<br>\n        📱 Mobile support<br>\n        ...</p>\n      </div>\n    </div>\n    ", 
+                TypeNode: false, 
+                NumOfInputs: 0, 
+                NumOfOutputs: 1, 
+                Inputs:[],
+                Outputs:[],
+                PosX:50,
+                PosY:50
+            },
+            {
+                ID:'2',
+                Name:"slack",
+                Data:{},
+                ClassList:["slack"],
+                HTML: NodeTemplates.Slack, 
+                TypeNode: false, 
+                NumOfInputs: 0, 
+                NumOfOutputs: 1, 
+                Inputs:
+                {
+                    "input_1":
+                    {
+                        "Connections":
+                        [
+                            {"node":"9","input":"output_1"}
+                        ]
+                    }
+                },
+                Outputs:{
+                    "output_1":
+                    {
+                        "Connections":[]
+                    }
+                },
+                PosX:1028,
+                PosY:87
+            },
+            {
+                ID:'3',
+                Name:"telegram",
+                Data:
+                {
+                    "channel":"channel_2"
+                },
+                ClassList:["telegram"],
+                HTML:NodeTemplates.Telegram,
+                TypeNode: false, 
+                Inputs:
+                {
+                    "input_1":
+                    {
+                        "Connections":
+                        [
+                            {"node":"7","input":"output_1"}
+                        ]
+                    }
+                },
+                NumOfInputs: 0, 
+                NumOfOutputs: 1, 
+                Outputs:{
+                    "output_1":
+                    {
+                        "Connections":[]
+                    }
+                },
+                PosX:1032,
+                PosY:184
+                },
+            {
+                ID:'4',
+                Name:"email",
+                Data:{},
+                ClassList:["email"],
+                HTML:NodeTemplates.Email,
+                TypeNode: false, 
+                Inputs:
+                {
+                    "input_1":
+                    {
+                        "Connections":
+                        [
+                            {"node":"5","input":"output_1"} // input from template
+                        ]
+                    }
+                },
+                Outputs:{
+                    "output_1":
+                    {
+                        "Connections":[]
+                    }
+                },
+                NumOfInputs: 0, 
+                NumOfOutputs: 1, 
+                PosX:1033,
+                PosY:439
+            },
+            {
+                ID:'5',
+                Name:"template",
+                Data:
+                {
+                    "template":"Write your template"
+                },
+                ClassList:["template"],
+                HTML:NodeTemplates.Template, 
+                TypeNode: false, 
+                NumOfInputs: 0, 
+                NumOfOutputs: 1, 
+                Inputs:
+                {
+                    "input_1":
+                    {
+                        "Connections":[
+                            {"node":"8","input":"output_1"} // input from template
+                        ]
+                    }
+                },
+                Outputs:
+                {
+                    "output_1":
+                    {
+                        "Connections":
+                        [
+                            { "node":"4","output":"input_1" }, // output to email
+                            { "node":"11","output":"input_1" } // output to log file
+                        ]
+                    }
+                },
+                PosX:298,
+                PosY:500
+                },
+                {
+                    ID:'6',
+                    Name:"github",
+                    Data:
+                    {
+                        "name":"https://github.com/jerosoler/Drawflow"
+                    },
+                    ClassList:["github"],
+                    HTML:NodeTemplates.Github, 
+                    TypeNode: false, 
+                    NumOfInputs: 0, 
+                    NumOfOutputs: 1, 
+                    Inputs:{
+                        "input_1":
+                        {
+                            "Connections":[]
+                        }
+                    },
+                    Outputs:
+                    {
+                        "output_1":
+                        {
+                            "Connections":
+                            [
+                                {"node":"5","output":"input_1"}
+                            ]
+                        }
+                    },
+                    PosX:295,
+                    PosY:50
+                },
+                {
+                   ID:'7',
+                    Name:"facebook",
+                    Data:{},
+                    ClassList:["facebook"],
+                    HTML: NodeTemplates.Facebook, 
+                    TypeNode: false, 
+                    NumOfInputs: 0, 
+                    NumOfOutputs: 1, 
+                    Inputs:{
+                        "input_1":
+                        {
+                            "Connections":[]
+                        }
+                    },
+                    Outputs:
+                    {
+                        "output_1":
+                        {
+                            "Connections":
+                            [
+                                {"node": "9", "output": "input_1"},
+                                {"node":"3","output":"input_1"},
+                                {"node":"11","output":"input_1"}
+                            ]
+                        }
+                    },
+                    PosX:500,
+                    PosY:87},
+                {
+                    ID:'8',
+                    Name:"diamondTest",
+                    Data:{},
+                    ClassList:[""],
+                    HTML:"\n<div>\n<div>DDD</div>\n</div>\n", 
+                    TypeNode: false, 
+                    NumOfInputs: 0, 
+                    NumOfOutputs: 1, 
+                    Inputs:
+                    {
+                        "input_1":
+                        {
+                            "Connections":[{"node":"6","input":"output_1"}] // input connection from github
+                        }
+                    },
+                    Outputs:
+                    {
+                        "output_1":{
+                            "Connections": []
+                        } // seems to need at least an empty output to show the output marker
+                    },
+                    PosX:350,
+                    PosY:350
+                },
+                {
+                    ID:'9',
+                    Name:"circleTest",
+                    Data:{},
+                    ClassList:[""],
+                    HTML:"\n<div>\n<div>circle</div>\n</div>\n", 
+                    TypeNode: false, 
+                    NumOfInputs: 0, 
+                    NumOfOutputs: 1, 
+                    Inputs:{
+                      "input_1":
+                        {
+                            "Connections":[{"node":"7","input":"output_1"}] 
+                        }
+                    },
+                    Outputs:{
+                      "output_1":
+                        {
+                            "Connections":
+                            [
+                                {"node":"2","output":"input_1"}
+                            ]
+                        }
+                    },
+                    PosX:700,
+                    PosY:75
+                },
+                {
+                    ID:'11',
+                    Name:"log",
+                    Data:{},
+                    ClassList:["log"],
+                    HTML:NodeTemplates.Log, 
+                    TypeNode: false, 
+                    NumOfInputs: 0, 
+                    NumOfOutputs: 1, 
+                    Inputs:
+                    {
+                        "input_1":
+                        {
+                            "Connections":
+                            [
+                                {"node":"5","input":"output_1"},
+                                {"node":"7","input":"output_1"}
+                            ]
+                        }
+                    },
+                    Outputs:
+                    {
+                        "output_1":
+                    {
+                        "Connections":[]
+                    }
+                    },
+                    
+                    PosX:1131,
+                    PosY:600
+                }
+                
+        ]    
 
     // public static OTHER_MODULE_DATA: DataFlowDataModel = {
     //     Module: 'Other',
@@ -450,7 +492,7 @@ export class ConstantUtils {
     //                     "pos_y": 272
     //                 }
     //             }
-    // }
+    }
 
     public static DISPATCHED_EVENTS: Array<DispatchedEventsModel> = [
         { Event: 'mouseMove', Message: 'Mouse position', Params: ['x','y'] },
