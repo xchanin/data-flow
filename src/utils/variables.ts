@@ -8,7 +8,7 @@ export class Variables {
     /**
      * Current module
      */
-    public static ActiveModule: string = 'Home';
+    public static ActiveModule: string = 'Test';
 
     /**
      * ?
@@ -139,7 +139,8 @@ export class Variables {
     /**
      * Cloned node?
      */
-    public static NodeRegister: HTMLElement | any;
+    // public static NodeRegister: HTMLElement | any;
+    public static NodeRegister: any;
 
     /**
      * Parent element for the flow tool

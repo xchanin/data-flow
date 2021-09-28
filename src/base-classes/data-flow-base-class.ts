@@ -1,6 +1,7 @@
 import { Variables } from './../utils/variables.js';
 import { DrawingUtils } from "../utils/drawing.utils.js";
 import { BaseFunctions } from "./base-functions.js";
+import { NodeModel } from '../models/nodes/node.model.js';
 
 export class DataFlowBaseClass extends BaseFunctions {
 
@@ -87,8 +88,8 @@ export class DataFlowBaseClass extends BaseFunctions {
             var id_input = input_id.slice(5);
             var id_output = output_id.slice(5);
   
-            this.activeModule(Variables.ActiveModule).Data[id_output].Outputs[output_class].connections.push( {"node": id_input, "output": input_class});
-            this.activeModule(Variables.ActiveModule).Data[id_input].Inputs[input_class].connections.push( {"node": id_output, "input": output_class});
+            this.activeModule(Variables.ActiveModule).Data[id_output].Outputs[output_class].Connections.push( {"node": id_input, "output": input_class});
+            this.activeModule(Variables.ActiveModule).Data[id_input].Inputs[input_class].Connections.push( {"node": id_output, "input": output_class});
             this.updateConnectionNodes('node-'+id_output);
             this.updateConnectionNodes('node-'+id_input);
             this.Dispatch('connectionCreated', { output_id: id_output, input_id: id_input, output_class:  output_class, input_class: input_class});
@@ -155,8 +156,18 @@ export class DataFlowBaseClass extends BaseFunctions {
         Variables.SelectedElement.style.top = (Variables.SelectedElement.offsetTop - y) + "px";
         Variables.SelectedElement.style.left = (Variables.SelectedElement.offsetLeft - x) + "px";
   
-        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5)].pos_x = (Variables.SelectedElement.offsetLeft - x);
-        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5)].pos_y = (Variables.SelectedElement.offsetTop - y);
+        /**
+         * Get the selected item
+         */
+        let selectedElement = this.activeModule(Variables.ActiveModule).Data.filter((obj: NodeModel) => {
+          return obj.ID === Variables.SelectedElement.id.slice(5);
+        })
+
+          selectedElement.PosX = (Variables.SelectedElement.offsetLeft - x);
+          selectedElement.PosY = (Variables.SelectedElement.offsetTop - y);
+
+        // this.activeModule(Variables.ActiveModule).Data[selectedElementIndex].PosX = (Variables.SelectedElement.offsetLeft - x);
+        // this.activeModule(Variables.ActiveModule).Data[selectedElementIndex].PosY = (Variables.SelectedElement.offsetTop - y);
   
         this.updateConnectionNodes(Variables.SelectedElement.id)
       }
@@ -190,11 +201,11 @@ export class DataFlowBaseClass extends BaseFunctions {
         }
   
         const nodeId = nodeUpdate.slice(5);
-        const searchConnection = this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections.findIndex(function(item: any,i: any) {
+        const searchConnection = this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].Connections.findIndex(function(item: any,i: any) {
           return item.node ===  nodeUpdateIn && item.output === input_class;
         });
   
-        this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].connections[searchConnection].points[numberPointPosition] = { pos_x: pos_x, pos_y: pos_y };
+        this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].Connections[searchConnection].points[numberPointPosition] = { pos_x: pos_x, pos_y: pos_y };
   
         const parentSelected = Variables.SelectedElement.parentElement.classList[2].slice(9);
   

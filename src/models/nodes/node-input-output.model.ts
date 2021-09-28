@@ -8,7 +8,7 @@ export class NodeInputOutputModel {
     /**
      * Id of current node
      */
-    public Id!: string;
+    public ID!: string;
 
     /**
      * Connection type, input or output and what node

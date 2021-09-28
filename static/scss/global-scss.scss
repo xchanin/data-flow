@@ -68,6 +68,16 @@ html, body {
   background-color: var(--background-color);
 }
 
+.flexbox-base {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexbox-row {
+  flex-direction: column;
+}
+
 @mixin box-shadow  {
     -webkit-box-shadow: 0 2px 15px 2px var(--border-color);
     box-shadow: 0 2px 15px 2px var(--border-color); 

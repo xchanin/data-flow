@@ -4,8 +4,6 @@
 .wrapper {
   width: 100%;
   height: calc(100vh - 67px);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex; }
 
 /**
@@ -55,9 +53,6 @@ header a {
   border-bottom: 1px solid var(--border-color);
   padding-left: 20px;
   cursor: move;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none; }
 
 /**
@@ -85,5 +80,3 @@ header a {
 
 .tab-menu ul li.selected {
   font-weight: bold; }
-
-/*# sourceMappingURL=main-structure.css.map */
