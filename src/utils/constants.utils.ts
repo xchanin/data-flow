@@ -21,9 +21,16 @@ export class ConstantUtils {
                         "output_1":
                         {
                           Connections: []
+                        },
+                        "output_2":
+                        {
+                            Connections:[]
                         }
                     },
-                    Data: {'Name': 'this is a test', 'Host': 'http://www.iot-ensemble.com'},
+                    Data: {
+                        'Name': 'this is a test', 
+                        'Host': 'http://www.iot-ensemble.com'
+                    },
                     HTML: 
                     `
                         <div class="node-drop-shadow">

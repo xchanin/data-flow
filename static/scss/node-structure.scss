@@ -74,19 +74,30 @@
     }
 
     .inputs, .outputs {
+      @extend .flexbox-base;
+      flex-direction: row;
+      position: absolute;
+      // left: 50%;
       z-index: 2;
     }
 
+    .inputs {
+      top: calc(5px - var(--node-size));
+    }
+
+    .outputs {
+      bottom: calc(5px - var(--node-size));
+    }
+
     .input, .output { 
-      position: absolute;
-      left: 50%;
       width: var(--node-size);
       height: var(--node-size);
       background: white;
       border-radius: 50%;
       border: 2px solid black;
       cursor: crosshair;
-      transform: translate(-50%, 0);
+      // transform: translate(-50%, 0);
+      margin: 0px 5px;
 
       &:hover {
         background-color: greenyellow;
@@ -94,12 +105,12 @@
     }
   
     .input {
-      top: calc(5px - var(--node-size));
+      // top: calc(5px - var(--node-size));
       background-color: var(--node-input-color);
     }
   
     .output {
-      bottom: calc(5px - var(--node-size));
+      // bottom: calc(5px - var(--node-size));
       background-color: var(--node-output-color);
     }
   }
