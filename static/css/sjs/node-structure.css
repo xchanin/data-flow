@@ -60,7 +60,7 @@ html, body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--background-color); }
 
-.flexbox-base {
+.flexbox-base, .drawflow .fathym-node .inputs, .drawflow .fathym-node .outputs {
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -114,24 +114,26 @@ html, body {
     .drawflow .fathym-node:hover {
       cursor: move; }
     .drawflow .fathym-node .inputs, .drawflow .fathym-node .outputs {
-      z-index: 2; }
-    .drawflow .fathym-node .input, .drawflow .fathym-node .output {
+      flex-direction: row;
       position: absolute;
-      left: 50%;
+      z-index: 2; }
+    .drawflow .fathym-node .inputs {
+      top: calc(5px - var(--node-size)); }
+    .drawflow .fathym-node .outputs {
+      bottom: calc(5px - var(--node-size)); }
+    .drawflow .fathym-node .input, .drawflow .fathym-node .output {
       width: var(--node-size);
       height: var(--node-size);
       background: white;
       border-radius: 50%;
       border: 2px solid black;
       cursor: crosshair;
-      transform: translate(-50%, 0); }
+      margin: 0px 5px; }
       .drawflow .fathym-node .input:hover, .drawflow .fathym-node .output:hover {
         background-color: greenyellow; }
     .drawflow .fathym-node .input {
-      top: calc(5px - var(--node-size));
       background-color: var(--node-input-color); }
     .drawflow .fathym-node .output {
-      bottom: calc(5px - var(--node-size));
       background-color: var(--node-output-color); }
   .drawflow .node-drop-shadow {
     filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.25)); }
