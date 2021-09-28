@@ -1,6 +1,7 @@
 import { Variables } from './../utils/variables.js';
 import { DrawingUtils } from "../utils/drawing.utils.js";
 import { BaseFunctions } from "./base-functions.js";
+import { NodeModel } from '../models/nodes/node.model.js';
 
 export class DataFlowBaseClass extends BaseFunctions {
 
@@ -155,8 +156,18 @@ export class DataFlowBaseClass extends BaseFunctions {
         Variables.SelectedElement.style.top = (Variables.SelectedElement.offsetTop - y) + "px";
         Variables.SelectedElement.style.left = (Variables.SelectedElement.offsetLeft - x) + "px";
   
-        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5)].PosX = (Variables.SelectedElement.offsetLeft - x);
-        this.activeModule(Variables.ActiveModule).Data[Variables.SelectedElement.id.slice(5)].PosY = (Variables.SelectedElement.offsetTop - y);
+        /**
+         * Get the selected item
+         */
+        let selectedElement = this.activeModule(Variables.ActiveModule).Data.filter((obj: NodeModel) => {
+          return obj.ID === Variables.SelectedElement.id.slice(5);
+        })
+
+          selectedElement.PosX = (Variables.SelectedElement.offsetLeft - x);
+          selectedElement.PosY = (Variables.SelectedElement.offsetTop - y);
+
+        // this.activeModule(Variables.ActiveModule).Data[selectedElementIndex].PosX = (Variables.SelectedElement.offsetLeft - x);
+        // this.activeModule(Variables.ActiveModule).Data[selectedElementIndex].PosY = (Variables.SelectedElement.offsetTop - y);
   
         this.updateConnectionNodes(Variables.SelectedElement.id)
       }
