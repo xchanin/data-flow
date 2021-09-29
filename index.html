@@ -17,6 +17,16 @@
 
 <body>
 
+  <template id="request">
+    <div class="node-drop-shadow">
+      <div class="gap flexbox-row request">
+          <span df-Name></span>
+          <input type="text" df-Host>
+          <a href="#" df-Host></a>
+      </div>
+  </div>
+  </template>
+
   <div class="base gap" style="margin-top: 30px; width: 100%; height: 75px;">
     <div class="request">Request</div>
     <div class="project">Project</div>
@@ -97,17 +107,17 @@
     <div class="col-right">
       <div class="tab-menu">
         <ul>
-          <li onclick="flowTool.ChangeModule('Test'); 
+          <li onclick="flowTool.ChangeModule('NapkinIDE'); 
+            menuTabSelected(event);">
+            Napkin IDE Change
+          </li>
+          <li onclick="flowTool.ChangeModule('Home'); 
               menuTabSelected(event);" class="selected">
             Test Module
           </li>
-          <li onclick="flowTool.ChangeModule('Home'); 
-            menuTabSelected(event);">
-            Home
-          </li>
-          <!-- <li onclick="flowTool.ChangeModule('Other'); 
+          <!-- <li onclick="flowTool.ChangeModule('Test'); 
               menuTabSelected(event);">
-              Other Module
+              Test Module
           </li> -->
         </ul>
       </div>
@@ -167,6 +177,16 @@
     // Variables.reroute = true;
     // Variables.reroute_fix_curvature = true;
     // Variables.force_first_input = false;
+
+    /**
+     * Array for storing module data
+    */
+    Variables.DataFlowModuleData =
+    [
+      ConstantUtils.NAPKIN_IDE_TEST,
+      ConstantUtils.HOME_MODULE_DATA,
+      ConstantUtils.OTHER_MODULE_DATA
+    ]
 
     flowTool.Init(Variables.DataFlowModuleData[0]);
     Variables.NodeClass = 'fathym-node';

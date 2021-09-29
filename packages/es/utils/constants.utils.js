@@ -172,7 +172,6 @@ ConstantUtils.NAPKIN_IDE_MODULE_DATA = {
     Module: 'NapkinIDE',
     Data: TestNapkinIDEFlow.Nodes.map((node) => {
         var _a, _b, _c;
-        debugger;
         const config = TestNapkinIDEConfig.NodeTypes[node.Type];
         const inputs = (_a = TestNapkinIDEFlow.Edges) === null || _a === void 0 ? void 0 : _a.filter((edge) => edge.NodeOutID == node.ID).map((edge) => edge.NodeInID);
         const outputs = (_b = TestNapkinIDEFlow.Edges) === null || _b === void 0 ? void 0 : _b.filter((edge) => edge.NodeInID == node.ID).map((edge) => edge.NodeOutID);
