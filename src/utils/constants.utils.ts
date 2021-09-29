@@ -2,12 +2,89 @@ import { DispatchedEventsModel } from './../models/events/dispatched-events.mode
 import { DataFlowDataModel } from '../models/dataflow-data.model.js';
 import { NodeTemplates } from '../templates/node-templates.js';
 import { NodeModel } from '../models/nodes/node.model.js';
-import {
-  TestNapkinIDEConfig,
-  TestNapkinIDEFlow,
-  NapkinIDENode,
-  NapkinIDEEdge,
-} from '@semanticjs/napkin-ide';
+// import {
+//   TestNapkinIDEConfig,
+//   TestNapkinIDEFlow,
+//   NapkinIDENode,
+//   NapkinIDEEdge,
+// } from '@semanticjs/napkin-ide';
+
+export const TestNapkinIDEConfig: any = {
+  NodeTypes: {
+    request: {
+      AllowedOutputTypes: ['project'],
+      ClassList: ['entry-node'],
+      HTMLTemplateID: 'request-template',
+      InputCountLimit: 0,
+    },
+    project: {
+      AllowedInputTypes: ['request'],
+      HTMLTemplateID: 'project-template',
+    },
+    'route-filter': {
+      AllowedInputTypes: ['project'],
+      AllowedOutputTypes: ['application'],
+      HTMLTemplateID: 'route-template',
+    },
+    application: {
+      AllowedInputTypes: ['route-filter'],
+      ClassList: ['exit-node'],
+      HTMLTemplateID: 'application-template',
+      OutputCountLimit: 0,
+    },
+  },
+};
+
+export const TestNapkinIDEFlow: any = {
+  Nodes: [
+    {
+      ID: '1',
+      Type: 'request',
+      ClassList: ['persisted-class'],
+      Data: {},
+    },
+    {
+      ID: '2',
+      Type: 'project',
+      Data: {
+        Name: 'IoT Ensemble',
+        Host: 'www.iot-ensemble.com',
+      },
+    },
+    {
+      ID: '3',
+      Type: 'route-filter',
+      Data: {
+        Path: '/',
+      },
+    },
+    {
+      ID: '4',
+      Type: 'application',
+      Data: {
+        Package: '@iot-ensemble/public-web',
+        Version: 'latest',
+      },
+    },
+  ],
+  Edges: [
+    {
+      ID: '1',
+      NodeInID: '1',
+      NodeOutID: '2',
+    },
+    {
+      ID: '2',
+      NodeInID: '2',
+      NodeOutID: '3',
+    },
+    {
+      ID: '3',
+      NodeInID: '3',
+      NodeOutID: '4',
+    },
+  ],
+};
 
 export class ConstantUtils {
   public static TEST_MODULE: DataFlowDataModel = {
@@ -99,23 +176,31 @@ export class ConstantUtils {
   static count: number = 0;
 
   public static NAPKIN_IDE_MODULE_DATA: DataFlowDataModel = {
-    Module: 'Napkin IDE',
-    Data: TestNapkinIDEFlow.Nodes.map((node: NapkinIDENode) => {
-      const config = TestNapkinIDEConfig.NodeTypes[node.Type];
+    Module: 'NapkinIDE',
+    Data: TestNapkinIDEFlow.Nodes!.map((node: any) => {
+      const config = TestNapkinIDEConfig.NodeTypes![<string>node.Type];
 
-      return {
-        ID: `${++this.count}`,
+      const inputs = TestNapkinIDEFlow.Edges?.filter(
+        (edge: any) => edge.NodeOutID == node.ID
+      ).map((edge: any) => edge.NodeInID);
+
+      const outputs = TestNapkinIDEFlow.Edges?.filter(
+        (edge: any) => edge.NodeInID == node.ID
+      ).map((edge: any) => edge.NodeOutID);
+
+      return <NodeModel>{
+        ID: `${++ConstantUtils.count}`,
         // Name:"welcome",
         Data: node.Data,
         ClassList: node.ClassList,
-        HTML: document.getElementById(config.HTMLTemplateID)?.innerHTML,
+        HTML: document.getElementById(<string>config.HTMLTemplateID)?.innerHTML,
         TypeNode: false,
         NumOfInputs: config.InputCountLimit,
         NumOfOutputs: config.OutputCountLimit,
-        Inputs: TestNapkinIDEFlow.Edges.filter((edge: NapkinIDEEdge) => edge.NodeOutID == node.ID).map((edge: NapkinIDEEdge) => edge.NodeInID),
-        Outputs: TestNapkinIDEFlow.Edges.filter((edge: NapkinIDEEdge) => edge.w == node.ID).map((edge: NapkinIDEEdge) => edge.NodeOutID),
-        PosX: node.PositionX || (this.count * 200),
-        PosY: node.PositionY || (this.count * 200),
+        Inputs: inputs,
+        Outputs: outputs,
+        PosX: node.PositionX || ConstantUtils.count * 200,
+        PosY: node.PositionY || ConstantUtils.count * 200,
       };
     }),
   };

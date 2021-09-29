@@ -136,6 +136,20 @@
       DragDropUtils
     } from './packages/es/index.js';
 
+    /**
+     * Array for storing module data
+    */
+    Variables.DataFlowModuleData =
+    [
+      // ConstantUtils.TEST_MODULE,
+      ConstantUtils.NAPKIN_IDE_MODULE_DATA,
+      // ConstantUtils.HOME_MODULE_DATA
+      // ConstantUtils.OTHER_MODULE_DATA
+      
+    ];
+
+    Variables.ActtiveModule = ConstantUtils.NAPKIN_IDE_MODULE_DATA.Module;
+
     let canvas = document.getElementById("drawflow");	
     let flowTool = new FlowTool(canvas);
 
@@ -153,17 +167,6 @@
     // Variables.reroute = true;
     // Variables.reroute_fix_curvature = true;
     // Variables.force_first_input = false;
-
-    /**
-     * Array for storing module data
-    */
-    Variables.DataFlowModuleData =
-    [
-      ConstantUtils.TEST_MODULE,
-      ConstantUtils.HOME_MODULE_DATA
-      // ConstantUtils.OTHER_MODULE_DATA
-      
-    ]
 
     flowTool.Init(Variables.DataFlowModuleData[0]);
     Variables.NodeClass = 'fathym-node';
