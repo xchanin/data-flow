@@ -8,7 +8,7 @@ export class Variables {
     /**
      * Current module
      */
-    public static ActiveModule: string = 'Test';
+    public static ActiveModule: string = 'NapkinIDE';
 
     /**
      * ?
