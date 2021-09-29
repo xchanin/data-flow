@@ -25,18 +25,26 @@ export class ConstantUtils {
                         "output_2":
                         {
                             Connections:[]
+                        },
+                        "output_3":
+                        {
+                            Connections:[]
                         }
                     },
                     Data: {
-                        'Name': 'this is a test', 
+                        'Title': 'IoT Ensemble',
+                        'Name': 'Text Input', 
                         'Host': 'http://www.iot-ensemble.com'
                     },
                     HTML: 
                     `
                         <div class="node-drop-shadow">
                             <div class="gap flexbox-row flexbox-base request">
-                                <span>Request</span>
-                                <input type=\"text\" df-Name>
+                                <span style="text-align: center" df-Title></span>
+                                <input style="
+                                    padding: 0.2em; 
+                                    width: 75%; 
+                                    box-sizing:border-box" type=\"text\" df-Name>
                                 <a href="#" df-Host></a>
                             </div>
                         </div>
@@ -62,6 +70,13 @@ export class ConstantUtils {
                                     "node":"1",
                                     "input":"output_1"
                                 }
+                            ]
+                        },
+                        "input_2":
+                        {
+                            "Connections":
+                            [
+                               
                             ]
                         }
                     },

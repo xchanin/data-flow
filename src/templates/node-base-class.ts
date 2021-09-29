@@ -221,6 +221,10 @@ export class NodeBaseClass extends BaseFunctions {
                         elems[i].href = key[1];
                         elems[i].innerHTML = key[1];
                     }
+
+                    if (elems[i].closest('span')) {
+                        elems[i].innerHTML = key[1];
+                    }
                 }
             }
         })
