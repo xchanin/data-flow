@@ -17,10 +17,10 @@ export class DragDropUtils {
      * 
      * @param e DragEvent
      */
-    public static Drag(e: DragEvent) {
+    public static Drag(e: DragEvent): void {
 
-        const target: HTMLElement = e.target as HTMLElement;
-        const closest: HTMLElement | null = target.closest('.drag-item');
+        const target: HTMLElement = <HTMLElement>e.target;
+        const closest: HTMLElement = <HTMLElement>target.closest('.drag-item');
 
         if (e.type === 'touchstart') {
             if (closest) {
@@ -44,17 +44,16 @@ export class DragDropUtils {
         if (e.type === 'touchend') {
             const lastMoveClientX: number = Variables.MobileLastMove.touches[0].clientX;
             const lastMoveClientY: number = Variables.MobileLastMove.touches[0].clientY;
-            const elPoint: Element | null = document.elementFromPoint(lastMoveClientX, lastMoveClientY);
+            const elPoint: Element = <Element>document.elementFromPoint(lastMoveClientX, lastMoveClientY);
 
             if (document && elPoint) {
-                const parentdrawflow: HTMLElement | null = elPoint.closest('#drawflow');
+                const parentdrawflow: HTMLElement = <HTMLElement>elPoint.closest('#drawflow');
 
                 if (parentdrawflow != null) {
                     callback
                     (
                         Variables.MobileItemSelected, 
                         Variables.MobileLastMove.touches[0].clientX, 
-
                         Variables.MobileLastMove.touches[0].clientY
                     );
                 }
