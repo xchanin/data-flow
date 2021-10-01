@@ -7,6 +7,14 @@ declare type NodeType = 'REQUEST' | 'ACTION' | 'PROJECT' | 'ROUTER_FILTER' | 'MO
  */
 export declare class NodeModel {
     /**
+     * Types of node a node can be connected from
+     */
+    AllowedInputTypes?: Array<NodeType>;
+    /**
+     * Types of node a node con connect to
+     */
+    AllowedOutputTypes?: Array<NodeType>;
+    /**
      * Styles
      */
     ClassList: Array<string>;
@@ -39,6 +47,10 @@ export declare class NodeModel {
      */
     NumOfOutputs: number;
     /**
+     * Node Type
+     */
+    NodeType?: NodeType;
+    /**
      * Output direction and connected nodes
      */
     Outputs?: any;
@@ -54,10 +66,6 @@ export declare class NodeModel {
      * Node connection rules; types we can connect to
      */
     Rules?: Array<string>;
-    /**
-     * Node Type
-     */
-    Type?: NodeType;
     /**
      * I believe TypeNode is used to determine when
      * the node HTML value is either a string or an HTML Element (template, div, etc.)

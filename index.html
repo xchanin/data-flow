@@ -48,22 +48,6 @@
     Test using a template for 
     draggable node 
   -->
-    <template id="request">
-      <div class="node-drop-shadow">
-          <div class="request">
-              <span>Request</span>
-          </div>
-      </div>
-    </template>
-    
-    <template id="request-template">
-      <div class="node-drop-shadow">
-          <div class="request">
-              <span>request</span>
-          </div>
-      </div>
-    </template>
-    
     <template id="request-template">
       <div class="node-drop-shadow">
           <div class="request">
@@ -74,20 +58,27 @@
     
     <template id="project-template">
       <div class="node-drop-shadow">
-          <div class="project">
-            <span df-Name>name</span>
-            
-            <span df-Host>host</span>
+        <div class="project gap flexbox-row flexbox-base">
+            <span style="text-align: center" df-Name></span>
+            <a href="#" df-Host style="color: white; text-align: center"></a>
+        </div>
+    </div>
+    </template>
+    
+    <template id="route-template">
+        <div class="node-drop-shadow">
+          <div class="filter">
+              <span>Filter</span>
           </div>
       </div>
     </template>
     
-    <template id="route-template">
+    <template id="application-template">
       <div class="node-drop-shadow">
-          <div class="route">
-              <span>route</span>
-          </div>
-      </div>
+        <div class="application">
+            <span>Application</span>
+        </div>
+    </div>
     </template>
  <!-- 
     Test using a template for 
@@ -108,11 +99,11 @@
       <div class="tab-menu">
         <ul>
           <li onclick="flowTool.ChangeModule('NapkinIDE'); 
-            menuTabSelected(event);">
+            menuTabSelected(event);" class="selected">
             Napkin IDE Change
           </li>
           <li onclick="flowTool.ChangeModule('Home'); 
-              menuTabSelected(event);" class="selected">
+              menuTabSelected(event);">
             Test Module
           </li>
           <!-- <li onclick="flowTool.ChangeModule('Test'); 
@@ -177,16 +168,6 @@
     // Variables.reroute = true;
     // Variables.reroute_fix_curvature = true;
     // Variables.force_first_input = false;
-
-    /**
-     * Array for storing module data
-    */
-    Variables.DataFlowModuleData =
-    [
-      ConstantUtils.NAPKIN_IDE_TEST,
-      ConstantUtils.HOME_MODULE_DATA,
-      ConstantUtils.OTHER_MODULE_DATA
-    ]
 
     flowTool.Init(Variables.DataFlowModuleData[0]);
     Variables.NodeClass = 'fathym-node';

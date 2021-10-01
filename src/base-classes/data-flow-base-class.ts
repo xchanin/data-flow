@@ -53,7 +53,10 @@ export class DataFlowBaseClass extends BaseFunctions {
         /**
          * Check if the connection line is being set to an input connection
          */
-        if(ele_last.classList[0] === 'input' || (Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === Variables.NodeClass))) {
+        if(ele_last.classList[0] === 'input' || 
+          (Variables.ForceFirstInput && 
+          (ele_last.closest(".drawflow_content_node") != null || 
+          ele_last.classList[0] === Variables.NodeClass))) {
   
           if(Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === Variables.NodeClass)) {
             if(ele_last.closest(".drawflow_content_node") != null) {
@@ -73,45 +76,65 @@ export class DataFlowBaseClass extends BaseFunctions {
            var input_id = ele_last.parentElement.parentElement.id;
            input_class = ele_last.classList[1];
          }
+  
          var output_id = Variables.SelectedElement.parentElement.parentElement.id;
          var output_class = Variables.SelectedElement.classList[1];
   
-          if(output_id !== input_id && input_class !== false) {
+        if(output_id !== input_id && input_class !== false) {
   
             if(Variables.MainContainer.querySelectorAll('.connection.node_in_'+input_id+'.node_out_'+output_id+'.'+output_class+'.'+input_class).length === 0) {
-            // Conection no exist save connection
+            // Conection doesn't exist, save connection
   
-            Variables.ConnectionElement.classList.add("node_in_"+input_id);
-            Variables.ConnectionElement.classList.add("node_out_"+output_id);
-            Variables.ConnectionElement.classList.add(output_class);
-            Variables.ConnectionElement.classList.add(input_class);
-            var id_input = input_id.slice(5);
-            var id_output = output_id.slice(5);
+            let id_input = input_id.slice(5);
+            let id_output = output_id.slice(5);
 
             /**
-             * Get the output element
+             * Get output element the connection is going from
              */
             let outputElement = this.activeModule(Variables.ActiveModule).Data.filter((obj: NodeModel) => {
               return obj.ID === id_output;
-            })
+            });
 
             /**
-             * Get the input element
+             * Get input element the connection is going to
              */
              let inputElement = this.activeModule(Variables.ActiveModule).Data.filter((obj: NodeModel) => {
               return obj.ID === id_input;
-            })
+            });
   
-            outputElement[0].Outputs[output_class].Connections.push( {"node": id_input, "output": input_class});
-            inputElement[0].Inputs[input_class].Connections.push( {"node": id_output, "input": output_class});
+            /**
+             * Check if nodes can connect to each other
+             */
+            const canConnect: boolean = inputElement[0].AllowedInputTypes.some((type: string) => {
+              return type === outputElement[0].NodeType;
+            });
 
-            // this.activeModule(Variables.ActiveModule).Data[id_output].Outputs[output_class].Connections.push( {"node": id_input, "output": input_class});
-            // this.activeModule(Variables.ActiveModule).Data[id_input].Inputs[input_class].Connections.push( {"node": id_output, "input": output_class});
-           
-            this.updateConnectionNodes('node-'+id_output);
-            this.updateConnectionNodes('node-'+id_input);
-            this.Dispatch('connectionCreated', { output_id: id_output, input_id: id_input, output_class:  output_class, input_class: input_class});
-  
+            /**
+             * Check if nodes can be connected
+             */
+            if (canConnect) {
+              Variables.ConnectionElement.classList.add("node_in_"+input_id);
+              Variables.ConnectionElement.classList.add("node_out_"+output_id);
+              Variables.ConnectionElement.classList.add(output_class);
+              Variables.ConnectionElement.classList.add(input_class);
+
+              outputElement[0].Outputs[output_class].Connections.push( {"node": id_input, "output": input_class});
+              inputElement[0].Inputs[input_class].Connections.push( {"node": id_output, "input": output_class});
+
+              // this.activeModule(Variables.ActiveModule).Data[id_output].Outputs[output_class].Connections.push( {"node": id_input, "output": input_class});
+              // this.activeModule(Variables.ActiveModule).Data[id_input].Inputs[input_class].Connections.push( {"node": id_output, "input": output_class});
+            
+              this.updateConnectionNodes('node-'+id_output);
+              this.updateConnectionNodes('node-'+id_input);
+              this.Dispatch('connectionCreated', { output_id: id_output, input_id: id_input, output_class:  output_class, input_class: input_class});
+            /**
+             * Error connecting nodes
+             */
+            } else {
+              alert('Cannot connect nodes');
+              this.Dispatch('connectionCancel', true);
+              Variables.ConnectionElement.remove();
+            }
           } else {
             this.Dispatch('connectionCancel', true);
             Variables.ConnectionElement.remove();

@@ -110,6 +110,10 @@ export class NodeBaseClass extends BaseFunctions {
                     const input = document.createElement('div');
                     input.classList.add('input');
                     input.classList.add(input_item);
+
+                    input.setAttribute('id', dataNode.NodeType + '_' + input_item);
+                    input.setAttribute('connection-node-type', <string>dataNode.NodeType);
+
                     setups.Inputs.appendChild(input);
 
                     /**
@@ -262,7 +266,7 @@ export class NodeBaseClass extends BaseFunctions {
         Variables.PreCanvas.appendChild(setups.Parent);
     }
 
-      /**
+    /**
      * When dragging a node onto the canvas
      * 
      * @param val Node model

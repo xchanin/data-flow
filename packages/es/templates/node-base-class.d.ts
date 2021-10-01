@@ -47,10 +47,10 @@ export declare class NodeBaseClass extends BaseFunctions {
      */
     LoadNodesFromConfig(dataNode: NodeModel, precanvas: HTMLElement): void;
     /**
-   * When dragging a node onto the canvas
-   *
-   * @param val Node model
-   * @returns node id
-   */
+     * When dragging a node onto the canvas
+     *
+     * @param val Node model
+     * @returns node id
+     */
     AddNode(val: NodeModel): string;
 }
