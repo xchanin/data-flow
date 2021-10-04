@@ -20,8 +20,12 @@
             stroke-width: 5px;
             stroke: var(--node-path-main);
             pointer-events: all;
-          }
 
+           
+          }
+          .error {
+            stroke: red !important;
+        }
         .main-path:hover {
             stroke: var(--node-path-hover);
             cursor: pointer;

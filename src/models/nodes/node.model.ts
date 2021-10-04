@@ -20,6 +20,16 @@ import { NodeInputOutputModel } from "./node-input-output.model";
 export class NodeModel {
 
     /**
+     * Types of node a node can be connected from
+     */
+    public AllowedInputTypes?: Array<NodeType>;
+
+    /**
+     * Types of node a node con connect to
+     */
+    public AllowedOutputTypes?: Array<NodeType>;
+
+    /**
      * Styles 
      */
     public ClassList!: Array<string>;
@@ -62,6 +72,11 @@ export class NodeModel {
     public NumOfOutputs!: number;
 
     /**
+     * Node Type
+     */
+     public NodeType?: NodeType
+
+    /**
      * Output direction and connected nodes
      */
     // public Outputs?: NodeInputOutputModel;
@@ -81,11 +96,6 @@ export class NodeModel {
      * Node connection rules; types we can connect to
      */
     public Rules?: Array<string>;
-
-    /**
-     * Node Type
-     */
-     public Type?: NodeType
 
     /**
      * I believe TypeNode is used to determine when 

@@ -1,11 +1,11 @@
-import { BaseFunctions } from "./base-functions.js";
+import { BaseFunctions } from './base-functions.js';
 export declare class DataFlowBaseClass extends BaseFunctions {
     constructor();
     /**
      *
      * @param event Event
      */
-    DragEnd(event: any): void;
+    DragEnd(event: DragEvent): void;
     /**
      * Mouse position
      *

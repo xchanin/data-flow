@@ -12,22 +12,23 @@ import { NodeModel } from '../models/nodes/node.model.js';
 export const TestNapkinIDEConfig: any = {
   NodeTypes: {
     request: {
-      AllowedOutputTypes: ['project'],
+      AllowedOutputTypes: ['PROJECT'],
       ClassList: ['entry-node'],
       HTMLTemplateID: 'request-template',
-      InputCountLimit: 0,
+      InputCountLimit: 1,
     },
     project: {
-      AllowedInputTypes: ['request'],
+      AllowedInputTypes: ['REQUEST'],
       HTMLTemplateID: 'project-template',
+      InputCountLimit: 1,
     },
     'route-filter': {
-      AllowedInputTypes: ['project'],
-      AllowedOutputTypes: ['application'],
+      AllowedInputTypes: ['PROJECT'],
+      AllowedOutputTypes: ['APPLICATION'],
       HTMLTemplateID: 'route-template',
     },
     application: {
-      AllowedInputTypes: ['route-filter'],
+      AllowedInputTypes: ['ROUTE_FILTER'],
       ClassList: ['exit-node'],
       HTMLTemplateID: 'application-template',
       OutputCountLimit: 0,
@@ -70,25 +71,78 @@ export const TestNapkinIDEFlow: any = {
   Edges: [
     {
       ID: '1',
+      Outputs: {
+        output_1: {
+          Connections: [],
+        }
+      },
       NodeInID: '1',
       NodeOutID: '2',
     },
     {
       ID: '2',
+      Inputs: {
+        input_1: {
+          Connections: [
+            {
+              node: '1',
+              input: 'output_1',
+            },
+          ],
+        }
+      },
+      Outputs: {
+        output_1: {
+          Connections: [],
+        }
+      },
       NodeInID: '2',
       NodeOutID: '3',
     },
     {
       ID: '3',
-      NodeInID: '3',
-      NodeOutID: '4',
+      Inputs: {
+        input_1: {
+          Connections: [
+            {
+              node: '2',
+              input: 'output_1',
+            },
+          ],
+        }
+      },
+      Outputs: {
+        output_1: {
+          Connections: [],
+        },
+        output_2: {
+          Connections: [],
+        }
+      },
+      NodeInID: '2',
+      NodeOutID: '3',
     },
+    {
+      ID: '4',
+      Inputs: {
+        input_1: {
+          Connections: [
+            {
+              node: '3',
+              input: 'output_1',
+            },
+          ],
+        }
+      },
+      NodeInID: '2',
+      NodeOutID: '3',
+    }
   ],
 };
 
 export class ConstantUtils {
   public static TEST_MODULE: DataFlowDataModel = {
-    Module: 'Test',
+    Module: 'NapkinIDE',
     Data: [
       {
         ID: '1',
@@ -181,26 +235,34 @@ export class ConstantUtils {
       const config = TestNapkinIDEConfig.NodeTypes![<string>node.Type];
 
       const inputs = TestNapkinIDEFlow.Edges?.filter(
-        (edge: any) => edge.NodeOutID == node.ID
-      ).map((edge: any) => edge.NodeInID);
+        (edge: any) => edge.ID === node.ID
+      ).map((edge: any) => {
+        
+        return edge.Inputs;
+      });
 
       const outputs = TestNapkinIDEFlow.Edges?.filter(
-        (edge: any) => edge.NodeInID == node.ID
-      ).map((edge: any) => edge.NodeOutID);
+        (edge: any) => edge.ID === node.ID
+      ).map((edge: any) => { 
 
-      return <NodeModel>{
-        ID: `${++ConstantUtils.count}`,
-        // Name:"welcome",
-        Data: node.Data,
+        return edge.Outputs
+      });
+
+      return <NodeModel> {
+        AllowedInputTypes: config.AllowedInputTypes,
+        AllowedOutputTypes: config.AllowedOutputTypes,
         ClassList: node.ClassList,
-        HTML: document.getElementById(<string>config.HTMLTemplateID)?.innerHTML,
-        TypeNode: false,
+        Data: node.Data,
+        HTML: <string>document.getElementById(<string>config.HTMLTemplateID)?.innerHTML,
+        ID: `${++ConstantUtils.count}`,
+        Inputs: inputs[0],
+        NodeType: node.Type.toUpperCase(),
         NumOfInputs: config.InputCountLimit,
         NumOfOutputs: config.OutputCountLimit,
-        Inputs: inputs,
-        Outputs: outputs,
-        PosX: node.PositionX || ConstantUtils.count * 200,
-        PosY: node.PositionY || ConstantUtils.count * 200,
+        Outputs: outputs[0],
+        PosY: node.PositionY || ConstantUtils.count * 150,
+        PosX: node.PositionX || ConstantUtils.count * 100,
+        TypeNode: false,
       };
     }),
   };

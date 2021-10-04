@@ -474,7 +474,7 @@ class BaseFunctions {
             this.activeModule(variables_js_1.Variables.ActiveModule).Data[nodeId].outputs[output_class].Connections[searchConnection].points = [];
         }
         if (variables_js_1.Variables.RerouteFixCurvature) {
-            console.log(position_add_array_point);
+            // console.log(position_add_array_point)
             if (position_add_array_point > 0) {
                 this.activeModule(variables_js_1.Variables.ActiveModule).Data[nodeId].outputs[output_class].Connections[searchConnection].points.splice(position_add_array_point, 0, { pos_x: pos_x, pos_y: pos_y });
             }
@@ -503,6 +503,29 @@ class BaseFunctions {
         });
         return nodes;
     }
+    /**
+     * Check if nodes can connect to each other
+     */
+    canConnect(event, inputElement, outputElement) {
+        const canConnect = inputElement[0].AllowedInputTypes.some((type) => {
+            return type === outputElement[0].NodeType;
+        });
+        if (!canConnect) {
+            const closestSVG = variables_js_1.Variables.ConnectionElement.closest('svg');
+            closestSVG.querySelector('path').classList.add('error');
+            // event.target.classList.add('error');
+            //  Variables.ConnectionElement.remove();
+            this.Dispatch('connectionCancel', true);
+        }
+        return canConnect;
+    }
+    /**
+     * Dispatch DOM events
+     *
+     * @param event DOM event
+     * @param details event info
+     * @returns
+     */
     Dispatch(event, details) {
         // Check if this event not exists
         if (variables_js_1.Variables.Events[event] === undefined) {

@@ -17,6 +17,16 @@
 
 <body>
 
+  <template id="request">
+    <div class="node-drop-shadow">
+      <div class="gap flexbox-row request">
+          <span df-Name></span>
+          <input type="text" df-Host>
+          <a href="#" df-Host></a>
+      </div>
+  </div>
+  </template>
+
   <div class="base gap" style="margin-top: 30px; width: 100%; height: 75px;">
     <div class="request">Request</div>
     <div class="project">Project</div>
@@ -38,22 +48,6 @@
     Test using a template for 
     draggable node 
   -->
-    <template id="request">
-      <div class="node-drop-shadow">
-          <div class="request">
-              <span>Request</span>
-          </div>
-      </div>
-    </template>
-    
-    <template id="request-template">
-      <div class="node-drop-shadow">
-          <div class="request">
-              <span>request</span>
-          </div>
-      </div>
-    </template>
-    
     <template id="request-template">
       <div class="node-drop-shadow">
           <div class="request">
@@ -64,20 +58,29 @@
     
     <template id="project-template">
       <div class="node-drop-shadow">
-          <div class="project">
-            <span df-Name>name</span>
-            
-            <span df-Host>host</span>
+        <div class="project gap flexbox-row flexbox-base">
+            <span style="text-align: center" df-Name></span>
+            <a href="#" df-Host style="color: white; text-align: center"></a>
+        </div>
+    </div>
+    </template>
+    
+    <template id="route-template">
+        <div class="node-drop-shadow">
+          <div class="filter">
+              <span>Filter</span>
           </div>
       </div>
     </template>
     
-    <template id="route-template">
+    <template id="application-template">
       <div class="node-drop-shadow">
-          <div class="route">
-              <span>route</span>
+        <div class="application">
+          <div class="flexbox-base" style="height: 100px">
+            <span>Application</span>
           </div>
-      </div>
+        </div>
+    </div>
     </template>
  <!-- 
     Test using a template for 
@@ -97,17 +100,17 @@
     <div class="col-right">
       <div class="tab-menu">
         <ul>
-          <li onclick="flowTool.ChangeModule('Test'); 
-              menuTabSelected(event);" class="selected">
-            Test Module
+          <li onclick="flowTool.ChangeModule('NapkinIDE'); 
+            menuTabSelected(event);" class="selected">
+            Napkin IDE Change
           </li>
           <li onclick="flowTool.ChangeModule('Home'); 
-            menuTabSelected(event);">
-            Home
-          </li>
-          <!-- <li onclick="flowTool.ChangeModule('Other'); 
               menuTabSelected(event);">
-              Other Module
+            Test Module
+          </li>
+          <!-- <li onclick="flowTool.ChangeModule('Test'); 
+              menuTabSelected(event);">
+              Test Module
           </li> -->
         </ul>
       </div>

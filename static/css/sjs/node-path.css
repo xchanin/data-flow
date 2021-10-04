@@ -16,6 +16,8 @@
     stroke-width: 5px;
     stroke: var(--node-path-main);
     pointer-events: all; }
+  .drawflow .connection .error {
+    stroke: red !important; }
   .drawflow .connection .main-path:hover {
     stroke: var(--node-path-hover);
     cursor: pointer; }

@@ -11,22 +11,23 @@ const node_templates_js_1 = require("../templates/node-templates.js");
 exports.TestNapkinIDEConfig = {
     NodeTypes: {
         request: {
-            AllowedOutputTypes: ['project'],
+            AllowedOutputTypes: ['PROJECT'],
             ClassList: ['entry-node'],
             HTMLTemplateID: 'request-template',
-            InputCountLimit: 0,
+            InputCountLimit: 1,
         },
         project: {
-            AllowedInputTypes: ['request'],
+            AllowedInputTypes: ['REQUEST'],
             HTMLTemplateID: 'project-template',
+            InputCountLimit: 1,
         },
         'route-filter': {
-            AllowedInputTypes: ['project'],
-            AllowedOutputTypes: ['application'],
+            AllowedInputTypes: ['PROJECT'],
+            AllowedOutputTypes: ['APPLICATION'],
             HTMLTemplateID: 'route-template',
         },
         application: {
-            AllowedInputTypes: ['route-filter'],
+            AllowedInputTypes: ['ROUTE_FILTER'],
             ClassList: ['exit-node'],
             HTMLTemplateID: 'application-template',
             OutputCountLimit: 0,
@@ -68,26 +69,79 @@ exports.TestNapkinIDEFlow = {
     Edges: [
         {
             ID: '1',
+            Outputs: {
+                output_1: {
+                    Connections: [],
+                }
+            },
             NodeInID: '1',
             NodeOutID: '2',
         },
         {
             ID: '2',
+            Inputs: {
+                input_1: {
+                    Connections: [
+                        {
+                            node: '1',
+                            input: 'output_1',
+                        },
+                    ],
+                }
+            },
+            Outputs: {
+                output_1: {
+                    Connections: [],
+                }
+            },
             NodeInID: '2',
             NodeOutID: '3',
         },
         {
             ID: '3',
-            NodeInID: '3',
-            NodeOutID: '4',
+            Inputs: {
+                input_1: {
+                    Connections: [
+                        {
+                            node: '2',
+                            input: 'output_1',
+                        },
+                    ],
+                }
+            },
+            Outputs: {
+                output_1: {
+                    Connections: [],
+                },
+                output_2: {
+                    Connections: [],
+                }
+            },
+            NodeInID: '2',
+            NodeOutID: '3',
         },
+        {
+            ID: '4',
+            Inputs: {
+                input_1: {
+                    Connections: [
+                        {
+                            node: '3',
+                            input: 'output_1',
+                        },
+                    ],
+                }
+            },
+            NodeInID: '2',
+            NodeOutID: '3',
+        }
     ],
 };
 class ConstantUtils {
 }
 exports.ConstantUtils = ConstantUtils;
 ConstantUtils.TEST_MODULE = {
-    Module: 'Test',
+    Module: 'NapkinIDE',
     Data: [
         {
             ID: '1',
@@ -176,23 +230,28 @@ ConstantUtils.NAPKIN_IDE_MODULE_DATA = {
     Module: 'NapkinIDE',
     Data: exports.TestNapkinIDEFlow.Nodes.map((node) => {
         var _a, _b, _c;
-        debugger;
         const config = exports.TestNapkinIDEConfig.NodeTypes[node.Type];
-        const inputs = (_a = exports.TestNapkinIDEFlow.Edges) === null || _a === void 0 ? void 0 : _a.filter((edge) => edge.NodeOutID == node.ID).map((edge) => edge.NodeInID);
-        const outputs = (_b = exports.TestNapkinIDEFlow.Edges) === null || _b === void 0 ? void 0 : _b.filter((edge) => edge.NodeInID == node.ID).map((edge) => edge.NodeOutID);
+        const inputs = (_a = exports.TestNapkinIDEFlow.Edges) === null || _a === void 0 ? void 0 : _a.filter((edge) => edge.ID === node.ID).map((edge) => {
+            return edge.Inputs;
+        });
+        const outputs = (_b = exports.TestNapkinIDEFlow.Edges) === null || _b === void 0 ? void 0 : _b.filter((edge) => edge.ID === node.ID).map((edge) => {
+            return edge.Outputs;
+        });
         return {
-            ID: `${++ConstantUtils.count}`,
-            // Name:"welcome",
-            Data: node.Data,
+            AllowedInputTypes: config.AllowedInputTypes,
+            AllowedOutputTypes: config.AllowedOutputTypes,
             ClassList: node.ClassList,
+            Data: node.Data,
             HTML: (_c = document.getElementById(config.HTMLTemplateID)) === null || _c === void 0 ? void 0 : _c.innerHTML,
-            TypeNode: false,
+            ID: `${++ConstantUtils.count}`,
+            Inputs: inputs[0],
+            NodeType: node.Type.toUpperCase(),
             NumOfInputs: config.InputCountLimit,
             NumOfOutputs: config.OutputCountLimit,
-            Inputs: inputs,
-            Outputs: outputs,
-            PosX: node.PositionX || ConstantUtils.count * 200,
-            PosY: node.PositionY || ConstantUtils.count * 200,
+            Outputs: outputs[0],
+            PosY: node.PositionY || ConstantUtils.count * 150,
+            PosX: node.PositionX || ConstantUtils.count * 100,
+            TypeNode: false,
         };
     }),
 };
