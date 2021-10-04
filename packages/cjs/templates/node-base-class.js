@@ -92,6 +92,40 @@ class NodeBaseClass extends base_functions_js_1.BaseFunctions {
                 const input = document.createElement('div');
                 input.classList.add('input');
                 input.classList.add(input_item);
+                /**
+                 * setting up eventlistener to track when node is moused over,
+                 * will use this to check if nodes can be connected, then
+                 * display red path, error, etc.
+                 */
+                input.addEventListener('mouseenter', (event) => {
+                    console.log('MOUSE ENTER EVENT');
+                    if (!variables_js_1.Variables.SelectedElement) {
+                        return;
+                    }
+                    let e_pos_x;
+                    let e_pos_y;
+                    let ele_last;
+                    e_pos_x = event.clientX;
+                    e_pos_y = event.clientY;
+                    ele_last = event.target;
+                    let input_id = ele_last.parentElement.parentElement.id;
+                    let output_id = variables_js_1.Variables.SelectedElement.parentElement.parentElement.id;
+                    let id_input = input_id.slice(5);
+                    let id_output = output_id.slice(5);
+                    /**
+                    * Get output element the connection is going from
+                    */
+                    let outputElement = this.activeModule(variables_js_1.Variables.ActiveModule).Data.filter((obj) => {
+                        return obj.ID === id_output;
+                    });
+                    /**
+                     * Get input element the connection is going to
+                     */
+                    let inputElement = this.activeModule(variables_js_1.Variables.ActiveModule).Data.filter((obj) => {
+                        return obj.ID === id_input;
+                    });
+                    this.canConnect(event, inputElement, outputElement);
+                });
                 input.setAttribute('id', dataNode.NodeType + '_' + input_item);
                 input.setAttribute('connection-node-type', dataNode.NodeType);
                 setups.Inputs.appendChild(input);

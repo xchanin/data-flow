@@ -1,6 +1,6 @@
 import { Variables } from './../utils/variables.js';
-import { DrawingUtils } from "../utils/drawing.utils.js";
-import { BaseFunctions } from "./base-functions.js";
+import { DrawingUtils } from '../utils/drawing.utils.js';
+import { BaseFunctions } from './base-functions.js';
 export class DataFlowBaseClass extends BaseFunctions {
     constructor() {
         super();
@@ -14,7 +14,7 @@ export class DataFlowBaseClass extends BaseFunctions {
         let e_pos_y;
         let ele_last;
         let input_class;
-        if (event.type === "touchend") {
+        if (event.type === 'touchend') {
             e_pos_x = Variables.MouseX;
             e_pos_y = Variables.MouseY;
             ele_last = document.elementFromPoint(e_pos_x, e_pos_y);
@@ -30,7 +30,7 @@ export class DataFlowBaseClass extends BaseFunctions {
             }
         }
         if (Variables.DragPoint) {
-            Variables.SelectedElement.classList.remove("selected");
+            Variables.SelectedElement.classList.remove('selected');
             if (Variables.PosXStart != e_pos_x || Variables.PosYStart != e_pos_y) {
                 this.Dispatch('rerouteMoved', Variables.SelectedElement.parentElement.classList[2].slice(14));
             }
@@ -46,11 +46,11 @@ export class DataFlowBaseClass extends BaseFunctions {
              */
             if (ele_last.classList[0] === 'input' ||
                 (Variables.ForceFirstInput &&
-                    (ele_last.closest(".drawflow_content_node") != null ||
+                    (ele_last.closest('.drawflow_content_node') != null ||
                         ele_last.classList[0] === Variables.NodeClass))) {
-                if (Variables.ForceFirstInput && (ele_last.closest(".drawflow_content_node") != null || ele_last.classList[0] === Variables.NodeClass)) {
-                    if (ele_last.closest(".drawflow_content_node") != null) {
-                        var input_id = ele_last.closest(".drawflow_content_node").parentElement.id;
+                if (Variables.ForceFirstInput && (ele_last.closest('.drawflow_content_node') != null || ele_last.classList[0] === Variables.NodeClass)) {
+                    if (ele_last.closest('.drawflow_content_node') != null) {
+                        var input_id = ele_last.closest('.drawflow_content_node').parentElement.id;
                     }
                     else {
                         var input_id = ele_last.id;
@@ -59,7 +59,7 @@ export class DataFlowBaseClass extends BaseFunctions {
                         input_class = false;
                     }
                     else {
-                        input_class = "input_1";
+                        input_class = 'input_1';
                     }
                 }
                 else {
@@ -87,33 +87,34 @@ export class DataFlowBaseClass extends BaseFunctions {
                             return obj.ID === id_input;
                         });
                         /**
-                         * Check if nodes can connect to each other
+                         * If nodes can be connected, then...
                          */
-                        const canConnect = inputElement[0].AllowedInputTypes.some((type) => {
-                            return type === outputElement[0].NodeType;
-                        });
-                        /**
-                         * Check if nodes can be connected
-                         */
-                        if (canConnect) {
-                            Variables.ConnectionElement.classList.add("node_in_" + input_id);
-                            Variables.ConnectionElement.classList.add("node_out_" + output_id);
+                        if (this.canConnect(event, inputElement, outputElement)) {
+                            Variables.ConnectionElement.classList.add('node_in_' + input_id);
+                            Variables.ConnectionElement.classList.add('node_out_' + output_id);
                             Variables.ConnectionElement.classList.add(output_class);
                             Variables.ConnectionElement.classList.add(input_class);
-                            outputElement[0].Outputs[output_class].Connections.push({ "node": id_input, "output": input_class });
-                            inputElement[0].Inputs[input_class].Connections.push({ "node": id_output, "input": output_class });
-                            // this.activeModule(Variables.ActiveModule).Data[id_output].Outputs[output_class].Connections.push( {"node": id_input, "output": input_class});
-                            // this.activeModule(Variables.ActiveModule).Data[id_input].Inputs[input_class].Connections.push( {"node": id_output, "input": output_class});
+                            outputElement[0].Outputs[output_class].Connections.push({ 'node': id_input, 'output': input_class });
+                            inputElement[0].Inputs[input_class].Connections.push({ 'node': id_output, 'input': output_class });
+                            // this.activeModule(Variables.ActiveModule).Data[id_output].Outputs[output_class].Connections.push( {'node': id_input, 'output': input_class});
+                            // this.activeModule(Variables.ActiveModule).Data[id_input].Inputs[input_class].Connections.push( {'node': id_output, 'input': output_class});
                             this.updateConnectionNodes('node-' + id_output);
                             this.updateConnectionNodes('node-' + id_input);
                             this.Dispatch('connectionCreated', { output_id: id_output, input_id: id_input, output_class: output_class, input_class: input_class });
                             /**
                              * Error connecting nodes
+                             *
+                             * This works, but would be better if you received the error before clicking
+                             * the node.
                              */
                         }
                         else {
-                            alert('Cannot connect nodes');
-                            this.Dispatch('connectionCancel', true);
+                            // Variables.ConnectionElement.closest('path').classList.add('error');
+                            // Variables.ConnectionElement.closest('svg').children[0].classList.add('error');
+                            const closestSVG = Variables.ConnectionElement.closest('svg');
+                            closestSVG.querySelector('path').classList.add('error');
+                            // alert('Cannot connect nodes');
+                            // this.Dispatch('connectionCancel', true);
                             Variables.ConnectionElement.remove();
                         }
                     }
@@ -149,7 +150,7 @@ export class DataFlowBaseClass extends BaseFunctions {
      * @param e event
      */
     Position(event) {
-        if (event.type === "touchmove") {
+        if (event.type === 'touchmove') {
             var e_pos_x = event.touches[0].clientX;
             var e_pos_y = event.touches[0].clientY;
         }
@@ -164,15 +165,15 @@ export class DataFlowBaseClass extends BaseFunctions {
             x = Variables.CanvasX + (-(Variables.PosX - e_pos_x));
             y = Variables.CanvasY + (-(Variables.PosY - e_pos_y));
             this.Dispatch('translate', { x: x, y: y });
-            Variables.PreCanvas.style.transform = "translate(" + x + "px, " + y + "px) scale(" + Variables.Zoom + ")";
+            Variables.PreCanvas.style.transform = 'translate(' + x + 'px, ' + y + 'px) scale(' + Variables.Zoom + ')';
         }
         if (Variables.Dragging) {
             var x = (Variables.PosX - e_pos_x) * Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom);
             var y = (Variables.PosY - e_pos_y) * Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom);
             Variables.PosX = e_pos_x;
             Variables.PosY = e_pos_y;
-            Variables.SelectedElement.style.top = (Variables.SelectedElement.offsetTop - y) + "px";
-            Variables.SelectedElement.style.left = (Variables.SelectedElement.offsetLeft - x) + "px";
+            Variables.SelectedElement.style.top = (Variables.SelectedElement.offsetTop - y) + 'px';
+            Variables.SelectedElement.style.left = (Variables.SelectedElement.offsetLeft - x) + 'px';
             /**
              * Get the selected item
              */
@@ -200,7 +201,7 @@ export class DataFlowBaseClass extends BaseFunctions {
             const input_class = Variables.SelectedElement.parentElement.classList[4];
             let numberPointPosition = Array.from(Variables.SelectedElement.parentElement.children).indexOf(Variables.SelectedElement) - 1;
             if (Variables.RerouteFixCurvature) {
-                const numberMainPath = Variables.SelectedElement.parentElement.querySelectorAll(".main-path").length - 1;
+                const numberMainPath = Variables.SelectedElement.parentElement.querySelectorAll('.main-path').length - 1;
                 numberPointPosition -= numberMainPath;
                 if (numberPointPosition < 0) {
                     numberPointPosition = 0;
@@ -214,7 +215,7 @@ export class DataFlowBaseClass extends BaseFunctions {
             const parentSelected = Variables.SelectedElement.parentElement.classList[2].slice(9);
             this.updateConnectionNodes(parentSelected);
         }
-        if (event.type === "touchmove") {
+        if (event.type === 'touchmove') {
             Variables.MouseX = e_pos_x;
             Variables.MouseY = e_pos_y;
         }
@@ -253,38 +254,47 @@ export class DataFlowBaseClass extends BaseFunctions {
         if (Variables.EditorMode === 'fixed') {
             //return false;
             if (event.target.classList[0] === 'parent-drawflow' || event.target.classList[0] === 'drawflow') {
-                Variables.SelectedElement = event.target.closest(".parent-drawflow");
+                Variables.SelectedElement = event.target.closest('.parent-drawflow');
             }
             else {
                 return false;
             }
         }
         else if (Variables.EditorMode === 'view') {
-            if (event.target.closest(".drawflow") != null || event.target.matches('.parent-drawflow')) {
-                Variables.SelectedElement = event.target.closest(".parent-drawflow");
+            if (event.target.closest('.drawflow') != null || event.target.matches('.parent-drawflow')) {
+                Variables.SelectedElement = event.target.closest('.parent-drawflow');
                 event.preventDefault();
             }
         }
         else {
             Variables.FirstClickedElement = event.target;
             Variables.SelectedElement = event.target;
+            /**
+             * Mouse left click
+             */
             if (event.button === 0) {
+                /**
+                 * Delete context menu
+                 */
                 this.contextmenuDel();
             }
-            if (event.target.closest(".drawflow_content_node") != null) {
-                Variables.SelectedElement = event.target.closest(".drawflow_content_node").parentElement;
+            if (event.target.closest('.drawflow_content_node') != null) {
+                Variables.SelectedElement = event.target.closest('.drawflow_content_node').parentElement;
             }
         }
+        /**
+         * Let's see what was clicked on
+         */
         switch (Variables.SelectedElement.classList[0]) {
             case Variables.NodeClass:
                 if (Variables.SelectedNode != null) {
-                    Variables.SelectedNode.classList.remove("selected");
+                    Variables.SelectedNode.classList.remove('selected');
                     if (Variables.SelectedNode != Variables.SelectedElement) {
                         this.Dispatch('nodeUnselected', true);
                     }
                 }
                 if (Variables.SelectedConnection != null) {
-                    Variables.SelectedConnection.classList.remove("selected");
+                    Variables.SelectedConnection.classList.remove('selected');
                     this.removeReouteConnectionSelected();
                     Variables.SelectedConnection = null;
                 }
@@ -292,7 +302,7 @@ export class DataFlowBaseClass extends BaseFunctions {
                     this.Dispatch('nodeSelected', Variables.SelectedElement.id.slice(5));
                 }
                 Variables.SelectedNode = Variables.SelectedElement;
-                Variables.SelectedNode.classList.add("selected");
+                Variables.SelectedNode.classList.add('selected');
                 if (!Variables.DraggableInputs) {
                     if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'SELECT' && event.target.hasAttribute('contenteditable') !== true) {
                         Variables.Dragging = true;
@@ -307,25 +317,28 @@ export class DataFlowBaseClass extends BaseFunctions {
             case 'output':
                 Variables.Connection = true;
                 if (Variables.SelectedNode != null) {
-                    Variables.SelectedNode.classList.remove("selected");
+                    Variables.SelectedNode.classList.remove('selected');
                     Variables.SelectedNode = null;
                     this.Dispatch('nodeUnselected', true);
                 }
                 if (Variables.SelectedConnection != null) {
-                    Variables.SelectedConnection.classList.remove("selected");
+                    Variables.SelectedConnection.classList.remove('selected');
                     this.removeReouteConnectionSelected();
                     Variables.SelectedConnection = null;
                 }
+                /**
+                 * Start drawing the connection line
+                 */
                 DrawingUtils.DrawConnection(event.target, this.Dispatch);
                 break;
             case 'parent-drawflow':
                 if (Variables.SelectedNode != null) {
-                    Variables.SelectedNode.classList.remove("selected");
+                    Variables.SelectedNode.classList.remove('selected');
                     Variables.SelectedNode = null;
                     this.Dispatch('nodeUnselected', true);
                 }
                 if (Variables.SelectedConnection != null) {
-                    Variables.SelectedConnection.classList.remove("selected");
+                    Variables.SelectedConnection.classList.remove('selected');
                     this.removeReouteConnectionSelected();
                     Variables.SelectedConnection = null;
                 }
@@ -333,12 +346,12 @@ export class DataFlowBaseClass extends BaseFunctions {
                 break;
             case 'drawflow':
                 if (Variables.SelectedNode != null) {
-                    Variables.SelectedNode.classList.remove("selected");
+                    Variables.SelectedNode.classList.remove('selected');
                     Variables.SelectedNode = null;
                     this.Dispatch('nodeUnselected', true);
                 }
                 if (Variables.SelectedConnection != null) {
-                    Variables.SelectedConnection.classList.remove("selected");
+                    Variables.SelectedConnection.classList.remove('selected');
                     this.removeReouteConnectionSelected();
                     Variables.SelectedConnection = null;
                 }
@@ -346,28 +359,28 @@ export class DataFlowBaseClass extends BaseFunctions {
                 break;
             case 'main-path':
                 if (Variables.SelectedNode != null) {
-                    Variables.SelectedNode.classList.remove("selected");
+                    Variables.SelectedNode.classList.remove('selected');
                     Variables.SelectedNode = null;
                     this.Dispatch('nodeUnselected', true);
                 }
                 if (Variables.SelectedConnection != null) {
-                    Variables.SelectedConnection.classList.remove("selected");
+                    Variables.SelectedConnection.classList.remove('selected');
                     this.removeReouteConnectionSelected();
                     Variables.SelectedConnection = null;
                 }
                 Variables.SelectedConnection = Variables.SelectedElement;
-                Variables.SelectedConnection.classList.add("selected");
+                Variables.SelectedConnection.classList.add('selected');
                 const listclassConnection = Variables.SelectedConnection.parentElement.classList;
                 this.Dispatch('connectionSelected', { output_id: listclassConnection[2].slice(14), input_id: listclassConnection[1].slice(13), output_class: listclassConnection[3], input_class: listclassConnection[4] });
                 if (Variables.RerouteFixCurvature) {
-                    Variables.SelectedConnection.parentElement.querySelectorAll(".main-path").forEach((item, i) => {
-                        item.classList.add("selected");
+                    Variables.SelectedConnection.parentElement.querySelectorAll('.main-path').forEach((item, i) => {
+                        item.classList.add('selected');
                     });
                 }
                 break;
             case 'point':
                 Variables.DragPoint = true;
-                Variables.SelectedElement.classList.add("selected");
+                Variables.SelectedElement.classList.add('selected');
                 break;
             case 'drawflow-delete':
                 if (Variables.SelectedNode) {
@@ -377,19 +390,19 @@ export class DataFlowBaseClass extends BaseFunctions {
                     this.removeConnection();
                 }
                 if (Variables.SelectedNode != null) {
-                    Variables.SelectedNode.classList.remove("selected");
+                    Variables.SelectedNode.classList.remove('selected');
                     Variables.SelectedNode = null;
                     this.Dispatch('nodeUnselected', true);
                 }
                 if (Variables.SelectedConnection != null) {
-                    Variables.SelectedConnection.classList.remove("selected");
+                    Variables.SelectedConnection.classList.remove('selected');
                     this.removeReouteConnectionSelected();
                     Variables.SelectedConnection = null;
                 }
                 break;
             default:
         }
-        if (event.type === "touchstart") {
+        if (event.type === 'touchstart') {
             Variables.PosX = event.touches[0].clientX;
             Variables.PosXStart = event.touches[0].clientX;
             Variables.PosY = event.touches[0].clientY;
@@ -409,20 +422,20 @@ export class DataFlowBaseClass extends BaseFunctions {
         if (Variables.EditorMode === 'fixed' || Variables.EditorMode === 'view') {
             return false;
         }
-        if (Variables.PreCanvas.getElementsByClassName("drawflow-delete").length) {
-            Variables.PreCanvas.getElementsByClassName("drawflow-delete")[0].remove();
+        if (Variables.PreCanvas.getElementsByClassName('drawflow-delete').length) {
+            Variables.PreCanvas.getElementsByClassName('drawflow-delete')[0].remove();
         }
         ;
         if (Variables.SelectedNode || Variables.SelectedConnection) {
             var deletebox = document.createElement('div');
-            deletebox.classList.add("drawflow-delete");
-            deletebox.innerHTML = "x";
+            deletebox.classList.add('drawflow-delete');
+            deletebox.innerHTML = 'x';
             if (Variables.SelectedNode) {
                 Variables.SelectedNode.appendChild(deletebox);
             }
             if (Variables.SelectedConnection) {
-                deletebox.style.top = event.clientY * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().y * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom))) + "px";
-                deletebox.style.left = event.clientX * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom))) + "px";
+                deletebox.style.top = event.clientY * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().y * (Variables.PreCanvas.clientHeight / (Variables.PreCanvas.clientHeight * Variables.Zoom))) + 'px';
+                deletebox.style.left = event.clientX * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom)) - (Variables.PreCanvas.getBoundingClientRect().x * (Variables.PreCanvas.clientWidth / (Variables.PreCanvas.clientWidth * Variables.Zoom))) + 'px';
                 Variables.PreCanvas.appendChild(deletebox);
             }
         }
@@ -477,8 +490,8 @@ export class DataFlowBaseClass extends BaseFunctions {
         var attr = event.target.attributes;
         for (var i = 0; i < attr.length; i++) {
             if (attr[i].nodeName.startsWith('df-')) {
-                var keys = attr[i].nodeName.slice(3).split("-");
-                var target = this.activeModule(Variables.ActiveModule).Data[event.target.closest(".drawflow_content_node").parentElement.id.slice(5)].data;
+                var keys = attr[i].nodeName.slice(3).split('-');
+                var target = this.activeModule(Variables.ActiveModule).Data[event.target.closest('.drawflow_content_node').parentElement.id.slice(5)].data;
                 for (var index = 0; index < keys.length - 1; index += 1) {
                     if (target[keys[index]] == null) {
                         target[keys[index]] = {};
@@ -486,7 +499,7 @@ export class DataFlowBaseClass extends BaseFunctions {
                     target = target[keys[index]];
                 }
                 target[keys[keys.length - 1]] = event.target.value;
-                this.Dispatch('nodeDataChanged', event.target.closest(".drawflow_content_node").parentElement.id.slice(5));
+                this.Dispatch('nodeDataChanged', event.target.closest('.drawflow_content_node').parentElement.id.slice(5));
             }
         }
     }

@@ -2,6 +2,7 @@ import { Variables } from './../utils/variables.js';
 import { DrawingUtils } from '../utils/drawing.utils.js';
 import { DataFlowDataModel } from '../models/dataflow-data.model.js';
 import { ConstantUtils } from '../utils/constants.utils.js';
+import { NodeModel } from '../models/nodes/node.model.js';
 
 export abstract class BaseFunctions {
 
@@ -23,7 +24,7 @@ export abstract class BaseFunctions {
     }
    
     protected updateConnectionNodes(id: string): void {
-      
+        
         const idSearch: string = 'node_in_' + id;
         const idSearchOut: string = 'node_out_' + id;
 
@@ -354,8 +355,8 @@ export abstract class BaseFunctions {
 
         var curvature = Variables.Curvature;
         var lineCurve = DrawingUtils.CreateCurvature(line_x, line_y, x, y, curvature, 'openclose');
+        
         path.setAttributeNS(null, 'd', lineCurve);
-
     }
 
     protected getModuleFromNodeId(id: string): any {
@@ -548,6 +549,7 @@ export abstract class BaseFunctions {
     }
 
     public createReroutePoint(ele: any): void {
+        
         Variables.SelectedConnection.classList.remove("selected");
         const nodeUpdate = Variables.SelectedConnection.parentElement.classList[2].slice(9);
         const nodeUpdateIn = Variables.SelectedConnection.parentElement.classList[1].slice(13);
@@ -594,7 +596,7 @@ export abstract class BaseFunctions {
         }
 
         if (Variables.RerouteFixCurvature) {
-            console.log(position_add_array_point)
+            // console.log(position_add_array_point)
             if (position_add_array_point > 0) {
                 this.activeModule(Variables.ActiveModule).Data[nodeId].outputs[output_class].Connections[searchConnection].points.splice(position_add_array_point, 0, { pos_x: pos_x, pos_y: pos_y });
             } else {
@@ -626,6 +628,35 @@ export abstract class BaseFunctions {
         return nodes;
     }
 
+    /**
+     * Check if nodes can connect to each other
+     */
+    protected canConnect(event: any, inputElement: Array<any>, outputElement: Array<any>): boolean {
+        
+        const canConnect: boolean = inputElement[0].AllowedInputTypes.some((type: string) => {
+            return type === outputElement[0].NodeType;
+        });
+
+        if (!canConnect) {
+            const closestSVG = Variables.ConnectionElement.closest('svg');
+            closestSVG.querySelector('path').classList.add('error');
+            // event.target.classList.add('error');
+            //  Variables.ConnectionElement.remove();
+            this.Dispatch('connectionCancel', true);
+        }
+       
+        
+
+        return canConnect;
+    }
+
+    /**
+     * Dispatch DOM events
+     * 
+     * @param event DOM event
+     * @param details event info
+     * @returns 
+     */
     public Dispatch(event: any, details: any): any {
         // Check if this event not exists
         if (Variables.Events[event] === undefined) {

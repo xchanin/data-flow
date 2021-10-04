@@ -111,6 +111,47 @@ export class NodeBaseClass extends BaseFunctions {
                     input.classList.add('input');
                     input.classList.add(input_item);
 
+                    /**
+                     * setting up eventlistener to track when node is moused over,
+                     * will use this to check if nodes can be connected, then
+                     * display red path, error, etc.
+                     */
+                    input.addEventListener('mouseenter', (event: any) => {
+                      console.log('MOUSE ENTER EVENT');
+
+                      if (!Variables.SelectedElement) {
+                        return;
+                      }
+
+                      let e_pos_x: number;
+                      let e_pos_y: number;
+                      let ele_last: any;
+                      e_pos_x = event.clientX;
+                      e_pos_y = event.clientY;
+                      ele_last = event.target;
+
+                      let input_id = ele_last.parentElement.parentElement.id;
+                      let output_id = Variables.SelectedElement.parentElement.parentElement.id;
+                      let id_input = input_id.slice(5);
+                      let id_output = output_id.slice(5);
+
+                       /**
+                       * Get output element the connection is going from
+                       */
+                      let outputElement: Array<any> = this.activeModule(Variables.ActiveModule).Data.filter((obj: NodeModel) => {
+                        return obj.ID === id_output;
+                      });
+
+                      /**
+                       * Get input element the connection is going to
+                       */
+                      let inputElement: Array<any> = this.activeModule(Variables.ActiveModule).Data.filter((obj: NodeModel) => {
+                        return obj.ID === id_input;
+                      });
+
+                      this.canConnect(event, inputElement, outputElement);
+                    });
+
                     input.setAttribute('id', dataNode.NodeType + '_' + input_item);
                     input.setAttribute('connection-node-type', <string>dataNode.NodeType);
 
@@ -136,7 +177,6 @@ export class NodeBaseClass extends BaseFunctions {
 
                             connection.appendChild(path);
                             precanvas.appendChild(connection);
-
                         });
                 });
         }

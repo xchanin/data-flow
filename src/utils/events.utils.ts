@@ -66,10 +66,10 @@ export class EventsUtils {
                          * when one of the events occur
                          */
                        
-                        console.log(e.Message + ' ' + v + ': ' + val[v as keyof DispatchedEventsModel['Params']]);
+                        // console.log(e.Message + ' ' + v + ': ' + val[v as keyof DispatchedEventsModel['Params']]);
                     }
                 } else {
-                    console.log(e.Message + ' ' + val);
+                    // console.log(e.Message + ' ' + val);
                 }
             })
         }

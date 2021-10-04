@@ -3,18 +3,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DrawingUtils = void 0;
 const variables_js_1 = require("./variables.js");
 class DrawingUtils {
+    /**
+     * Draw connection line
+     *
+     * @param ele selected output element
+     * @param callback function to callback
+     */
     static DrawConnection(ele, callback) {
+        /**
+         * Create connection SVG element
+         */
         const connection = document.createElementNS('http://www.w3.org/2000/svg', "svg");
         variables_js_1.Variables.ConnectionElement = connection;
+        /**
+         * Create the line for the connections
+         */
         const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
         path.classList.add("main-path");
         path.setAttributeNS(null, 'd', '');
+        /**
+         * Testing adding something on the path - shannon
+         */
         // path.innerHTML = 'a';
         connection.classList.add("connection");
         connection.appendChild(path);
+        /**
+         * Add path to the canvas
+         */
         variables_js_1.Variables.PreCanvas.appendChild(connection);
-        var id_output = ele.parentElement.parentElement.id.slice(5);
-        var output_class = ele.classList[1];
+        const id_output = ele.parentElement.parentElement.id.slice(5);
+        const output_class = ele.classList[1];
         /**
          * TODO: need to setup callback that points to this.dispatch
          */
