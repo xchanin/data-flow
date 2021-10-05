@@ -9,7 +9,7 @@ export declare class FlowTool extends DataFlowBaseClass {
      */
     protected eventListeners: Array<ContainerEvent>;
     protected nodeBaseClass: NodeBaseClass;
-    constructor(container: HTMLElement, render?: null, parent?: null);
+    constructor(container: HTMLElement, render?: any, parent?: any);
     /**
       * Start creating nodes
       */

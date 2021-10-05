@@ -15,7 +15,7 @@ export class FlowTool extends DataFlowBaseClass {
      protected eventListeners: Array<ContainerEvent>;
      protected nodeBaseClass: NodeBaseClass;
 
-     constructor(container: HTMLElement, render = null, parent = null) {
+     constructor(container: HTMLElement, render: any = null, parent: any = null) {
  
          super();
 
