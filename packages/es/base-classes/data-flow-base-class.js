@@ -250,19 +250,20 @@ export class DataFlowBaseClass extends BaseFunctions {
      * @returns ?
      */
     Click(event) {
+        const target = event.target;
         this.Dispatch('click', event);
         if (Variables.EditorMode === 'fixed') {
             //return false;
-            if (event.target.classList[0] === 'parent-drawflow' || event.target.classList[0] === 'drawflow') {
-                Variables.SelectedElement = event.target.closest('.parent-drawflow');
+            if (target.classList[0] === 'parent-drawflow' || target.classList[0] === 'drawflow') {
+                Variables.SelectedElement = target.closest('.parent-drawflow');
             }
             else {
                 return false;
             }
         }
         else if (Variables.EditorMode === 'view') {
-            if (event.target.closest('.drawflow') != null || event.target.matches('.parent-drawflow')) {
-                Variables.SelectedElement = event.target.closest('.parent-drawflow');
+            if (target.closest('.drawflow') != null || target.matches('.parent-drawflow')) {
+                Variables.SelectedElement = target.closest('.parent-drawflow');
                 event.preventDefault();
             }
         }
@@ -278,8 +279,8 @@ export class DataFlowBaseClass extends BaseFunctions {
                  */
                 this.contextmenuDel();
             }
-            if (event.target.closest('.drawflow_content_node') != null) {
-                Variables.SelectedElement = event.target.closest('.drawflow_content_node').parentElement;
+            if (target.closest('.drawflow_content_node') != null) {
+                Variables.SelectedElement = target.closest('.drawflow_content_node').parentElement;
             }
         }
         /**
@@ -304,12 +305,12 @@ export class DataFlowBaseClass extends BaseFunctions {
                 Variables.SelectedNode = Variables.SelectedElement;
                 Variables.SelectedNode.classList.add('selected');
                 if (!Variables.DraggableInputs) {
-                    if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'SELECT' && event.target.hasAttribute('contenteditable') !== true) {
+                    if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && target.tagName !== 'SELECT' && target.hasAttribute('contenteditable') !== true) {
                         Variables.Dragging = true;
                     }
                 }
                 else {
-                    if (event.target.tagName !== 'SELECT') {
+                    if (target.tagName !== 'SELECT') {
                         Variables.Dragging = true;
                     }
                 }

@@ -253,19 +253,20 @@ class DataFlowBaseClass extends base_functions_js_1.BaseFunctions {
      * @returns ?
      */
     Click(event) {
+        const target = event.target;
         this.Dispatch('click', event);
         if (variables_js_1.Variables.EditorMode === 'fixed') {
             //return false;
-            if (event.target.classList[0] === 'parent-drawflow' || event.target.classList[0] === 'drawflow') {
-                variables_js_1.Variables.SelectedElement = event.target.closest('.parent-drawflow');
+            if (target.classList[0] === 'parent-drawflow' || target.classList[0] === 'drawflow') {
+                variables_js_1.Variables.SelectedElement = target.closest('.parent-drawflow');
             }
             else {
                 return false;
             }
         }
         else if (variables_js_1.Variables.EditorMode === 'view') {
-            if (event.target.closest('.drawflow') != null || event.target.matches('.parent-drawflow')) {
-                variables_js_1.Variables.SelectedElement = event.target.closest('.parent-drawflow');
+            if (target.closest('.drawflow') != null || target.matches('.parent-drawflow')) {
+                variables_js_1.Variables.SelectedElement = target.closest('.parent-drawflow');
                 event.preventDefault();
             }
         }
@@ -281,8 +282,8 @@ class DataFlowBaseClass extends base_functions_js_1.BaseFunctions {
                  */
                 this.contextmenuDel();
             }
-            if (event.target.closest('.drawflow_content_node') != null) {
-                variables_js_1.Variables.SelectedElement = event.target.closest('.drawflow_content_node').parentElement;
+            if (target.closest('.drawflow_content_node') != null) {
+                variables_js_1.Variables.SelectedElement = target.closest('.drawflow_content_node').parentElement;
             }
         }
         /**
@@ -307,12 +308,12 @@ class DataFlowBaseClass extends base_functions_js_1.BaseFunctions {
                 variables_js_1.Variables.SelectedNode = variables_js_1.Variables.SelectedElement;
                 variables_js_1.Variables.SelectedNode.classList.add('selected');
                 if (!variables_js_1.Variables.DraggableInputs) {
-                    if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA' && event.target.tagName !== 'SELECT' && event.target.hasAttribute('contenteditable') !== true) {
+                    if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && target.tagName !== 'SELECT' && target.hasAttribute('contenteditable') !== true) {
                         variables_js_1.Variables.Dragging = true;
                     }
                 }
                 else {
-                    if (event.target.tagName !== 'SELECT') {
+                    if (target.tagName !== 'SELECT') {
                         variables_js_1.Variables.Dragging = true;
                     }
                 }

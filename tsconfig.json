@@ -10,7 +10,8 @@
         "forceConsistentCasingInFileNames": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "strictNullChecks": false
     },
     "include": [
         "./src"
