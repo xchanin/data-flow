@@ -10,7 +10,7 @@ import { NodeModel } from '../models/nodes/node.model.js';
 // } from '@semanticjs/napkin-ide';
 
 export const TestNapkinIDEConfig: any = {
-  NodeTypes: {
+  'NodeTypes': {
     request: {
       AllowedOutputTypes: ['PROJECT'],
       ClassList: ['entry-node'],

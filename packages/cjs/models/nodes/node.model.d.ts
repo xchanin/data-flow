@@ -66,6 +66,7 @@ export declare class NodeModel {
      * Node connection rules; types we can connect to
      */
     Rules?: Array<string>;
+    Type?: string;
     /**
      * I believe TypeNode is used to determine when
      * the node HTML value is either a string or an HTML Element (template, div, etc.)

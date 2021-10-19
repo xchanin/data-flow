@@ -377,12 +377,14 @@ class NodeBaseClass extends base_functions_js_1.BaseFunctions {
         setups.Parent.appendChild(setups.Node);
         variables_js_1.Variables.PreCanvas.appendChild(setups.Parent);
         const nodeModel = new node_model_js_1.NodeModel({
+            AllowedInputTypes: val.AllowedInputTypes,
             Name: val.Name,
             ID: newNodeId,
             Data: val.Data,
             ClassList: val.ClassList,
             HTML: val.HTML,
             TypeNode: val.TypeNode,
+            Type: val.Type,
             Inputs: json_inputs,
             Outputs: json_outputs,
             PosX: val.PosX,

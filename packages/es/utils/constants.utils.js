@@ -6,7 +6,7 @@ import { NodeTemplates } from '../templates/node-templates.js';
 //   NapkinIDEEdge,
 // } from '@semanticjs/napkin-ide';
 export const TestNapkinIDEConfig = {
-    NodeTypes: {
+    'NodeTypes': {
         request: {
             AllowedOutputTypes: ['PROJECT'],
             ClassList: ['entry-node'],

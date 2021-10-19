@@ -373,12 +373,14 @@ export class NodeBaseClass extends BaseFunctions {
         setups.Parent.appendChild(setups.Node);
         Variables.PreCanvas.appendChild(setups.Parent);
         const nodeModel = new NodeModel({
+            AllowedInputTypes: val.AllowedInputTypes,
             Name: val.Name,
             ID: newNodeId,
             Data: val.Data,
             ClassList: val.ClassList,
             HTML: val.HTML,
             TypeNode: val.TypeNode,
+            Type: val.Type,
             Inputs: json_inputs,
             Outputs: json_outputs,
             PosX: val.PosX,

@@ -97,6 +97,7 @@ export class NodeModel {
      */
     public Rules?: Array<string>;
 
+    public Type?: string;
     /**
      * I believe TypeNode is used to determine when 
      * the node HTML value is either a string or an HTML Element (template, div, etc.)

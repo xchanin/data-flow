@@ -9,7 +9,7 @@ const node_templates_js_1 = require("../templates/node-templates.js");
 //   NapkinIDEEdge,
 // } from '@semanticjs/napkin-ide';
 exports.TestNapkinIDEConfig = {
-    NodeTypes: {
+    'NodeTypes': {
         request: {
             AllowedOutputTypes: ['PROJECT'],
             ClassList: ['entry-node'],

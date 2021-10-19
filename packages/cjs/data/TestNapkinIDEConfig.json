@@ -1,0 +1,28 @@
+{
+    "Data": {
+        "NodeTypes": {
+            "request": {
+                "AllowedOutputTypes": "['PROJECT']",
+                "ClassList": "['entry-node']",
+                "HTMLTemplateID": "request-template",
+                "InputCountLimit": 1
+            },
+            "project": {
+                "AllowedInputTypes": "['REQUEST']",
+                "HTMLTemplateID": "project-template",
+                "InputCountLimit": 1
+            },
+            "route-filter": {
+                "AllowedInputTypes": "['PROJECT']",
+                "AllowedOutputTypes": "['APPLICATION']",
+                "HTMLTemplateID": "route-template"
+            },
+            "application": {
+                "AllowedInputTypes": "['ROUTE_FILTER']",
+                "ClassList": "['exit-node']",
+                "HTMLTemplateID": "application-template",
+                "OutputCountLimit": 0
+            }
+        }
+    }
+}
